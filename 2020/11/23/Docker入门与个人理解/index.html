@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Docker学习归纳理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker入门与个人理解">
+<meta property="og:url" content="https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="zyLeo&#39;s blog-饮下星光">
+<meta property="og:description" content="Docker学习归纳理解">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/pic1.png">
+<meta property="article:published_time" content="2020-11-23T03:07:16.000Z">
+<meta property="article:modified_time" content="2021-01-07T05:39:56.385Z">
+<meta property="article:author" content="zyLeo">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Lab Events">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/pic1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Docker入门与个人理解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/11/26/Analysis-Of-Docker-Security-Reading-Notes/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/11/13/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&text=Docker入门与个人理解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&is_video=false&description=Docker入门与个人理解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker入门与个人理解&body=Check out this article: https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&name=Docker入门与个人理解&description=&lt;p&gt;Docker学习归纳理解&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&t=Docker入门与个人理解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">一、前备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">二、安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">三、相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Docker%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">1、Docker的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%95%9C%E5%83%8F"><span class="toc-number">3.2.</span> <span class="toc-text">2、镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%B9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3、容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81Docker%E4%BB%93%E5%BA%93"><span class="toc-number">3.4.</span> <span class="toc-text">4、Docker仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">四、实际操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Docker入门与个人理解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">zyLeo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-23T03:07:16.000Z" itemprop="datePublished">2020-11-23</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Docker/">Docker</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="tag-link-link" href="/tags/Lab-Events/" rel="tag">Lab Events</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Docker学习归纳理解</p>
+<a id="more"></a>
+
+<blockquote>
+<p>我们走在容器化的大道上 ——《第一本docker书》</p>
+</blockquote>
+<h2 id="一、前备知识"><a href="#一、前备知识" class="headerlink" title="一、前备知识"></a>一、前备知识</h2><ul>
+<li>对于Linux相关概念的了解<ul>
+<li>虚拟化技术</li>
+<li>Linux中的容器</li>
+<li>Linux的资源隔离方法：namespace、cgroup等</li>
+</ul>
+</li>
+<li>操作系统</li>
+<li>go programming language</li>
+</ul>
+<h2 id="二、安装配置"><a href="#二、安装配置" class="headerlink" title="二、安装配置"></a>二、安装配置</h2><p>看<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/#installation-methods">docker官方文档</a>来操作，正常情况没有什么问题的。</p>
+<h2 id="三、相关概念"><a href="#三、相关概念" class="headerlink" title="三、相关概念"></a>三、相关概念</h2><p>对Docker及其相关的一些领域要有较为清晰的认识。</p>
+<h3 id="1、Docker的工作模式"><a href="#1、Docker的工作模式" class="headerlink" title="1、Docker的工作模式"></a>1、Docker的工作模式</h3><p>Docker是<strong>服务器——客户端</strong>的工作模式，服务端可以运行在自己主机，也可以运行在远程主机，通常使用过程中的Docker指令都是作为客户端向服务端发起请求，然后服务端返回响应。</p>
+<h3 id="2、镜像"><a href="#2、镜像" class="headerlink" title="2、镜像"></a>2、镜像</h3><p>镜像是Docker中非常重要的一个概念，可以将其看作创建一个容器的标准，它包含了程序运行所需的基本环境。实际使用中用到的镜像一般都是在官方的基础镜像上增加自定义配置而来，根据《第一本Docker书》中的内容，一个Docker镜像包含多层文件系统，基础镜像之上的每层文件系统可以看作是一项自定义配置，可以是额外安装某一软件等。</p>
+<p><img src="pic1.png" alt="一个镜像的各文件层"></p>
+<h3 id="3、容器"><a href="#3、容器" class="headerlink" title="3、容器"></a>3、容器</h3><blockquote>
+<p>如果将镜像看作一个类，那么容器就是类的实例</p>
+</blockquote>
+<p>根据官方文档的描述，容器是镜像的可运行实例，与宿主机和其他容器相隔离（当然你可以自定义隔离的程度）。</p>
+<p>根据镜像创建一个容器的命令为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line"><span class="comment"># 实例，这里省略了sudo</span></span><br><span class="line">$ docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<p>你可以在创建一个容器时加上自定义配置，比如上面的<code>-t</code>和<code>-i</code>选项。</p>
+<p>你也可以在已有容器的基础上，将其当前的状态保存为一个镜像。</p>
+<p>容器创建之后可以执行启动、删除等操作。</p>
+<h3 id="4、Docker仓库"><a href="#4、Docker仓库" class="headerlink" title="4、Docker仓库"></a>4、Docker仓库</h3><p>存储的是镜像，一般使用最广泛的在线仓库（和github一个概念）是<a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>。</p>
+<p>你可以获取他人分享的镜像，在此之上创建自己的容器，也可以自己创建镜像并分享在Docker Hub上。</p>
+<h2 id="四、实际操作"><a href="#四、实际操作" class="headerlink" title="四、实际操作"></a>四、实际操作</h2><p>尚未精通，暂不记录（偷个懒先😅）</p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/docker/">docker命令参考</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">一、前备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">二、安装配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">三、相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Docker%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">1、Docker的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%95%9C%E5%83%8F"><span class="toc-number">3.2.</span> <span class="toc-text">2、镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%B9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">3、容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81Docker%E4%BB%93%E5%BA%93"><span class="toc-number">3.4.</span> <span class="toc-text">4、Docker仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">四、实际操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&text=Docker入门与个人理解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&is_video=false&description=Docker入门与个人理解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker入门与个人理解&body=Check out this article: https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&title=Docker入门与个人理解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&name=Docker入门与个人理解&description=&lt;p&gt;Docker学习归纳理解&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2020/11/23/Docker%E5%85%A5%E9%97%A8%E4%B8%8E%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/&t=Docker入门与个人理解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    zyLeo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

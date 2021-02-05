@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Leetcode-127题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode 127 word-ladder">
+<meta property="og:url" content="https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/index.html">
+<meta property="og:site_name" content="zyLeo&#39;s blog-饮下星光">
+<meta property="og:description" content="Leetcode-127题">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-05T09:12:45.000Z">
+<meta property="article:modified_time" content="2021-01-07T05:39:56.384Z">
+<meta property="article:author" content="zyLeo">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="Python3">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Leetcode 127 word-ladder</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/11/07/Leetcode-327-count-of-range-sum/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/11/05/Something-about-hexo/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&text=Leetcode 127 word-ladder"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&is_video=false&description=Leetcode 127 word-ladder"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Leetcode 127 word-ladder&body=Check out this article: https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&name=Leetcode 127 word-ladder&description=&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/word-ladder/&#34;&gt;Leetcode-127题&lt;/a&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&t=Leetcode 127 word-ladder"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88"><span class="toc-number">1.</span> <span class="toc-text">第一种方法：广度优先</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E5%8F%8C%E5%90%91%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88"><span class="toc-number">2.</span> <span class="toc-text">第二种方法：双向广度优先</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Leetcode 127 word-ladder
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">zyLeo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-05T09:12:45.000Z" itemprop="datePublished">2020-11-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Leetcode/" rel="tag">Leetcode</a>, <a class="tag-link-link" href="/tags/Python3/" rel="tag">Python3</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-ladder/">Leetcode-127题</a></p>
+<a id="more"></a>
+
+<h2 id="第一种方法：广度优先"><a href="#第一种方法：广度优先" class="headerlink" title="第一种方法：广度优先"></a>第一种方法：广度优先</h2><p>广度优先这一思路应该比较显然，难点在于图的构造和代码编写的细节。</p>
+<p>这题的主要思路是为每个单词节点创建多个与其相邻的虚拟节点，并且将其与这些相邻节点连线，比如<code>git</code>就有三个虚拟节点：<code>*it</code>/<code>g*t</code>/<code>gi*</code>。于是，连接到同一个相邻节点的两个单词节点，它们之间的差别就只有一个字母。所以，在图构造好之后，就是代码实现广度优先搜索了。回顾之前<del>学过</del>忘记的数据结构与算法，广度优先搜索完成的关键就是维护一个代表与出发节点之间最短距离的数组。</p>
+<p>这是具体实现代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> List</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="comment"># BFS-Breadth first Search</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 构造有向图</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ladderLength</span>(<span class="params">self, beginWord: <span class="built_in">str</span>, endWord: <span class="built_in">str</span>, wordList: List[<span class="built_in">str</span>]</span>) -&gt; int:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">addWord</span>(<span class="params">word: <span class="built_in">str</span></span>):</span></span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> wordId:</span><br><span class="line">                <span class="keyword">nonlocal</span> nodeNum</span><br><span class="line">                wordId[word] = nodeNum</span><br><span class="line">                nodeNum += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">addEdge</span>(<span class="params">word: <span class="built_in">str</span></span>):</span></span><br><span class="line">            addWord(word)</span><br><span class="line">            id1 = wordId[word]</span><br><span class="line">            chars = <span class="built_in">list</span>(word)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(chars)):</span><br><span class="line">                tmp = chars[i]</span><br><span class="line">                chars[i] = <span class="string">&quot;*&quot;</span></span><br><span class="line">                newWord = <span class="string">&quot;&quot;</span>.join(chars)</span><br><span class="line">                <span class="comment"># 加入虚拟节点</span></span><br><span class="line">                addWord(newWord)</span><br><span class="line">                id2 = wordId[newWord]</span><br><span class="line">                edge[id1].append(id2)</span><br><span class="line">                edge[id2].append(id1)</span><br><span class="line">                chars[i] = tmp</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录节点与节点ID对应信息</span></span><br><span class="line">        wordId = <span class="built_in">dict</span>()</span><br><span class="line">        <span class="comment"># 记录边信息，邻接表</span></span><br><span class="line">        edge = collections.defaultdict(<span class="built_in">list</span>)</span><br><span class="line">        nodeNum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> wordList:</span><br><span class="line">            addEdge(word)</span><br><span class="line">        addEdge(beginWord)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> endWord <span class="keyword">not</span> <span class="keyword">in</span> wordId:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 初始距离记录</span></span><br><span class="line">        dis = [<span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>)] * nodeNum</span><br><span class="line">        beginId, endId = wordId[beginWord], wordId[endWord]</span><br><span class="line">        <span class="comment"># 起点节点的距离为0</span></span><br><span class="line">        dis[beginId] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 从一个节点开始，广度优先搜索，并且维护距离数组dis</span></span><br><span class="line">        que = collections.deque([beginId])</span><br><span class="line">        <span class="keyword">while</span> que:</span><br><span class="line">            x = que.popleft()</span><br><span class="line">            <span class="comment"># 如果到达了自己想要查找的节点</span></span><br><span class="line">            <span class="keyword">if</span> x == endId:</span><br><span class="line">                <span class="keyword">return</span> dis[endId] // <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> it <span class="keyword">in</span> edge[x]:</span><br><span class="line">                <span class="comment"># 如果没有遍历过</span></span><br><span class="line">                <span class="keyword">if</span> dis[it] == <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>):</span><br><span class="line">                    dis[it] = dis[x] + <span class="number">1</span></span><br><span class="line">                    que.append(it)     </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="第二种方法：双向广度优先"><a href="#第二种方法：双向广度优先" class="headerlink" title="第二种方法：双向广度优先"></a>第二种方法：双向广度优先</h2><p>官方题解的第二种方法，是在构造完图之后，从开始节点和目的节点同时进行广度优先搜索，每次对两个节点同时扩展一层，当两边的搜索相遇时，就代表最短路径建立完成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 双向广度优先，优化，提高执行速度</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ladderLength</span>(<span class="params">self, beginWord: <span class="built_in">str</span>, endWord: <span class="built_in">str</span>, wordList: List[<span class="built_in">str</span>]</span>) -&gt; int:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">addWord</span>(<span class="params">word: <span class="built_in">str</span></span>):</span></span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> wordId:</span><br><span class="line">                <span class="keyword">nonlocal</span> nodeNum</span><br><span class="line">                wordId[word] = nodeNum</span><br><span class="line">                nodeNum += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">addEdge</span>(<span class="params">word: <span class="built_in">str</span></span>):</span></span><br><span class="line">            addWord(word)</span><br><span class="line">            id1 = wordId[word]</span><br><span class="line">            chars = <span class="built_in">list</span>(word)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(chars)):</span><br><span class="line">                tmp = chars[i]</span><br><span class="line">                chars[i] = <span class="string">&quot;*&quot;</span></span><br><span class="line">                newWord = <span class="string">&quot;&quot;</span>.join(chars)</span><br><span class="line">                addWord(newWord)</span><br><span class="line">                id2 = wordId[newWord]</span><br><span class="line">                edge[id1].append(id2)</span><br><span class="line">                edge[id2].append(id1)</span><br><span class="line">                chars[i] = tmp</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 构造图的过程方式一样的，空间复杂度相同 maybe</span></span><br><span class="line">        wordId = <span class="built_in">dict</span>()</span><br><span class="line">        edge = collections.defaultdict(<span class="built_in">list</span>)</span><br><span class="line">        nodeNum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> wordList:</span><br><span class="line">            addEdge(word)</span><br><span class="line">        </span><br><span class="line">        addEdge(beginWord)</span><br><span class="line">        <span class="keyword">if</span> endWord <span class="keyword">not</span> <span class="keyword">in</span> wordId:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        disBegin = [<span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>)] * nodeNum</span><br><span class="line">        beginId = wordId[beginWord]</span><br><span class="line">        disBegin[beginId] = <span class="number">0</span></span><br><span class="line">        queBegin = collections.deque([beginId])</span><br><span class="line"></span><br><span class="line">        disEnd = [<span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>)] * nodeNum</span><br><span class="line">        endId = wordId[endWord]</span><br><span class="line">        disEnd[endId] = <span class="number">0</span></span><br><span class="line">        queEnd = collections.deque([endId])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> queBegin <span class="keyword">or</span> queEnd:</span><br><span class="line">            queBeginSize = <span class="built_in">len</span>(queBegin)</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(queBeginSize):</span><br><span class="line">                nodeBegin = queBegin.popleft()</span><br><span class="line">                <span class="keyword">if</span> disEnd[nodeBegin] != <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>):</span><br><span class="line">                    <span class="keyword">return</span> (disBegin[nodeBegin] + disEnd[nodeBegin]) // <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">                <span class="keyword">for</span> it <span class="keyword">in</span> edge[nodeBegin]:</span><br><span class="line">                    <span class="keyword">if</span> disBegin[it] == <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>):</span><br><span class="line">                        disBegin[it] = disBegin[nodeBegin] + <span class="number">1</span></span><br><span class="line">                        queBegin.append(it)</span><br><span class="line"></span><br><span class="line">            queEndSize = <span class="built_in">len</span>(queEnd)</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(queEndSize):</span><br><span class="line">                nodeEnd = queEnd.popleft()</span><br><span class="line">                <span class="keyword">if</span> disBegin[nodeEnd] != <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>):</span><br><span class="line">                    <span class="keyword">return</span> (disBegin[nodeEnd] + disEnd[nodeEnd]) // <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">                <span class="keyword">for</span> it <span class="keyword">in</span> edge[nodeEnd]:</span><br><span class="line">                    <span class="keyword">if</span> disEnd[it] == <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>):</span><br><span class="line">                        disEnd[it] = disEnd[nodeEnd] + <span class="number">1</span></span><br><span class="line">                        queEnd.append(it)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88"><span class="toc-number">1.</span> <span class="toc-text">第一种方法：广度优先</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E5%8F%8C%E5%90%91%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88"><span class="toc-number">2.</span> <span class="toc-text">第二种方法：双向广度优先</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&text=Leetcode 127 word-ladder"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&is_video=false&description=Leetcode 127 word-ladder"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Leetcode 127 word-ladder&body=Check out this article: https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&title=Leetcode 127 word-ladder"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&name=Leetcode 127 word-ladder&description=&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/word-ladder/&#34;&gt;Leetcode-127题&lt;/a&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2020/11/05/leetcode-127-word-ladder/&t=Leetcode 127 word-ladder"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    zyLeo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
