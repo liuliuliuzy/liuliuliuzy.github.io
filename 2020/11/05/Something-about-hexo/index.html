@@ -23,17 +23,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/they.png">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/they.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/they.png">
         
       
     
@@ -55,8 +55,7 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -167,7 +166,6 @@
 <p>一些对于Hexo的理解</p>
 </blockquote>
 <a id="more"></a>
-
 <h2 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h2><p>就我使用的Fluid主题而言，需要注意的配置文件有两个，分别是<code>_config.yml</code>和<code>_config.fluid.yml</code>。一个是基本的hexo的配置文件，另一个是fluid主题的配置文件。</p>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/YAML">yml(yaml)</a>是一种类似于Json格式的文件类型，常被用于存储配置信息。</p>
 <p>配置文件的作用是规定博客的标题、作者、显示内容等，如果上述两个配置文件中有相同的配置项，那么<code>_config.fluid.yml</code>的优先级要高于<code>_config.yml</code>。</p>
@@ -331,5 +329,22 @@
 <!-- Disqus Comments -->
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

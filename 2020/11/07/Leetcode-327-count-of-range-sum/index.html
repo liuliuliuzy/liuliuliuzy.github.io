@@ -24,17 +24,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/they.png">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/they.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/they.png">
         
       
     
@@ -56,8 +56,7 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -82,7 +81,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2020/11/08/%E5%86%99%E5%9C%A82020%E5%B9%B411%E6%9C%888%E6%97%A5%E4%B8%8B%E5%8D%88/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/11/13/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2020/11/05/leetcode-127-word-ladder/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -164,7 +163,6 @@
   <div class="content" itemprop="articleBody">
     <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-of-range-sum/">Leetcode 327题</a></p>
 <a id="more"></a>
-
 <p>计算数组区间和的时候，经常用到前缀和这一思想。比如这题。</p>
 <p>在看官方题解的第一种方法时，我无法理解为何可以在对前缀和数组进行归并排序的过程中，计算符合条件的区间数目。再看几遍才懂，当把左右两个已经排好序的数组进行归并的时候，因为左右的位置原因，所以可以保证右边数组中的元素减去左边数组中的元素所得到的结果，会是一个合法的区间和数据。再利用归并的递归思想，就可以得到想要的结果。</p>
 <p>python代码如下：</p>
@@ -310,5 +308,22 @@
 <!-- Disqus Comments -->
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

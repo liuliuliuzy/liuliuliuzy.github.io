@@ -23,17 +23,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/they.png">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/they.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/they.png">
         
       
     
@@ -55,8 +55,7 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -163,7 +162,6 @@
   <div class="content" itemprop="articleBody">
     <p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/word-ladder/">Leetcode-127题</a></p>
 <a id="more"></a>
-
 <h2 id="第一种方法：广度优先"><a href="#第一种方法：广度优先" class="headerlink" title="第一种方法：广度优先"></a>第一种方法：广度优先</h2><p>广度优先这一思路应该比较显然，难点在于图的构造和代码编写的细节。</p>
 <p>这题的主要思路是为每个单词节点创建多个与其相邻的虚拟节点，并且将其与这些相邻节点连线，比如<code>git</code>就有三个虚拟节点：<code>*it</code>/<code>g*t</code>/<code>gi*</code>。于是，连接到同一个相邻节点的两个单词节点，它们之间的差别就只有一个字母。所以，在图构造好之后，就是代码实现广度优先搜索了。回顾之前<del>学过</del>忘记的数据结构与算法，广度优先搜索完成的关键就是维护一个代表与出发节点之间最短距离的数组。</p>
 <p>这是具体实现代码：</p>
@@ -311,5 +309,22 @@
 <!-- Disqus Comments -->
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

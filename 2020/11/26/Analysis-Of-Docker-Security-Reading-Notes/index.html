@@ -23,17 +23,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/they.png">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/they.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/they.png">
         
       
     
@@ -55,8 +55,7 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -163,7 +162,6 @@
   <div class="content" itemprop="articleBody">
     <p>一篇关于Docker安全的综述性Paper</p>
 <a id="more"></a>
-
 <h2 id="1-文章基本信息"><a href="#1-文章基本信息" class="headerlink" title="1.文章基本信息"></a>1.文章基本信息</h2><ul>
 <li>Title：Analysis Of Docker Security</li>
 <li>Author：<a href="thanh.bui@aalto.fi">Thanh Bui</a>, Aalto University School of Science</li>
@@ -198,38 +196,42 @@
 <p>以及Docker使用namespace和cgroups，来为容器提供安全性。我觉得需要理解掌握的是namespace机制。</p>
 <p>Linux中的namespace机制，类似于C++中的namespace思想。这一机制将所有资源根据不同的命名空间划分为不同的抽象整体。处于同一namespace中的进程可以看到对方，并且可以看到该命名空间下的资源及其变化情况。</p>
 <p>文章中说目前（2015年）Docker使用5种namespace，但是现在已经是6种，分别为：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">种类</th>
-<th align="center">含义</th>
+<th style="text-align:center">种类</th>
+<th style="text-align:center">含义</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">UTS</td>
-<td align="center">主机和域名</td>
+<tbody>
+<tr>
+<td style="text-align:center">UTS</td>
+<td style="text-align:center">主机和域名</td>
 </tr>
 <tr>
-<td align="center">IPC</td>
-<td align="center">信号量、消息队列和共享内容</td>
+<td style="text-align:center">IPC</td>
+<td style="text-align:center">信号量、消息队列和共享内容</td>
 </tr>
 <tr>
-<td align="center">PID</td>
-<td align="center">进程编号</td>
+<td style="text-align:center">PID</td>
+<td style="text-align:center">进程编号</td>
 </tr>
 <tr>
-<td align="center">network</td>
-<td align="center">网络设备、网络栈、端口等</td>
+<td style="text-align:center">network</td>
+<td style="text-align:center">网络设备、网络栈、端口等</td>
 </tr>
 <tr>
-<td align="center">mount</td>
-<td align="center">挂载点(文件系统)</td>
+<td style="text-align:center">mount</td>
+<td style="text-align:center">挂载点(文件系统)</td>
 </tr>
 <tr>
-<td align="center">user</td>
-<td align="center">用户和用户组</td>
+<td style="text-align:center">user</td>
+<td style="text-align:center">用户和用户组</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="4-Docker安全分析"><a href="#4-Docker安全分析" class="headerlink" title="4.Docker安全分析"></a>4.Docker安全分析</h3><p>这一部分内容，首先指出一个操作系统层面的虚拟化技术，如果要保持安全，那么应该满足6点：</p>
 <ul>
 <li>进程隔离</li>
@@ -393,5 +395,22 @@
 <!-- Disqus Comments -->
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
