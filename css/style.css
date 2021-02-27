@@ -1560,6 +1560,7 @@ code {
   border: 1px dotted #ccffb6;
   border-radius: 2px;
   -webkit-border-radius: 2px;
+  background-color: rgba(44,139,87,0.3);
 }
 .highlight {
   overflow-x: auto;
