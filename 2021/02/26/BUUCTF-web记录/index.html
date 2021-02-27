@@ -22,8 +22,11 @@
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227210040644.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/02/26/BUUCTF-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png">
 <meta property="article:published_time" content="2021-02-26T13:16:12.000Z">
-<meta property="article:modified_time" content="2021-02-27T12:54:16.870Z">
+<meta property="article:modified_time" content="2021-02-27T14:40:36.016Z">
 <meta property="article:author" content="zyLeo">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -119,7 +122,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Havefun"><span class="toc-number">4.</span> <span class="toc-text">0x03 [极客大挑战 2019]Havefun</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -214,6 +217,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;;SeT@a&#x3D;0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#</span><br></pre></td></tr></table></figure>
 <h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>直接修改表的名字，<code>rename</code>/<code>alter</code>等关键字是没有被筛选的，所以可以被输入执行。先将<code>words</code>表名改为其他名字，再将<code>1919810931114514</code>表名改为<code>words</code>，就可以从中查询。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#39;;rename table &#96;words&#96; to &#96;123&#96;;rename table &#96;1919810931114514&#96; to &#96;words&#96;;alter table &#96;words&#96; add id int(10);#</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-极客大挑战-2019-Havefun"><a href="#0x03-极客大挑战-2019-Havefun" class="headerlink" title="0x03 [极客大挑战 2019]Havefun"></a>0x03 [极客大挑战 2019]Havefun</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Havefun">题目链接</a></p>
+<p>界面还挺好看的</p>
+<p><img src="image-20210227205837574.png" alt="image-20210227205837574"></p>
+<p>源码中有这么一段注释</p>
+<p><img src="image-20210227210040644.png" alt="image-20210227210040644" style="zoom:67%;" /></p>
+<p>于是尝试get请求并且cat参数为dog，结果就出flag了…😓</p>
+<p><img src="image-20210227210208421.png" alt="image-20210227210208421"></p>
 
   </div>
 </article>
@@ -247,7 +257,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-HCTF-2018-WarmUp"><span class="toc-number">1.</span> <span class="toc-text">0x00 [HCTF 2018]WarmUp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-EasySQL"><span class="toc-number">2.</span> <span class="toc-text">0x01 [极客大挑战 2019]EasySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%BA%E7%BD%91%E6%9D%AF-2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">0x02 [强网杯 2019]随便注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF1"><span class="toc-number">3.1.</span> <span class="toc-text">思路1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF2"><span class="toc-number">3.2.</span> <span class="toc-text">思路2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Havefun"><span class="toc-number">4.</span> <span class="toc-text">0x03 [极客大挑战 2019]Havefun</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
