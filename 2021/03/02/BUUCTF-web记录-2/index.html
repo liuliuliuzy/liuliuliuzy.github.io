@@ -22,8 +22,11 @@
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210304134904282.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210304135247316.png">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210304135749480.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210305101604030.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210305111041608.png">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/03/02/BUUCTF-web%E8%AE%B0%E5%BD%95-2/image-20210305110959804.png">
 <meta property="article:published_time" content="2021-03-02T03:36:22.000Z">
-<meta property="article:modified_time" content="2021-03-04T06:02:17.200Z">
+<meta property="article:modified_time" content="2021-03-05T03:16:32.754Z">
 <meta property="article:author" content="zyLeo">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="web">
@@ -121,7 +124,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">1.</span> <span class="toc-text">0x08 [GXYCTF2019]Ping Ping Ping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">2.</span> <span class="toc-text">0x09 [ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Knife"><span class="toc-number">3.</span> <span class="toc-text">0x10 [极客大挑战 2019]Knife</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-%E6%8A%A4%E7%BD%91%E6%9D%AF-2018-easy-tornado"><span class="toc-number">4.</span> <span class="toc-text">0x11 [护网杯 2018]easy_tornado</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">1.</span> <span class="toc-text">0x08 [GXYCTF2019]Ping Ping Ping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">2.</span> <span class="toc-text">0x09 [ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Knife"><span class="toc-number">3.</span> <span class="toc-text">0x10 [极客大挑战 2019]Knife</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-%E6%8A%A4%E7%BD%91%E6%9D%AF-2018-easy-tornado"><span class="toc-number">4.</span> <span class="toc-text">0x11 [护网杯 2018]easy_tornado</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-RoarCTF-2019-Easy-Cal"><span class="toc-number">5.</span> <span class="toc-text">0x12 [RoarCTF 2019]Easy Cal</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -224,6 +227,29 @@
 <li><p><a target="_blank" rel="noopener" href="https://www.tornadoweb.org/en/latest/guide/templates.html#template-syntax">https://www.tornadoweb.org/en/latest/guide/templates.html#template-syntax</a></p>
 </li>
 </ul>
+<h2 id="0x12-RoarCTF-2019-Easy-Cal"><a href="#0x12-RoarCTF-2019-Easy-Cal" class="headerlink" title="0x12 [RoarCTF 2019]Easy Cal"></a>0x12 [RoarCTF 2019]Easy Cal</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[RoarCTF%202019]Easy%20Calc">题目链接</a></p>
+<p>知识点：</p>
+<ul>
+<li>php的<code>eval()</code>函数，将参数作为php命令执行</li>
+<li>空格绕过某些waf</li>
+<li>php的<code>var_dump()</code>/<code>scandir()</code>/<code>file_get_contents()</code>相关函数</li>
+</ul>
+<p>计算器功能是通过向<code>calc.php</code>发起请求来实现的。</p>
+<p><img src="image-20210305101604030.png" alt="image-20210305101604030"></p>
+<p>查看<code>calc.php</code>内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;num&#x27;</span>]))&#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$str</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;num&#x27;</span>];</span><br><span class="line">        <span class="variable">$blacklist</span> = [<span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;\t&#x27;</span>, <span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;\n&#x27;</span>,<span class="string">&#x27;\&#x27;&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;`&#x27;</span>, <span class="string">&#x27;\[&#x27;</span>, <span class="string">&#x27;\]&#x27;</span>,<span class="string">&#x27;\$&#x27;</span>,<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;\^&#x27;</span>];</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$blacklist</span> <span class="keyword">as</span> <span class="variable">$blackitem</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (preg_match(<span class="string">&#x27;/&#x27;</span> . <span class="variable">$blackitem</span> . <span class="string">&#x27;/m&#x27;</span>, <span class="variable">$str</span>)) &#123;</span><br><span class="line">                        <span class="keyword">die</span>(<span class="string">&quot;what are you want to do?&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="string">&#x27;echo &#x27;</span>.<span class="variable">$str</span>.<span class="string">&#x27;;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在num参数前加上一个空格，可以绕过服务端的waf，并且使得php正确解析。</p>
+<p>使用<code>scandir()</code>函数查找flag文件，发现<code>f1agg</code>（注意这里是1）。</p>
+<p><img src="image-20210305111041608.png" alt="image-20210305111041608"></p>
+<p>查看flag内容。</p>
+<p><img src="image-20210305110959804.png" alt="image-20210305110959804"></p>
+<p>参考链接：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42967398/article/details/103512717">BUUCTF WEB [RoarCTF 2019]Easy Calc</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://i.blackhat.com/USA-19/Wednesday/us-19-Kettle-HTTP-Desync-Attacks-Smashing-Into-The-Cell-Next-Door-wp.pdf">http走私攻击</a></p>
+</li>
+</ul>
 
   </div>
 </article>
@@ -257,7 +283,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">1.</span> <span class="toc-text">0x08 [GXYCTF2019]Ping Ping Ping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">2.</span> <span class="toc-text">0x09 [ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Knife"><span class="toc-number">3.</span> <span class="toc-text">0x10 [极客大挑战 2019]Knife</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-%E6%8A%A4%E7%BD%91%E6%9D%AF-2018-easy-tornado"><span class="toc-number">4.</span> <span class="toc-text">0x11 [护网杯 2018]easy_tornado</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-GXYCTF2019-Ping-Ping-Ping"><span class="toc-number">1.</span> <span class="toc-text">0x08 [GXYCTF2019]Ping Ping Ping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-ACTF2020-%E6%96%B0%E7%94%9F%E8%B5%9B-Exec"><span class="toc-number">2.</span> <span class="toc-text">0x09 [ACTF2020 新生赛]Exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10-%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Knife"><span class="toc-number">3.</span> <span class="toc-text">0x10 [极客大挑战 2019]Knife</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11-%E6%8A%A4%E7%BD%91%E6%9D%AF-2018-easy-tornado"><span class="toc-number">4.</span> <span class="toc-text">0x11 [护网杯 2018]easy_tornado</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12-RoarCTF-2019-Easy-Cal"><span class="toc-number">5.</span> <span class="toc-text">0x12 [RoarCTF 2019]Easy Cal</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
