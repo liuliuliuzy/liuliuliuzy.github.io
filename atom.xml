@@ -6,7 +6,7 @@
   <link href="https://liuliuliuzy.github.io/atom.xml" rel="self"/>
   
   <link href="https://liuliuliuzy.github.io/"/>
-  <updated>2021-03-04T08:50:02.061Z</updated>
+  <updated>2021-03-15T12:41:34.777Z</updated>
   <id>https://liuliuliuzy.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分享一下wsl2-ubuntu20安装以及gef调试工具安装</title>
+    <link href="https://liuliuliuzy.github.io/2021/03/15/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/"/>
+    <id>https://liuliuliuzy.github.io/2021/03/15/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</id>
+    <published>2021-03-15T12:18:07.000Z</published>
+    <updated>2021-03-15T12:41:34.777Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>对于配置完全且好用的工具，真是没有抵抗力。。。</p></blockquote><h3 id="Let’s-start-exploiting"><a href="#Let’s-start-exploiting" class="headerlink" title="Let’s start exploiting!"></a>Let’s start exploiting!</h3><ul><li><p>首先，开启你的windows系统中的wsl。打开windows功能，勾选以下两项</p><p><img src="image-20210315202713474.png" alt="image-20210315202713474"></p></li><li><p>Powershell输入<code>wsl -l -v</code>查看wsl版本，如果是1的话还需要升级到2。按照<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package">微软的文档</a>，下载升级程序并点击安装即可</p></li><li><p>接下来选择ubuntu20作为待安装的Linux版本，在Microsoft Store中搜索并安装即可</p></li><li><p>初始化ubuntu并且设置用户名密码</p></li><li><p>执行以下命令更新源</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt upgrade</span><br></pre></td></tr></table></figure></li><li><p>安装gdb</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt install gdb</span></span><br></pre></td></tr></table></figure></li><li><p>安装<a href="https://github.com/hugsy/gef">gef</a>，这里我尝试curl，wget都不行，会卡住，但是明明网站是可以访问的，没办法只要复制网站内容然后粘贴到自己创建的<code>.gdbinit-gef.py</code>文件中，然后source写入。以下是官方给出的几种安装方式</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> via the install script</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># using curl</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL http://gef.blah.cat/sh)</span>&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># using wget</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> bash -c <span class="string">&quot;<span class="subst">$(wget http://gef.blah.cat/sh -O -)</span>&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> or manually</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> wget -O ~/.gdbinit-gef.py -q http://gef.blah.cat/py</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="built_in">source</span> ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> or alternatively from inside gdb directly</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> gdb -q</span></span><br><span class="line">(gdb) pi import urllib.request as u, tempfile as t; g=t.NamedTemporaryFile(suffix=&#x27;-gef.py&#x27;); open(g.name, &#x27;wb+&#x27;).write(u.urlopen(&#x27;https://tinyurl.com/gef-master&#x27;).read()); gdb.execute(&#x27;source %s&#x27; % g.name)</span><br></pre></td></tr></table></figure></li><li><p>如果一切无误的话，启动gdb，你会看到以下内容:</p><p><img src="image-20210315203732185.png" alt="image-20210315203732185"></p></li><li><p>打开一个文件看看，简直beautiful and elegant</p><p><img src="image-20210315204035474.png" alt="image-20210315204035474"></p></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;对于配置完全且好用的工具，真是没有抵抗力。。。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Let’s-start-exploiting&quot;&gt;&lt;a href=&quot;#Let’s-start-exploiting&quot; class=&quot;headerlin</summary>
+      
+    
+    
+    
+    <category term="工具配置" scheme="https://liuliuliuzy.github.io/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="Linux" scheme="https://liuliuliuzy.github.io/tags/Linux/"/>
+    
+    <category term="WSL" scheme="https://liuliuliuzy.github.io/tags/WSL/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker逃逸系列5 CVE-2020-15257 containerd漏洞逃逸</title>
