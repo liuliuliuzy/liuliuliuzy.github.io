@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://liuliuliuzy.github.io/2021/04/04/windows10-wsl2-VsCode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/pci1.png">
 <meta property="article:published_time" content="2021-04-04T11:22:41.000Z">
-<meta property="article:modified_time" content="2021-04-04T12:00:30.222Z">
+<meta property="article:modified_time" content="2021-04-05T05:56:36.101Z">
 <meta property="article:author" content="zyLeo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://liuliuliuzy.github.io/2021/04/04/windows10-wsl2-VsCode%E9%85%8D%E7%BD%AEgo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/pci1.png">
@@ -55,8 +55,7 @@
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -154,10 +153,10 @@
 </blockquote>
 <h2 id="0x00-在wsl2中安装go"><a href="#0x00-在wsl2中安装go" class="headerlink" title="0x00 在wsl2中安装go"></a>0x00 在wsl2中安装go</h2><ul>
 <li>去<a target="_blank" rel="noopener" href="https://golang.org/dl/go1.16.3.linux-amd64.tar.gz">官网</a>下载最新的go文件包，然后解压安装到<code>/usr/local</code>目录<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tar -C /usr/<span class="built_in">local</span> -xzf go1.16.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li>添加环境变量到<code>~/.profile</code>中（一开始我只添加了第一行的PATH内容，结果后面打开VsCode之后提示安装的go工具失败，所以又加上了goproxy内容。<figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br><span class="line">export GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
-<h2 id="0x01-创建项目文件夹"><a href="#0x01-创建项目文件夹" class="headerlink" title="0x01 创建项目文件夹"></a>0x01 创建项目文件夹</h2></li>
+<li><del>添加环境变量到<code>~/.profile</code>中（一开始我只添加了第一行的PATH内容，结果后面打开VsCode之后提示安装的go工具失败，所以又加上了goproxy内容。</del><figure class="highlight profile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br><span class="line">export GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure></li>
+<li>因为我把wsl中的默认终端改成了zsh，所以需要在<code>.zshrc</code>中添加上述两行，然后执行<code>source .zshrc</code>。如果是写在.profile中的话，每次打开终端并不会加载其中的内容。</li>
 </ul>
-<p>随便创建一个文件夹，并且在其中创建一个go文件。</p>
+<h2 id="0x01-创建项目文件夹"><a href="#0x01-创建项目文件夹" class="headerlink" title="0x01 创建项目文件夹"></a>0x01 创建项目文件夹</h2><p>随便创建一个文件夹，并且在其中创建一个go文件。</p>
 <h2 id="0x02-VsCode配置"><a href="#0x02-VsCode配置" class="headerlink" title="0x02 VsCode配置"></a>0x02 VsCode配置</h2><p>首先给VsCode安装wsl插件，然后用VsCode打开刚才创建的文件夹，点击打开go文件，然后会跳出安装go插件和相关工具的提示。</p>
 <p>正常来说工具安装会出问题，但是在写入了GOPROXY之后就可以解决。虽然我之前在windows上也尝试过了诸多方法来解决这一问题，但是感觉始终没有顺利解决，这次在wsl中竟如此顺利，也不知道是不是系统的原因。</p>
 <p><img src="pci1.png" alt=""></p>
@@ -330,5 +329,22 @@
     </script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
