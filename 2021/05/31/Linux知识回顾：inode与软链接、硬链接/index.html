@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言最近在看runc最新的CVE-2021-30465漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎也有点印象，但是始终无法清晰浮现出来，与之相关的inode、硬链接、软连接(即符号链接)这些Linux系统的概念也记不清了。于是特意重新翻看了一下操作系统的书籍，查阅了一些资料，记录一下。 UNIX(Linux)文件系统inode与data block我们都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux知识回顾：inode与软链接、硬链接">
+<meta property="og:url" content="https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:site_name" content="zyLeo&#39;s blog-饮下星光">
+<meta property="og:description" content="前言最近在看runc最新的CVE-2021-30465漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎也有点印象，但是始终无法清晰浮现出来，与之相关的inode、硬链接、软连接(即符号链接)这些Linux系统的概念也记不清了。于是特意重新翻看了一下操作系统的书籍，查阅了一些资料，记录一下。 UNIX(Linux)文件系统inode与data block我们都">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/image-20210601205746981.png">
+<meta property="article:published_time" content="2021-05-31T08:45:32.000Z">
+<meta property="article:modified_time" content="2021-06-01T12:58:32.680Z">
+<meta property="article:author" content="zyLeo">
+<meta property="article:tag" content="review">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/image-20210601205746981.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/me.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/me.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/me.png">
+        
+      
+    
+    <!-- title -->
+    <title>Linux知识回顾：inode与软链接、硬链接</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="zyLeo's blog-饮下星光" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/04/27/docker-runc-CVE-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&text=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&is_video=false&description=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux知识回顾：inode与软链接、硬链接&body=Check out this article: https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&name=Linux知识回顾：inode与软链接、硬链接&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&t=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNIX-Linux-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.</span> <span class="toc-text">UNIX(Linux)文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#inode%E4%B8%8Edata-block"><span class="toc-number">2.0.1.</span> <span class="toc-text">inode与data block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.2.</span> <span class="toc-text">硬链接与软链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Linux知识回顾：inode与软链接、硬链接
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">zyLeo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-31T08:45:32.000Z" itemprop="datePublished">2021-05-31</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/review/" rel="tag">review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在看runc最新的<a target="_blank" rel="noopener" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=2021-30465">CVE-2021-30465</a>漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎也有点印象，但是始终无法清晰浮现出来，与之相关的inode、硬链接、软连接(即符号链接)这些Linux系统的概念也记不清了。于是特意重新翻看了一下操作系统的书籍，查阅了一些资料，记录一下。</p>
+<h2 id="UNIX-Linux-文件系统"><a href="#UNIX-Linux-文件系统" class="headerlink" title="UNIX(Linux)文件系统"></a>UNIX(Linux)文件系统</h2><h4 id="inode与data-block"><a href="#inode与data-block" class="headerlink" title="inode与data block"></a>inode与data block</h4><p>我们都知道，文件是存储在磁盘上的。在Linux系统中，磁盘被划分分区并格式化的时候，整个分区会被划分为两个部分，分别是<code>inode区</code>和<code>data block区</code>。其中<code>inode区</code>存放的是文件的inode信息，<code>data block区</code>存放的是真正的文件数据内容。</p>
+<p><strong>inode</strong>是一种UNIX系统中用于存储文件相关信息的数据结构，包括inode号、文件的<code>uid</code>、<code>gid</code>、各个组的rwx权限等。需要注意的是，inode并不含有文件名。所以我们可以这么理解，UNIX系统中的文件名是给用户使用的，实际上系统打开每个文件都是通过inode号去寻找对应的inode，然后进行判断当前用户的权限等操作，再打开该文件。</p>
+<p>在使用<code>ls</code>命令时可以加上<code>-i</code>选项查看文件对应的inode号。</p>
+<p><img src="image-20210601205746981.png" alt="image-20210601205746981"></p>
+<h4 id="硬链接与软链接"><a href="#硬链接与软链接" class="headerlink" title="硬链接与软链接"></a>硬链接与软链接</h4><p>这是一对容易记混的概念。首先来说<strong>硬链接</strong>(hard link)。一般来说，一个文件名会对应一个inode号码，但是Linux系统允许多个文件名对应同一个inode号码，即指向同一个inode对象，这些其他的文件名就叫做硬链接。inode中的链接数字段信息保存了该文件的链接数量，每个新创建的硬链接都会使其加1。</p>
+<p>创建硬链接可以使用<code>ln</code>命令来完成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln &lt;file-path&gt; &lt;link-name&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>软链接</strong>又叫符号链接(symbolic link)，原理与硬链接完全不同。软链接可以看作是windows系统的快捷方式，每个软链接都是独立的文件，只不过文件中的内容是另一个文件的路径。与硬链接不同的是，软链接可以用于目录，也就是说，你可以对一个目录创建一个软链接，而硬链接是只能作用与文件的。</p>
+<p>使用<code>ln</code>命令也可以创建软链接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln -s &lt;file-path&gt; &lt;link-name&gt;</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNIX-Linux-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.</span> <span class="toc-text">UNIX(Linux)文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#inode%E4%B8%8Edata-block"><span class="toc-number">2.0.1.</span> <span class="toc-text">inode与data block</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E9%93%BE%E6%8E%A5%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.0.2.</span> <span class="toc-text">硬链接与软链接</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&text=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&is_video=false&description=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux知识回顾：inode与软链接、硬链接&body=Check out this article: https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&title=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&name=Linux知识回顾：inode与软链接、硬链接&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://liuliuliuzy.github.io/2021/05/31/Linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%EF%BC%9Ainode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5/&t=Linux知识回顾：inode与软链接、硬链接"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2021
+    zyLeo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GF9LBFG779"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GF9LBFG779');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'zyleoblog';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
