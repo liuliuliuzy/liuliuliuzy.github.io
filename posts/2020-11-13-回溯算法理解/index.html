@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>回溯算法理解 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="回溯算法理解" />
+<meta property="og:description" content="回溯算法是怎么回事呢，相信大家都听说过回溯算法，但是回溯算法的原理是什么呢，一般如何用代码实现呢？ 回溯算法，就是将每条路都走一遍，当到达正确" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" /><meta property="og:image" content="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-13T21:57:26+00:00" />
+<meta property="article:modified_time" content="2020-11-13T21:57:26+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png"/>
+<meta name="twitter:title" content="回溯算法理解"/>
+<meta name="twitter:description" content="回溯算法是怎么回事呢，相信大家都听说过回溯算法，但是回溯算法的原理是什么呢，一般如何用代码实现呢？ 回溯算法，就是将每条路都走一遍，当到达正确"/>
+<meta name="application-name" content="zyleo">
+<meta name="apple-mobile-web-app-title" content="zyleo"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" /><link rel="prev" href="https://liuliuliuzy.github.io/posts/2020-11-08-%E5%86%99%E5%9C%A82020%E5%B9%B411%E6%9C%888%E6%97%A5%E4%B8%8B%E5%8D%88/" /><link rel="next" href="https://liuliuliuzy.github.io/posts/2020-11-26-analysis-of-docker-security-reading-notes/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "回溯算法理解",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/liuliuliuzy.github.io\/posts\/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/liuliuliuzy.github.io\/posts\/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3\/featured-image.png",
+                            "width":  209 ,
+                            "height":  208 
+                        }],"genre": "posts","keywords": "Python3, Algorithm","wordcount":  1157 ,
+        "url": "https:\/\/liuliuliuzy.github.io\/posts\/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3\/","datePublished": "2020-11-13T21:57:26+00:00","dateModified": "2020-11-13T21:57:26+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "zyleo"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">回溯算法理解</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-13">2020-11-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1157 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png"
+        data-srcset="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png, /posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png 1.5x, /posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png 2x"
+        data-sizes="auto"
+        alt="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png"
+        title="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>回溯算法是怎么回事呢，相信大家都听说过回溯算法，但是回溯算法的原理是什么呢，一般如何用代码实现呢？</p>
+<!-- more -->
+<blockquote>
+<p>回溯算法，就是将每条路都走一遍，当到达正确的结果时，停止或者继续尝试从而获得所有的正确结果</p>
+</blockquote>
+<p>刷了Leetcode上20+道关于回溯算法的题之后，感觉自己对于回溯算法有了一点点(小声bb)认识，特此记录并加深自己的印象。</p>
+<p><figure><a class="lightgallery" href="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/leetcode.PNG" title="有图为证" data-thumbnail="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/leetcode.PNG" data-sub-html="<h2>有图为证</h2><p>有图为证</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="leetcode.PNG"
+            data-srcset="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/leetcode.PNG, leetcode.PNG 1.5x, /posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/leetcode.PNG 2x"
+            data-sizes="auto"
+            alt="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/leetcode.PNG" />
+    </a><figcaption class="image-caption">有图为证</figcaption>
+    </figure></p>
+<p>回溯算法一般是通过递归的形式来实现的。回溯的方式，按照回溯的目的可以分为两类，两种类型的回溯略有差别，但是本质都一样。</p>
+<ul>
+<li>第一类：找出<strong>一个</strong>合适的结果</li>
+<li>第二类：找出<strong>所有</strong>合适的结果</li>
+</ul>
+<p>了解回溯算法，首先需要找出进行遍历的决策树。想象自己位于一个起点，在你面前有很多个路口，每个路口往前走可能又会有多个路口，最后有一条路口对应的路的尽头有你想要的东西，你需要找到你的目标，所有路口组成的所有路径，就是一个决策树。于是，解决回溯类型的算法题，首先需要将决策树，也就是多个路口组成的路径树找出来。比如在分割字符串的时候，每个间隔可以选择分割或者不分割，这样就构成了一个每个点有两个路口的决策路径树。</p>
+<p>在提取出了这一概念之后，可以开始编写回溯的递归函数。</p>
+<p>对于第一类的回溯，递归函数的模板一般如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># result变量很关键，result为True说明已经找到了，从而不需要进行之后的尝试，使递归能够正确结束</span>
+    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
+        <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">break</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
+    
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于第二类的回溯问题，需要找出所有合适的路径，所以递归函数一般不返回值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
+        <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于以上的函数模板，通常终止条件与<code>path</code>或者<code>path</code>之后的参数有关(比如字符串索引等)，而候选列表一般由<code>path</code>之后的参数决定。<code>path</code>记录的就是当前做出的所有选择，<code>res</code>中<code>append</code>的值也不一定是<code>path</code>，但是一般都可以由<code>path</code>这一变量得到。</p>
+<p>回溯算法除了能够正确得到结果之外，有的时候为了解决超时这一问题，还需要对<code>degwr</code>选择进行过滤，或者采用更高级的方式进行剪枝。</p>
+<p>最后，放一下自己独立完成的<a href="https://leetcode-cn.com/problems/gray-code/" target="_blank" rel="noopener noreffer">Leetcode 89题——格雷码</a>的回溯算法代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">grayCode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">        回溯算法
+</span><span class="s1">        &#39;&#39;&#39;</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+        <span class="c1"># 对于result变量的创建和赋值很关键，它影响了之后的执行流</span>
+        <span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="c1"># 如果满足结束条件</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">total</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">visited</span>
+            
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">grayCode</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-11-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解" data-hashtags="Python3,Algorithm"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-hashtag="Python3"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/posts/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" data-title="回溯算法理解"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python3/">Python3</a>,&nbsp;<a href="/tags/algorithm/">Algorithm</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/2020-11-08-%E5%86%99%E5%9C%A82020%E5%B9%B411%E6%9C%888%E6%97%A5%E4%B8%8B%E5%8D%88/" class="prev" rel="prev" title="写在2020年11月8日下午"><i class="fas fa-angle-left fa-fw"></i>写在2020年11月8日下午</a>
+            <a href="/posts/2020-11-26-analysis-of-docker-security-reading-notes/" class="next" rel="next" title="Analysis Of Docker Security---Reading Notes">Analysis Of Docker Security---Reading Notes<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

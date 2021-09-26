@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>工具配置 - 分类 - zyleo&#39;s blog</title>
+        <link>https://liuliuliuzy.github.io/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/</link>
+        <description>工具配置 - 分类 - zyleo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 15 Mar 2021 20:18:07 &#43;0000</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" rel="self" type="application/rss+xml" /><item>
+    <title>wsl2-ubuntu20安装以及gef调试工具安装</title>
+    <link>https://liuliuliuzy.github.io/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</link>
+    <pubDate>Mon, 15 Mar 2021 20:18:07 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://liuliuliuzy.github.io/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</guid>
+    <description><![CDATA[对于配置完全且好用的工具，真是没有抵抗力。。。 Let&rsquo;s start exploiting! 首先，开启你的windows系统中的wsl。打开windows功能，勾选以下两项 image-20210315202713474image-20210315202713474 " image-20210315202713474 P]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>WSL - 标签 - zyleo&#39;s blog</title>
+        <link>https://liuliuliuzy.github.io/tags/wsl/</link>
+        <description>WSL - 标签 - zyleo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/wsl/" rel="self" type="application/rss+xml" /><item>
+    <title>Wsl迁移等操作记录</title>
+    <link>https://liuliuliuzy.github.io/posts/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Fri, 27 Aug 2021 16:35:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://liuliuliuzy.github.io/posts/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[记录一下wsl迁移以及自选安装位置的一些操作。 打包 1 wsl --export distro_name file_name.tar 删除 1 wsl --unregister distro_name 导入（有看到博客说这里的distro_name需要与原本的disrt]]></description>
+</item><item>
+    <title>wsl2-ubuntu20安装以及gef调试工具安装</title>
+    <link>https://liuliuliuzy.github.io/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</link>
+    <pubDate>Mon, 15 Mar 2021 20:18:07 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://liuliuliuzy.github.io/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</guid>
+    <description><![CDATA[对于配置完全且好用的工具，真是没有抵抗力。。。 Let&rsquo;s start exploiting! 首先，开启你的windows系统中的wsl。打开windows功能，勾选以下两项 image-20210315202713474image-20210315202713474 " image-20210315202713474 P]]></description>
+</item></channel>
+</rss>
