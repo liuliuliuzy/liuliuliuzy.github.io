@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">BUUCTF web记录 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="BUUCTF web记录" />
+<meta property="og:description" content="0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 &#34; image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-26T21:16:12+00:00" />
+<meta property="article:modified_time" content="2021-02-26T21:16:12+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF web记录"/>
+<meta name="twitter:description" content="0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 &#34; image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"/>
+<meta name="application-name" content="zyleo">
+<meta name="apple-mobile-web-app-title" content="zyleo">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/" /><link rel="next" href="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "BUUCTF web记录",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/liuliuliuzy.github.io\/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95\/"
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2866 ,
+        "url": "https:\/\/liuliuliuzy.github.io\/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95\/","datePublished": "2021-02-26T21:16:12+00:00","dateModified": "2021-02-26T21:16:12+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "zyleo"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="black">黑色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="black">黑色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">BUUCTF web记录</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-02-26">2021-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2866 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-hctf-2018warmup">0x00 [HCTF 2018]WarmUp</a></li>
+    <li><a href="#0x01-极客大挑战-2019easysql">0x01 [极客大挑战 2019]EasySQL</a></li>
+    <li><a href="#0x02-强网杯-2019随便注">0x02 [强网杯 2019]随便注</a>
+      <ul>
+        <li><a href="#思路1">思路1</a></li>
+        <li><a href="#思路2">思路2</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x03-极客大挑战-2019havefun">0x03 [极客大挑战 2019]Havefun</a></li>
+    <li><a href="#0x04-suctf-2019easysql">0x04 [SUCTF 2019]EasySQL</a></li>
+    <li><a href="#0x05-actf2020-新生赛include">0x05 [ACTF2020 新生赛]Include</a></li>
+    <li><a href="#0x06-极客大挑战-2019secret-file">0x06 [极客大挑战 2019]Secret File</a></li>
+    <li><a href="#0x07-极客大挑战-2019lovesql">0x07 [极客大挑战 2019]LoveSQL</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><div class="details admonition warning open">
+                <div class="details-summary admonition-title">
+                    <i class="icon fas fa-exclamation-triangle fa-fwwarning"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+                </div>
+                <div class="details-content">
+                    <div class="admonition-content">
+                        本文最后更新于 <span class="timeago" datetime="2021-02-26T21:16:12" title="February 26, 2021">2021-02-26</span>，文中内容可能已过时。</div>
+                </div>
+            </div><h2 id="0x00-hctf-2018warmup">0x00 [HCTF 2018]WarmUp</h2>
+<p><a href="https://buuoj.cn/challenges#[HCTF%202018]WarmUp" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>引入眼帘的是个滑稽🤔</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226211946197.png" title="image-20210226211946197" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226211946197.png" data-sub-html="<h2>image-20210226211946197</h2><p>image-20210226211946197</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210226211946197.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226211946197.png, image-20210226211946197.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226211946197.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226211946197.png"
+        />
+    </a><figcaption class="image-caption">image-20210226211946197</figcaption>
+    </figure></p>
+<p>F12看源码，发现页面注释里提示源码在<code>source.php</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="c1">// source.php
+</span><span class="c1"></span><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+    <span class="k">class</span> <span class="nc">emmm</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">checkFile</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$page</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+                <span class="nv">$page</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+            <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+                <span class="nv">$_page</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+            <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+        <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+        <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
+        <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+    <span class="p">}</span>  
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>从<code>source.php</code>中还可以看到<code>hint.php</code>也包含一些信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看<code>hint.php</code>，结果显示<code>flag</code>内容在<code>ffffllllaaaagggg</code>。直接访问该文件，发现无法访问（当然没这么简单了）</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png" title="image-20210226212604043" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png" data-sub-html="<h2>image-20210226212604043</h2><p>image-20210226212604043</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210226212604043.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png, image-20210226212604043.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png"
+        />
+    </a><figcaption class="image-caption">image-20210226212604043</figcaption>
+    </figure></p>
+<p>再继续分析<code>source.php</code>，get的<code>file</code>参数要非空、为字符串且通过<code>checkFile()</code>函数判断，才能进入到<code>include</code>逻辑。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+    <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+    <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+   <span class="p">)</span> <span class="p">{</span>
+    <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
+    <span class="k">exit</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+<span class="p">}</span>  
+</code></pre></td></tr></table>
+</div>
+</div><p>那就来看<code>checkFile()</code>函数，该函数返回true的地方一共有3处。</p>
+<p>首先定义了一个白名单。请求的文件名在白名单中即返回<code>true</code>，对应于之前提到的<code>source.php</code>和<code>hint.php</code>。显然这个逻辑无法被用来读取<code>flag</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第二个逻辑中，参数首先被根据<code>?</code>字符进行截取，截取后的内容如果在白名单中则返回<code>true</code>。这个也无法被用来读取<code>flag</code>。</p>
+<p>相关函数：<a href="https://www.php.net/manual/zh/function.mb-strpos" target="_blank" rel="noopener noreffer">mb_strpos()</a>、<a href="https://www.php.net/manual/zh/function.mb-substr" target="_blank" rel="noopener noreffer">mb_substr()</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+    <span class="nv">$page</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再看最后一个返回true的逻辑。发现其先将get请求中的file参数进行一次URL解码，然后再去截取<code>?</code>前的内容，判断是否在白名单内。同时，php在读取<code>$_REQUEST['file']</code>参数的时候，就会进行一次URL解码。所以，我们只需要在地址中加入<code>?</code>经过两次URL编码之后的内容<code>%253f</code>即可通过函数验证，并且使得参数在经过一次URL解码之后不含<code>?</code>，也就不会被当作其他get请求的参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+<span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+    <span class="nv">$_page</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span>
+	<span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所以，可以构造payload。逐级添加<code>../</code>，找到<code>ffffllllaaaagggg</code>文件路径所在。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">?file=source.php%253f/../../../../ffffllllaaaagggg
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" title="image-20210226210928641" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" data-sub-html="<h2>image-20210226210928641</h2><p>image-20210226210928641</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210226210928641.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png, image-20210226210928641.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png"
+        />
+    </a><figcaption class="image-caption">image-20210226210928641</figcaption>
+    </figure></p>
+<p>最后结论：我一开始看到warmup几个大字，还以为直接F12，然后flag分为几段放在源码里&hellip;🤣🤣，pico入门题真是害人不浅啊。</p>
+<h2 id="0x01-极客大挑战-2019easysql">0x01 [极客大挑战 2019]EasySQL</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]EasySQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>简单的注入，用户名输入<code>admin' or '1'='1' #</code>，密码随便输即可。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png" title="image-20210227161029874" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png" data-sub-html="<h2>image-20210227161029874</h2><p>image-20210227161029874</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227161029874.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png, image-20210227161029874.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161029874.png"
+        />
+    </a><figcaption class="image-caption">image-20210227161029874</figcaption>
+    </figure></p>
+<p>但是把<code>#</code>换成<code>--</code>就不行，暂时还不知道为什么。</p>
+<p>登录之后拿到flag</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png" title="image-20210227161238808" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png" data-sub-html="<h2>image-20210227161238808</h2><p>image-20210227161238808</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227161238808.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png, image-20210227161238808.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227161238808.png"
+        />
+    </a><figcaption class="image-caption">image-20210227161238808</figcaption>
+    </figure></p>
+<h2 id="0x02-强网杯-2019随便注">0x02 [强网杯 2019]随便注</h2>
+<p>网页提供了一个输入框，点击提交将会发出get请求，参数为inject=[输入的内容]。看源码，注释里提示“sqlmap是没有灵魂的”。</p>
+<p>我的尝试：</p>
+<p>提交<code>admin' or '1'='1' #</code>，结果页面上显示这些东西。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">array(2) {
+ [0]=&gt;
+ string(1) &#34;1&#34;
+ [1]=&gt;
+ string(7) &#34;hahahah&#34;
+}
+
+array(2) {
+ [0]=&gt;
+ string(1) &#34;2&#34;
+ [1]=&gt;
+ string(12) &#34;miaomiaomiao&#34;
+}
+
+array(2) {
+ [0]=&gt;
+ string(6) &#34;114514&#34;
+ [1]=&gt;
+ string(2) &#34;ys&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>显然，这应该是查询语句所作用的表的所有记录，一共有3条。</p>
+<p>为了找到flag，使用堆叠注入，输入<code>1';show tables;#</code>，查询所有表名。发现存在<code>words</code>和<code>1919810931114514</code>两个表。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png" title="image1" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png" data-sub-html="<h2>image1</h2><p>image1</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227195602210.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png, image-20210227195602210.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227195602210.png"
+        />
+    </a><figcaption class="image-caption">image1</figcaption>
+    </figure></p>
+<p>再使用desc查看两个表的结构，输入<code>1';desc words</code>，<code>1';desc 1919810931114514;# </code>。这里有个小trick，使用纯数字表名  要在表名前后加上 ``(这里由于markdown无法转义的问题，所以没有加入到行内代码块中，实际输入要在数字前后加上)。可以看到flag内容位于1919810931114514表中。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png" title="image2" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png" data-sub-html="<h2>image2</h2><p>image2</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227202522051.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png, image-20210227202522051.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202522051.png"
+        />
+    </a><figcaption class="image-caption">image2</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png" title="image3" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png" data-sub-html="<h2>image3</h2><p>image3</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227202426166.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png, image-20210227202426166.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202426166.png"
+        />
+    </a><figcaption class="image-caption">image3</figcaption>
+    </figure></p>
+<p>接下来要想办法查询到该表中的flag内容。直接堆叠注入查询语句，会发现<code>select</code>等关键字都被过滤掉了。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png" title="image-20210227202949683" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png" data-sub-html="<h2>image-20210227202949683</h2><p>image-20210227202949683</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227202949683.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png, image-20210227202949683.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227202949683.png"
+        />
+    </a><figcaption class="image-caption">image-20210227202949683</figcaption>
+    </figure></p>
+<p>于是有两种思路</p>
+<h3 id="思路1">思路1</h3>
+<p>使用MySql的prepare功能，这是一个类似于计划任务的功能。将select查询语句转换为16进制，然后prepare&hellip;from&hellip;来执行该语句。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="思路2">思路2</h3>
+<p>直接修改表的名字，<code>rename</code>/<code>alter</code>等关键字是没有被筛选的，所以可以被输入执行。先将<code>words</code>表名改为其他名字，再将<code>1919810931114514</code>表名改为<code>words</code>。因为当前页面的查询对象就是表<code>words</code>，所以可以直接进行查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="mi">1</span><span class="s1">&#39;;rename table `words` to `123`;rename table `1919810931114514` to `words`;alter table `words` add id int(10);#
+</span><span class="s1">1&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="c1">#
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="0x03-极客大挑战-2019havefun">0x03 [极客大挑战 2019]Havefun</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Havefun" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>界面还挺好看的</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png" title="image-20210227205837574" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png" data-sub-html="<h2>image-20210227205837574</h2><p>image-20210227205837574</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227205837574.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png, image-20210227205837574.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227205837574.png"
+        />
+    </a><figcaption class="image-caption">image-20210227205837574</figcaption>
+    </figure></p>
+<p>源码中有这么一段注释</p>
+<p><img src="image-20210227210040644.png" alt="image-20210227210040644" style="zoom:67%;" /></p>
+<p>于是尝试get请求并且cat参数为dog，结果就出flag了&hellip;😓</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png" title="image-20210227210208421" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png" data-sub-html="<h2>image-20210227210208421</h2><p>image-20210227210208421</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210227210208421.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png, image-20210227210208421.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png"
+        />
+    </a><figcaption class="image-caption">image-20210227210208421</figcaption>
+    </figure></p>
+<h2 id="0x04-suctf-2019easysql">0x04 [SUCTF 2019]EasySQL</h2>
+<p><a href="https://buuoj.cn/challenges#[SUCTF%202019]EasySQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>输入<code>1';show tables;#</code>，没反应，输入<code>1;show tables;#</code>，查询到有一个<code>Flag</code>表。</p>
+<p><img src="image-20210228202256993.png" alt="image-20210228202256993" style="zoom:67%;" /></p>
+<p>接下来肯定就是想办法获取<code>Flag</code>表中的内容了。</p>
+<p>直接输入<code>1;select * from Flag;</code>，发现不让你查询，那肯定是过滤了<code>select</code>等关键字。</p>
+<p>接下来就是学习别人的wp了😅。</p>
+<p>据说这题比赛的时候给了源码，查询语句为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flag</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>于是，可以输入<code>*,1</code>，使得被执行的查询语句为<code>select *,1||flag from Flag</code>，也就是<code>select *,1 from flag</code>。从而获取flag内容。</p>
+<p>收获：注入的时候要先尝试带和不带<code>'</code>的输入，判断是<strong>数字型</strong>还是<strong>字符型</strong>注入。</p>
+<h2 id="0x05-actf2020-新生赛include">0x05 [ACTF2020 新生赛]Include</h2>
+<p><a href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]Include" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>这题和下一题都是挺有意思的题：）</p>
+<p>首先进入题目给出的地址，看到一个超链接tips，点击之后看到提示<code>file=flag.php</code>。但是我们只能看到提示文字，并不能看到flag内容。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225314513.png" title="image-20210301225314513" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225314513.png" data-sub-html="<h2>image-20210301225314513</h2><p>image-20210301225314513</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301225314513.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225314513.png, image-20210301225314513.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225314513.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225314513.png"
+        />
+    </a><figcaption class="image-caption">image-20210301225314513</figcaption>
+    </figure></p>
+<p>这个时候就需要知道有个东西叫做<strong>php filter</strong>，利用<code>php://filter</code>伪协议，我们可以获取<code>flag.php</code>文件的全部内容。访问<code>/?file=php://filter/convert.base64-encode/resource=flag.php</code>。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225641520.png" title="image-20210301225641520" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225641520.png" data-sub-html="<h2>image-20210301225641520</h2><p>image-20210301225641520</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301225641520.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225641520.png, image-20210301225641520.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225641520.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225641520.png"
+        />
+    </a><figcaption class="image-caption">image-20210301225641520</figcaption>
+    </figure></p>
+<p>将内容进行base64解码，于是得到了藏在php文件注释中的flag。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225743179.png" title="image-20210301225743179" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225743179.png" data-sub-html="<h2>image-20210301225743179</h2><p>image-20210301225743179</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301225743179.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225743179.png, image-20210301225743179.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225743179.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301225743179.png"
+        />
+    </a><figcaption class="image-caption">image-20210301225743179</figcaption>
+    </figure></p>
+<h2 id="0x06-极客大挑战-2019secret-file">0x06 [极客大挑战 2019]Secret File</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Secret%20File" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>进入网页，啥也没有。检查源代码，发现了一个隐藏的链接。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230157746.png" title="image-20210301230157746" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230157746.png" data-sub-html="<h2>image-20210301230157746</h2><p>image-20210301230157746</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301230157746.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230157746.png, image-20210301230157746.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230157746.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230157746.png"
+        />
+    </a><figcaption class="image-caption">image-20210301230157746</figcaption>
+    </figure></p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230257773.png" title="image-20210301230257773" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230257773.png" data-sub-html="<h2>image-20210301230257773</h2><p>image-20210301230257773</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301230257773.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230257773.png, image-20210301230257773.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230257773.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230257773.png"
+        />
+    </a><figcaption class="image-caption">image-20210301230257773</figcaption>
+    </figure></p>
+<p>访问<code>/Archive_room.php</code>，很明显能做的只有点击secret链接。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230542428.png" title="image-20210301230542428" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230542428.png" data-sub-html="<h2>image-20210301230542428</h2><p>image-20210301230542428</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301230542428.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230542428.png, image-20210301230542428.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230542428.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230542428.png"
+        />
+    </a><figcaption class="image-caption">image-20210301230542428</figcaption>
+    </figure></p>
+<p>查看secret对应的链接，为<code>/action.php</code>，但是点击之后的结果却是<code>/end.php</code>。</p>
+<p><img
+        class="lazyload"
+        data-src="image-20210301230700409.png"
+        data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230700409.png, image-20210301230700409.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230700409.png 2x"
+        data-sizes="auto"
+        alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230700409.png"
+        title="image-20210301230700409"
+    /></p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230805292.png" title="image-20210301230805292" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230805292.png" data-sub-html="<h2>image-20210301230805292</h2><p>image-20210301230805292</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301230805292.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230805292.png, image-20210301230805292.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230805292.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230805292.png"
+        />
+    </a><figcaption class="image-caption">image-20210301230805292</figcaption>
+    </figure></p>
+<p>于是，需要用到Burpsuite，拦截一下对action.php的访问。发现提示信息<code>secr3t.php</code></p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301223830280.png" title="image-20210301223830280" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301223830280.png" data-sub-html="<h2>image-20210301223830280</h2><p>image-20210301223830280</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301223830280.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301223830280.png, image-20210301223830280.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301223830280.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301223830280.png"
+        />
+    </a><figcaption class="image-caption">image-20210301223830280</figcaption>
+    </figure></p>
+<p>发现<code>secr3t.php</code>提供了文件包含服务，并且提示你flag在flag.php中。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230956851.png" title="image-20210301230956851" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230956851.png" data-sub-html="<h2>image-20210301230956851</h2><p>image-20210301230956851</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301230956851.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230956851.png, image-20210301230956851.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230956851.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301230956851.png"
+        />
+    </a><figcaption class="image-caption">image-20210301230956851</figcaption>
+    </figure></p>
+<p>了解了上一题的套路之后，应该就能想到，直接获取<code>/secr3t.php?file=flag.php</code>，应该是不会直接给你flag的😁。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231222300.png" title="image-20210301231222300" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231222300.png" data-sub-html="<h2>image-20210301231222300</h2><p>image-20210301231222300</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301231222300.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231222300.png, image-20210301231222300.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231222300.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231222300.png"
+        />
+    </a><figcaption class="image-caption">image-20210301231222300</figcaption>
+    </figure></p>
+<p>于是，又是和上一题一样的套路，使用filter，获取flag.php内容，然后再解码。</p>
+<p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231417059.png" title="image-20210301231417059" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231417059.png" data-sub-html="<h2>image-20210301231417059</h2><p>image-20210301231417059</p>">
+        <img
+            class="lazyload"
+            data-src="image-20210301231417059.png"
+            data-srcset="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231417059.png, image-20210301231417059.png 1.5x, /2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231417059.png 2x"
+            data-sizes="auto"
+            alt="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210301231417059.png"
+        />
+    </a><figcaption class="image-caption">image-20210301231417059</figcaption>
+    </figure></p>
+<h2 id="0x07-极客大挑战-2019lovesql">0x07 [极客大挑战 2019]LoveSQL</h2>
+<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]LoveSQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<p>还是不太会&hellip;</p>
+<p>参考wp：</p>
+<ul>
+<li><a href="https://blog.csdn.net/SopRomeo/article/details/103979047" target="_blank" rel="noopener noreffer">https://blog.csdn.net/SopRomeo/article/details/103979047</a></li>
+<li><a href="https://blog.csdn.net/xixihahawuwu/article/details/109999044?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&amp;dist_request_id=af7328be-e424-4bcb-a3e6-e102be9d0ff9&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control" target="_blank" rel="noopener noreffer">https://blog.csdn.net/xixihahawuwu/article/details/109999044?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&amp;dist_request_id=af7328be-e424-4bcb-a3e6-e102be9d0ff9&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control</a></li>
+</ul>
+<p>只能记录一下自己接触了啥新概念吧</p>
+<ul>
+<li>测试注入类型</li>
+<li>使用<code>1' order by x#</code>，测试不同x的值，根据什么时候报错来确定表的列数</li>
+<li>union联合查询</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" data-title="BUUCTF web记录" data-hashtags="CTF,web"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Reddit" data-sharer="reddit" data-url="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/"><i class="fab fa-reddit fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" data-title="BUUCTF web记录"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 百度" data-sharer="baidu" data-url="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" data-title="BUUCTF web记录"><i data-svg-src="/lib/simple-icons/icons/baidu.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" data-title="BUUCTF web记录"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></section>
+        <section>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/" class="prev" rel="prev" title="Docker逃逸系列4 runc漏洞逃逸"><i class="fas fa-angle-left fa-fw"></i>Docker逃逸系列4 runc漏洞逃逸</a>
+            <a href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" class="next" rel="next" title="BUUCTF web记录 2">BUUCTF web记录 2<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-Z392YPQYYV', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-Z392YPQYYV" async></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></div>
+</body>
+
+</html>

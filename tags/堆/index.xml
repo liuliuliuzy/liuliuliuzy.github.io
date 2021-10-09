@@ -6,10 +6,10 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/%E5%A0%86/" rel="self" type="application/rss+xml" /><item>
     <title>pwn初学者的进阶（三）：堆学习</title>
-    <link>https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
+    <link>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate><author>
         <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
+    </author><guid>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l]]></description>
 </item></channel>
 </rss>

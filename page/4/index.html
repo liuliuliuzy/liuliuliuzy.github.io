@@ -59,8 +59,14 @@
                         <span class="search-button search-loading" id="search-loading-desktop">
                             <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    </span><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
                     <i class="fas fa-adjust fa-fw"></i>
+                    <select class="color-theme-select" id="theme-select-desktop" title="切换主题">
+                        <option value="light">浅色</option>
+                        <option value="dark">深色</option>
+                        <option value="black">黑色</option>
+                        <option value="auto">跟随系统</option>
+                    </select>
                 </a></div>
         </div>
     </div>
@@ -90,8 +96,14 @@
                     <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-select" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
+                <select class="color-theme-select" id="theme-select-mobile" title="切换主题">
+                    <option value="light">浅色</option>
+                    <option value="dark">深色</option>
+                    <option value="black">黑色</option>
+                    <option value="auto">跟随系统</option>
+                </select>
             </a></div>
     </div>
 </header>
@@ -111,46 +123,46 @@
         title="/images/logozy.png" height="6rem" width="6rem"
     /></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/liuliuliuzy" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="mailto:1872405512@qq.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/">wsl2-ubuntu20安装以及gef调试工具安装</a>
+        <a href="/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/">wsl2-ubuntu20安装以及gef调试工具安装</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-03-15">2021-03-15</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/"><i class="far fa-folder fa-fw"></i>工具配置</a></span></div><div class="content">对于配置完全且好用的工具，真是没有抵抗力。。。 Let&rsquo;s start exploiting! 首先，开启你的windows系统中的wsl。打开windows功能，勾选以下两项 image-20210315202713474image-20210315202713474 " image-20210315202713474 P</div><div class="post-footer">
-        <a href="/posts/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/">阅读全文</a><div class="post-tags">
+        <a href="/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/wsl/">WSL</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">Docker逃逸系列5 CVE-2020-15257 containerd漏洞逃逸</a>
+        <a href="/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">Docker逃逸系列5 CVE-2020-15257 containerd漏洞逃逸</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-03-04">2021-03-04</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"><i class="far fa-folder fa-fw"></i>实践记录</a></span></div><div class="content">环境信息： 1 2 3 4 5 6 7 8 leo@leo-ubuntu1604:~$ uname -a Linux leo-ubuntu1604 4.15.0-112-generic #113~16.04.1-Ubuntu SMP Fri Jul 10 04:37:08 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux leo@leo-ubuntu1604:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 16.04.7 LTS Release: 16.04 Codename: xenial Docker: 19.03.8 Containerd: 1.3.7 Poc: https://github.com/cdk-team/CDK/releases/download/v0.1.10/cdk_linux_amd64 0x00 安装docker以及con</div><div class="post-footer">
-        <a href="/posts/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">阅读全文</a><div class="post-tags">
+        <a href="/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/docker/">Docker</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">BUUCTF web记录 2</a>
+        <a href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">BUUCTF web记录 2</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-03-02">2021-03-02</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">0x08 [GXYCTF2019]Ping Ping Ping 题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index.ph</div><div class="post-footer">
-        <a href="/posts/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">阅读全文</a><div class="post-tags">
+        <a href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/">BUUCTF web记录</a>
+        <a href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/">BUUCTF web记录</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-02-26">2021-02-26</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20</div><div class="post-footer">
-        <a href="/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/">阅读全文</a><div class="post-tags">
+        <a href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">Docker逃逸系列4 runc漏洞逃逸</a>
+        <a href="/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">Docker逃逸系列4 runc漏洞逃逸</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-02-21">2021-02-21</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"><i class="far fa-folder fa-fw"></i>实践记录</a></span></div><div class="content">kali上接收不到反弹shell，怎么回事(successfully got write handle {address} 这里并没有显示出来，执行到这里卡住了？) 1 2 3 4 5 6 7 8 9 10 11 12</div><div class="post-footer">
-        <a href="/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">阅读全文</a><div class="post-tags">
+        <a href="/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/docker/">Docker</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">Docker逃逸系列3 dirtycow漏洞利用</a>
+        <a href="/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">Docker逃逸系列3 dirtycow漏洞利用</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-02-21">2021-02-21</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"><i class="far fa-folder fa-fw"></i>实践记录</a></span></div><div class="content">Docker逃逸3：利用Linux内核漏洞 dirtycow(CVE-2016-5195) 进行逃逸 宿主机：ubuntu 14.04 Docker版本：Docker version 18.06.3-ce, build d7080c1 步骤1、安装虚拟机以及doc</div><div class="post-footer">
-        <a href="/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">阅读全文</a><div class="post-tags">
+        <a href="/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux-kernel/">Linux kernel</a>,&nbsp;<a href="/tags/docker/">Docker</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
@@ -187,7 +199,10 @@
         </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
             <i class="fas fa-comment fa-fw"></i>
         </a>
-    </div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+    </div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-Z392YPQYYV', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-Z392YPQYYV" async></script></div>
 
 <div class="pjax-assets"><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"也许还是想写点儿什么"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></div>
 </body>

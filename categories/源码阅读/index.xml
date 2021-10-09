@@ -6,24 +6,24 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
     <title>Docker runc(CVE-2019-5736)漏洞分析-第三版</title>
-    <link>https://liuliuliuzy.github.io/posts/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</link>
+    <link>https://liuliuliuzy.github.io/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</link>
     <pubDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</pubDate><author>
         <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/posts/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
+    </author><guid>https://liuliuliuzy.github.io/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
     <description><![CDATA[<p>大概一周前，Eric认为我写的这篇文档太垃了，我仔细读了一遍，发现确实写的挺混乱的，还无法做到传达相关知识给不了解这一漏洞的人。希望这第三版至少能够让将来的自己看得懂吧🤐</p>]]></description>
 </item><item>
     <title>docker-runc(CVE-2019-5736)漏洞分析-第二版</title>
-    <link>https://liuliuliuzy.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</link>
+    <link>https://liuliuliuzy.github.io/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</link>
     <pubDate>Tue, 27 Apr 2021 16:55:41 &#43;0000</pubDate><author>
         <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
+    </author><guid>https://liuliuliuzy.github.io/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
     <description><![CDATA[漏洞背景 runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
 </item><item>
     <title>docker-runc(CVE-2019-5736)漏洞分析</title>
-    <link>https://liuliuliuzy.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</link>
+    <link>https://liuliuliuzy.github.io/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</link>
     <pubDate>Tue, 20 Apr 2021 23:15:58 &#43;0000</pubDate><author>
         <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
+    </author><guid>https://liuliuliuzy.github.io/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[runc: 1.0-rc93 0x00 docker-containerd-shim 调用runc components/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4]]></description>
 </item></channel>
 </rss>
