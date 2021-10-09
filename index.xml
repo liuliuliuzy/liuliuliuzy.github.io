@@ -19,7 +19,7 @@
     <pubDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
-    <description><![CDATA[<p>大概一周前，Eric认为我写的这篇文档太垃了，我仔细读了一遍，发现确实写的挺混乱的，还无法做到传达相关知识给不了解这一漏洞的人。希望这第三版至少能够让将来的自己看得懂吧🤐</p>]]></description>
+    <description><![CDATA[<p>大概一周前，Eric认为我写的这篇文档太垃了。后来我仔细读了一遍，发现确实写的挺混乱的，讲述也不清晰。希望这第三版至少能够让将来的自己看得懂吧。</p>]]></description>
 </item><item>
     <title>pwn初学者的进阶（三）：堆学习</title>
     <link>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
