@@ -7,65 +7,65 @@
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/docker/" rel="self" type="application/rss+xml" /><item>
     <title>Docker runc(CVE-2019-5736)漏洞分析-第三版</title>
     <link>https://liuliuliuzy.github.io/posts/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</link>
-    <pubDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
+    <pubDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
     <description><![CDATA[<p>大概一周前，Eric认为我写的这篇文档太垃了，我仔细读了一遍，发现确实写的挺混乱的，还无法做到传达相关知识给不了解这一漏洞的人。希望这第三版至少能够让将来的自己看得懂吧🤐</p>]]></description>
 </item><item>
     <title>docker-runc(CVE-2019-5736)漏洞分析-第二版</title>
     <link>https://liuliuliuzy.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</link>
-    <pubDate>Tue, 27 Apr 2021 16:55:41 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
+    <pubDate>Tue, 27 Apr 2021 16:55:41 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
     <description><![CDATA[漏洞背景 runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
 </item><item>
     <title>docker-runc(CVE-2019-5736)漏洞分析</title>
     <link>https://liuliuliuzy.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</link>
-    <pubDate>Tue, 20 Apr 2021 23:15:58 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
+    <pubDate>Tue, 20 Apr 2021 23:15:58 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
     <description><![CDATA[runc: 1.0-rc93 0x00 docker-containerd-shim 调用runc components/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4]]></description>
 </item><item>
     <title>Docker逃逸系列5 CVE-2020-15257 containerd漏洞逃逸</title>
     <link>https://liuliuliuzy.github.io/posts/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</link>
-    <pubDate>Thu, 04 Mar 2021 15:55:06 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</guid>
+    <pubDate>Thu, 04 Mar 2021 15:55:06 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</guid>
     <description><![CDATA[环境信息： 1 2 3 4 5 6 7 8 leo@leo-ubuntu1604:~$ uname -a Linux leo-ubuntu1604 4.15.0-112-generic #113~16.04.1-Ubuntu SMP Fri Jul 10 04:37:08 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux leo@leo-ubuntu1604:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 16.04.7 LTS Release: 16.04 Codename: xenial Docker: 19.03.8 Containerd: 1.3.7 Poc: https://github.com/cdk-team/CDK/releases/download/v0.1.10/cdk_linux_amd64 0x00 安装docker以及con]]></description>
 </item><item>
     <title>Docker逃逸系列4 runc漏洞逃逸</title>
     <link>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</link>
-    <pubDate>Sun, 21 Feb 2021 16:27:13 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</guid>
+    <pubDate>Sun, 21 Feb 2021 16:27:13 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%974-runc%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/</guid>
     <description><![CDATA[kali上接收不到反弹shell，怎么回事(successfully got write handle {address} 这里并没有显示出来，执行到这里卡住了？) 1 2 3 4 5 6 7 8 9 10 11 12]]></description>
 </item><item>
     <title>Docker逃逸系列3 dirtycow漏洞利用</title>
     <link>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</link>
-    <pubDate>Sun, 21 Feb 2021 10:48:16 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</guid>
+    <pubDate>Sun, 21 Feb 2021 10:48:16 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-02-21-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%973-dirtycow%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</guid>
     <description><![CDATA[Docker逃逸3：利用Linux内核漏洞 dirtycow(CVE-2016-5195) 进行逃逸 宿主机：ubuntu 14.04 Docker版本：Docker version 18.06.3-ce, build d7080c1 步骤1、安装虚拟机以及doc]]></description>
 </item><item>
     <title>Docker逃逸系列2:docker.sock危险挂载</title>
     <link>https://liuliuliuzy.github.io/posts/2021-02-08-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%972-docker-socket%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD/</link>
-    <pubDate>Mon, 08 Feb 2021 19:25:11 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-02-08-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%972-docker-socket%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD/</guid>
+    <pubDate>Mon, 08 Feb 2021 19:25:11 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-02-08-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%972-docker-socket%E5%8D%B1%E9%99%A9%E6%8C%82%E8%BD%BD/</guid>
     <description><![CDATA[nothing]]></description>
 </item><item>
     <title>Docker逃逸系列1:Docker remote api未授权访问</title>
     <link>https://liuliuliuzy.github.io/posts/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/</link>
-    <pubDate>Sun, 07 Feb 2021 11:12:15 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/</guid>
+    <pubDate>Sun, 07 Feb 2021 11:12:15 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/</guid>
     <description><![CDATA[docker逃逸第一种方式——remote api未授权访问 环境： 宿主机操作系统：Ubuntu 20.04 LTS 192.168.170.129 执行攻击的主机：Kali，5.9.0-ka]]></description>
 </item><item>
     <title>Analysis Of Docker Security---Reading Notes</title>
     <link>https://liuliuliuzy.github.io/posts/2020-11-26-analysis-of-docker-security-reading-notes/</link>
-    <pubDate>Thu, 26 Nov 2020 10:53:42 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2020-11-26-analysis-of-docker-security-reading-notes/</guid>
+    <pubDate>Thu, 26 Nov 2020 10:53:42 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2020-11-26-analysis-of-docker-security-reading-notes/</guid>
     <description><![CDATA[一篇关于Docker安全的综述性Paper 1.文章基本信息 Title：Analysis Of Docker Security Author：Thanh Bui, Aalto University School of Science 发布日期：2]]></description>
 </item></channel>
 </rss>

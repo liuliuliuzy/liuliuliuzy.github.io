@@ -7,9 +7,9 @@
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 31 May 2021 16:45:32 &#43;0000</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/categories/linux/" rel="self" type="application/rss+xml" /><item>
     <title>Linux知识回顾：inode与软链接、硬链接</title>
     <link>https://liuliuliuzy.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</link>
-    <pubDate>Mon, 31 May 2021 16:45:32 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</guid>
+    <pubDate>Mon, 31 May 2021 16:45:32 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-05-31-linux%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BEinode%E4%B8%8E%E8%BD%AF%E9%93%BE%E6%8E%A5%E7%A1%AC%E9%93%BE%E6%8E%A5/</guid>
     <description><![CDATA[前言 最近在看runc最新的CVE-2021-30465漏洞的时候经常看到符号链接(symbolic link)这个概念，脑海中对于这一概念似乎]]></description>
 </item></channel>
 </rss>

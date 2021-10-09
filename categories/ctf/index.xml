@@ -7,65 +7,58 @@
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/categories/ctf/" rel="self" type="application/rss+xml" /><item>
     <title>pwn初学者的进阶（三）：堆学习</title>
     <link>https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
-    <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
+    <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l]]></description>
 </item><item>
     <title>pwn初学者的进阶（二）：ret2dlresolve学习记录</title>
     <link>https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
-    <pubDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+    <pubDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[<p>花了一个上午时间，看了一下ret2dlresolve的基本原理与基本的利用过程。觉得步骤与相关细节要素还是蛮多的，为防止今后某一天再用到的时候忘得干干净净，特此记录一些我个人的理解，加深印象。</p>]]></description>
 </item><item>
     <title>pwn初学者的进阶（一）：格式化字符串</title>
     <link>https://liuliuliuzy.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</link>
-    <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</guid>
+    <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-08-27-buuctf-pwn-fmtstr/</guid>
     <description><![CDATA[题目链接 checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDAimage-20210828140628177 " IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，]]></description>
 </item><item>
     <title>记录一道ret2csu的pwn题</title>
     <link>https://liuliuliuzy.github.io/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</link>
-    <pubDate>Thu, 26 Aug 2021 17:43:20 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</guid>
+    <pubDate>Thu, 26 Aug 2021 17:43:20 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</guid>
     <description><![CDATA[0x00 前言 写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方]]></description>
 </item><item>
     <title>BUUCTF Web记录 4</title>
     <link>https://liuliuliuzy.github.io/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</link>
-    <pubDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</guid>
+    <pubDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</guid>
     <description><![CDATA[<p>已经到第4篇了，不容易啊</p>]]></description>
 </item><item>
     <title>BUUCTF web记录 3</title>
     <link>https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</link>
-    <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
+    <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
     <description><![CDATA[0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 " 网站首页 首先判断闭合类]]></description>
-</item><item>
-    <title>Pwn--利用格式化字符串漏洞覆盖指定地址内存</title>
-    <link>https://liuliuliuzy.github.io/posts/2021-03-27-pwn-%E5%88%A9%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E8%A6%86%E7%9B%96%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%86%85%E5%AD%98/</link>
-    <pubDate>Sat, 27 Mar 2021 21:21:02 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-03-27-pwn-%E5%88%A9%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%E8%A6%86%E7%9B%96%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80%E5%86%85%E5%AD%98/</guid>
-    <description><![CDATA[这里暂时还没有什么内容]]></description>
 </item><item>
     <title>BUUCTF web记录 2</title>
     <link>https://liuliuliuzy.github.io/posts/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</link>
-    <pubDate>Tue, 02 Mar 2021 11:36:22 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</guid>
+    <pubDate>Tue, 02 Mar 2021 11:36:22 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</guid>
     <description><![CDATA[0x08 [GXYCTF2019]Ping Ping Ping 题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index.ph]]></description>
 </item><item>
     <title>BUUCTF web记录</title>
     <link>https://liuliuliuzy.github.io/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</link>
-    <pubDate>Fri, 26 Feb 2021 21:16:12 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</guid>
+    <pubDate>Fri, 26 Feb 2021 21:16:12 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]]></description>
 </item></channel>
 </rss>

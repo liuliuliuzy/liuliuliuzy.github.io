@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>BUUCTF web记录 3 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="BUUCTF web记录 3" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">BUUCTF web记录 3 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="BUUCTF web记录 3" />
 <meta property="og:description" content="0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 &#34; 网站首页 首先判断闭合类" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" /><meta property="og:image" content="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png"/><meta property="article:section" content="posts" />
@@ -17,9 +17,13 @@
 <meta name="twitter:title" content="BUUCTF web记录 3"/>
 <meta name="twitter:description" content="0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 &#34; 网站首页 首先判断闭合类"/>
 <meta name="application-name" content="zyleo">
-<meta name="apple-mobile-web-app-title" content="zyleo"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="zyleo">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" /><link rel="prev" href="https://liuliuliuzy.github.io/posts/2021-06-29-%E5%BF%AB%E4%B9%90%E6%9C%AC%E5%B0%B1%E4%B8%8D%E8%AF%A5%E5%BB%89%E4%BB%B7/" /><link rel="next" href="https://liuliuliuzy.github.io/posts/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" /><link rel="prev" href="https://liuliuliuzy.github.io/posts/2021-06-29-%E5%BF%AB%E4%B9%90%E6%9C%AC%E5%B0%B1%E4%B8%8D%E8%AF%A5%E5%BB%89%E4%BB%B7/" /><link rel="next" href="https://liuliuliuzy.github.io/posts/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -42,9 +46,17 @@
             },"description": ""
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="zyleo&#39;s blog">zyleo&#39;s Blog</a>
@@ -52,19 +64,18 @@
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
                             <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
                             <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                     <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -80,20 +91,20 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
                             <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
                             <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
@@ -105,21 +116,23 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">BUUCTF web记录 3</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>zyleo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6180 字&nbsp;
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">BUUCTF web记录 3</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-19">2021-07-19</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-24">2021-08-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6180 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
-        src="/svg/loading.min.svg"
         data-src="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png"
         data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png 2x"
         data-sizes="auto"
         alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png"
-        title="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png" /></div><div class="details toc" id="toc-static"  kept="">
+        title="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png" height="312" width="2234"
+    /></div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -176,44 +189,44 @@
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" title="image-20210721115109030" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" data-sub-html="<h2>网站首页</h2><p>image-20210721115109030</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210721115109030.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png, image-20210721115109030.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115109030.png"
+        />
     </a><figcaption class="image-caption">网站首页</figcaption>
     </figure></p>
 <p>首先判断闭合类型，用户名随便写，密码栏填个<code>b'</code>，发现报错，说明查询语句是单引号闭合。</p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" title="image-20210719170507319" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" data-sub-html="<h2>报错信息1</h2><p>image-20210719170507319</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210719170507319.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png, image-20210719170507319.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170507319.png"
+        />
     </a><figcaption class="image-caption">报错信息1</figcaption>
     </figure></p>
 <p>然后尝试一下密码<code>b' or 1=1 #</code>，发现报错信息中只有<code>'1=1 #''</code>。一开始我也不知道是怎么回事，查阅资料之后才知道，原来有的waf会对<code>or</code>、<code>select</code>等SQL语句关键字做过滤，比如直接替换为空，所以这题要使用<a href="https://blog.csdn.net/m0_51504576/article/details/115832188" target="_blank" rel="noopener noreffer">双写绕过</a>。</p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" title="image-20210719170705563" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" data-sub-html="<h2>报错信息2</h2><p>image-20210719170705563</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210719170705563.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png, image-20210719170705563.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210719170705563.png"
+        />
     </a><figcaption class="image-caption">报错信息2</figcaption>
     </figure></p>
 <p>试着使用union查询，输入<code>b' ununionion seselectlect 1,2,3 #</code>，显示成功登录信息，说明被查询的表的列数为3。</p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" title="image-20210721115510406" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" data-sub-html="<h2>回显信息</h2><p>image-20210721115510406</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210721115510406.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png, image-20210721115510406.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210721115510406.png"
+        />
     </a><figcaption class="image-caption">回显信息</figcaption>
     </figure></p>
 <p>接下来就是套路化的操作，精髓是使用<code>information_schema</code>等记录数据库自身信息的数据库，以及<code>group_concat()</code>函数。因为看到了2和3的回显，所以把2和3替换为其它表达式可以进行注入。</p>
@@ -330,11 +343,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png" title="image-20210727113650753" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png" data-sub-html="<h2>防止github page build失败</h2><p>image-20210727113650753</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210727113650753.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png, image-20210727113650753.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210727113650753.png"
+        />
     </a><figcaption class="image-caption">防止github page build失败</figcaption>
     </figure></p>
 <p>这题的主要知识点就是利用<code>updatexml()</code>和<code>extractvalue()</code>函数进行报错注入。使用<code>concat()</code>函数，再加上<code>~</code>或者<code>@</code>等能够引起路径参数报错的字符，将形如<code>concat(0x7e, 语句, 0x7e)</code>这样的结果作为参数，就能够得到<code>XPATH syntax error: '回显结果'</code>这样的报错信息，实现注入。</p>
@@ -350,11 +363,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" title="image-20210724184059694" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" data-sub-html="<h2>源码提示</h2><p>image-20210724184059694</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210724184059694.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png, image-20210724184059694.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184059694.png"
+        />
     </a><figcaption class="image-caption">源码提示</figcaption>
     </figure></p>
 <p>查阅一些wp之后，可以得到3种解法。</p>
@@ -365,11 +378,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" title="image-20210724184719396" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" data-sub-html="<h2>改密码界面的源码注释提示</h2><p>image-20210724184719396</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210724184719396.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png, image-20210724184719396.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210724184719396.png"
+        />
     </a><figcaption class="image-caption">改密码界面的源码注释提示</figcaption>
     </figure></p>
 <p>查看源码中的路由逻辑<code>routes.py</code>，其中的<code>login</code>与<code>change</code>路由处理逻辑使用了过时版本twisted框架中的<code>nodeprep.prepare()</code>函数，该函数会将<code>ᴬ</code>转换为<code>A</code>，然后转换为小写的<code>a</code>（这个知识点我也不知道获取的渠道是什么）。</p>
@@ -455,32 +468,32 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" title="image-20210726171651090" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" data-sub-html="<h2>解码</h2><p>image-20210726171651090</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210726171651090.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png, image-20210726171651090.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171651090.png"
+        />
     </a><figcaption class="image-caption">解码</figcaption>
     </figure></p>
 <p>将<code>name</code>改为<code>admin</code>，再进行签名。</p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" title="image-20210726172004692" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" data-sub-html="<h2>重新签名</h2><p>image-20210726172004692</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210726172004692.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png, image-20210726172004692.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726172004692.png"
+        />
     </a><figcaption class="image-caption">重新签名</figcaption>
     </figure></p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" title="image-20210726171919586" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" data-sub-html="<h2>重发拿到flag</h2><p>image-20210726171919586</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210726171919586.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png, image-20210726171919586.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210726171919586.png"
+        />
     </a><figcaption class="image-caption">重发拿到flag</figcaption>
     </figure></p>
 <h3 id="参考链接-2">参考链接：</h3>
@@ -502,11 +515,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" title="image-20210811221230795" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" data-sub-html="<h2>网站页面</h2><p>image-20210811221230795</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210811221230795.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png, image-20210811221230795.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221230795.png"
+        />
     </a><figcaption class="image-caption">网站页面</figcaption>
     </figure></p>
 <h3 id="level1">level1</h3>
@@ -514,11 +527,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" title="image-20210811221151702" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" data-sub-html="<h2>hint提示</h2><p>image-20210811221151702</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210811221151702.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png, image-20210811221151702.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811221151702.png"
+        />
     </a><figcaption class="image-caption">hint提示</figcaption>
     </figure></p>
 <p>可以看到提交请求对应的语句为</p>
@@ -575,22 +588,22 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" title="image-20210811224151331" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" data-sub-html="<h2>Do You Like MD5?</h2><p>image-20210811224151331</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210811224151331.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png, image-20210811224151331.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224151331.png"
+        />
     </a><figcaption class="image-caption">Do You Like MD5?</figcaption>
     </figure></p>
 <p>又可以看到提示，要求<code>$a != $b</code> 但是<code>md5($a) == md5($b)</code>。</p>
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" title="image-20210811224234490" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" data-sub-html="<h2>第二个提示</h2><p>image-20210811224234490</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210811224234490.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png, image-20210811224234490.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210811224234490.png"
+        />
     </a><figcaption class="image-caption">第二个提示</figcaption>
     </figure></p>
 <p>要满足前面的<code>!=</code>和后面的弱相等，存在两种情况：</p>
@@ -603,11 +616,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" title="image-20210812193547427" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" data-sub-html="<h2>hackbar</h2><p>image-20210812193547427</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210812193547427.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png, image-20210812193547427.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812193547427.png"
+        />
     </a><figcaption class="image-caption">hackbar</figcaption>
     </figure></p>
 <h3 id="level3">level3</h3>
@@ -615,11 +628,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p>这里传入数组就可。除此之外，还可以找两个不同的但是md5结果相同的字符串，这理论上来说是存在的，但是我目前还没有查到现有的结果。<figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" title="image-20210812194016086" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" data-sub-html="<h2>hackbar发送Post请求</h2><p>image-20210812194016086</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210812194016086.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png, image-20210812194016086.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210812194016086.png"
+        />
     </a><figcaption class="image-caption">hackbar发送Post请求</figcaption>
     </figure></p>
 <h3 id="参考链接-3">参考链接：</h3>
@@ -631,11 +644,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png" title="image-20210813220634873" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png" data-sub-html="<h2>首页</h2><p>image-20210813220634873</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210813220634873.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png, image-20210813220634873.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210813220634873.png"
+        />
     </a><figcaption class="image-caption">首页</figcaption>
     </figure></p>
 <p>试一下就知道，<code>or</code> <code>and</code> <code>union</code> 等关键字都被过滤了，所以不能<strong>union注入</strong>或者<strong>报错</strong>注入。</p>
@@ -962,11 +975,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" title="image-20210824142159687" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" data-sub-html="<h2>flag</h2><p>image-20210824142159687</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824142159687.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png, image-20210824142159687.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142159687.png"
+        />
     </a><figcaption class="image-caption">flag</figcaption>
     </figure></p>
 <h3 id="payload2">payload2</h3>
@@ -983,11 +996,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 </div><p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" title="image-20210824142639616" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" data-sub-html="<h2>payload2</h2><p>image-20210824142639616</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824142639616.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png, image-20210824142639616.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142639616.png"
+        />
     </a><figcaption class="image-caption">payload2</figcaption>
     </figure></p>
 <h3 id="payload3">payload3</h3>
@@ -995,11 +1008,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" title="image-20210824142739850" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" data-sub-html="<h2>wappalyzer结果</h2><p>image-20210824142739850</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824142739850.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png, image-20210824142739850.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142739850.png"
+        />
     </a><figcaption class="image-caption">wappalyzer结果</figcaption>
     </figure></p>
 <p>于是可以这样生成payload</p>
@@ -1038,11 +1051,11 @@ Your password is &#39;flag{b11bfeba-d864-4a0a-97f6-77e3ef266da9}&#39;
 </div><p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" title="image-20210824142956654" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" data-sub-html="<h2>直接当作public</h2><p>image-20210824142956654</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824142956654.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png, image-20210824142956654.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824142956654.png"
+        />
     </a><figcaption class="image-caption">直接当作public</figcaption>
     </figure></p>
 <p>同样可以拿到flag。</p>
@@ -1085,11 +1098,11 @@ auto_prepend_file=zyleo.jpg
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png" title="image-20210824165341337" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png" data-sub-html="<h2>upload</h2><p>image-20210824165341337</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824165341337.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png, image-20210824165341337.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165341337.png"
+        />
     </a><figcaption class="image-caption">upload</figcaption>
     </figure></p>
 <p>然后蚁剑连接就行了</p>
@@ -1098,11 +1111,11 @@ auto_prepend_file=zyleo.jpg
 <p><figure><a class="lightgallery" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png" title="image-20210824165409582" data-thumbnail="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png" data-sub-html="<h2>Antsword</h2><p>image-20210824165409582</p>">
         <img
             class="lazyload"
-            src="/svg/loading.min.svg"
             data-src="image-20210824165409582.png"
             data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png, image-20210824165409582.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png 2x"
             data-sizes="auto"
-            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png" />
+            alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824165409582.png"
+        />
     </a><figcaption class="image-caption">Antsword</figcaption>
     </figure></p>
 <h3 id="参考连接">参考连接：</h3>
@@ -1115,12 +1128,12 @@ auto_prepend_file=zyleo.jpg
 <p>这题两个输入框，试一下就可以发现，注入点是<code>UserName</code>。</p>
 <p><img
         class="lazyload"
-        src="/svg/loading.min.svg"
         data-src="image-20210824184531150.png"
         data-srcset="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824184531150.png, image-20210824184531150.png 1.5x, /posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824184531150.png 2x"
         data-sizes="auto"
         alt="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/image-20210824184531150.png"
-        title="image-20210824184531150" /></p>
+        title="image-20210824184531150"
+    /></p>
 <p><code>UserName</code>试了一下<code>a' or 1=1#</code>，页面返回<code>Do not hack me</code>，说明被过滤了。</p>
 <p>再试<code>a' union select 1,2#</code>，返回<code>Error: The used SELECT statements have a different number of columns</code>。说明sql语句的查询结果不止2列，可以尝试出来是3列。</p>
 <p>同时，用户名输<code>admin</code>，返回的是<code>wrong pass</code>，用户名输其他的返回的是<code>wrong user</code>，说明这题要满足的条件是用户名<code>UserName</code>为<code>admin</code>。同时<code>a' union select 1,'admin',3#</code>报的是<code>wrong pass</code>，说明username在查询结果的第二列。</p>
@@ -1164,10 +1177,10 @@ wrong user!
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-hashtags="CTF,web"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-hashtags="CTF,web"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Facebook" data-sharer="facebook" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-hashtag="CTF"><i class="fab fa-facebook-square fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Line" data-sharer="line" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Myspace" data-sharer="myspace" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Blogger" data-sharer="blogger" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/posts/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/" data-title="BUUCTF web记录 3"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -1175,7 +1188,7 @@ wrong user!
     <div class="post-info-more">
         <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
@@ -1185,16 +1198,19 @@ wrong user!
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
             </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="https://zyLeoblog.disqus.com/embed.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></div>
+</body>
+
 </html>

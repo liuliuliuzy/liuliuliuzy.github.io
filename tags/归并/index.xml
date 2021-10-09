@@ -7,16 +7,16 @@
             <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sat, 28 Nov 2020 22:55:12 &#43;0000</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/%E5%BD%92%E5%B9%B6/" rel="self" type="application/rss+xml" /><item>
     <title>Leetcode 493 翻转对</title>
     <link>https://liuliuliuzy.github.io/posts/2020-11-28-leetcode-493-%E7%BF%BB%E8%BD%AC%E5%AF%B9/</link>
-    <pubDate>Sat, 28 Nov 2020 22:55:12 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2020-11-28-leetcode-493-%E7%BF%BB%E8%BD%AC%E5%AF%B9/</guid>
+    <pubDate>Sat, 28 Nov 2020 22:55:12 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2020-11-28-leetcode-493-%E7%BF%BB%E8%BD%AC%E5%AF%B9/</guid>
     <description><![CDATA[Leetcode 493题 难度：困难 想把这题记录下来的原因，主要是题解的归并算法思路比较典型，所以希望能够记住并掌握这种方法。 题目要求对一个数组进行处理，计]]></description>
 </item><item>
     <title>Leetcode 327 count-of-range-sum</title>
     <link>https://liuliuliuzy.github.io/posts/2020-11-07-leetcode-327-count-of-range-sum/</link>
-    <pubDate>Sat, 07 Nov 2020 16:41:07 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://liuliuliuzy.github.io/posts/2020-11-07-leetcode-327-count-of-range-sum/</guid>
+    <pubDate>Sat, 07 Nov 2020 16:41:07 &#43;0000</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/posts/2020-11-07-leetcode-327-count-of-range-sum/</guid>
     <description><![CDATA[Leetcode 327题 计算数组区间和的时候，经常用到前缀和这一思想。比如这题。 在看官方题解的第一种方法时，我无法理解为何可以在对前缀和数组进行归并排序的]]></description>
 </item></channel>
 </rss>
