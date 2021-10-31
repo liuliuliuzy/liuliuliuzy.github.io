@@ -4,7 +4,14 @@
         <link>https://liuliuliuzy.github.io/posts/</link>
         <description>所有文章 | zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sun, 26 Sep 2021 23:25:05 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 28 Oct 2021 16:59:38 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>10月随笔</title>
+    <link>https://liuliuliuzy.github.io/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/</link>
+    <pubDate>Thu, 28 Oct 2021 16:59:38 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/</guid>
+    <description><![CDATA[<p>月末的一点点文字&hellip;</p>]]></description>
+</item><item>
     <title>关于个人博客的一些想法</title>
     <link>https://liuliuliuzy.github.io/2021-09-26-%E5%85%B3%E4%BA%8E%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/</link>
     <pubDate>Sun, 26 Sep 2021 23:25:05 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-05-github-actions-%E8%AE%BE%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[众所周知，hugo的github page部署有两种方式，分别是手动部署与github actions部署。 手动部署就是手动将生成的public]]></description>
-</item><item>
-    <title>BUUCTF web记录 3</title>
-    <link>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</link>
-    <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate><author>
-        <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
-    <description><![CDATA[0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 " 网站首页 首先判断闭合类]]></description>
 </item></channel>
 </rss>
