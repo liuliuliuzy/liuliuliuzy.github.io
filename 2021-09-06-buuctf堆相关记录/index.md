@@ -78,10 +78,10 @@ p.interactive()
 
 ps: `#define DWORD __uint32_t`，所以`DWORD`在x86/x64都是**4字节**大小，而不是字面意思的2倍字长。
 
-## 0x02 roarctf_2019_easy_pwn-【off_by_one+fastbin_attack+one_gadget+realloc】
+## 0x02 hitcon2014_stkof
 
-这题可以算个很典型的off_by_one攻击例子。
+[题目链接](https://buuoj.cn/challenges#hitcon2014_stkof)
 
-先挖个坑，有时间来填。
+
 
 

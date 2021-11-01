@@ -12,6 +12,13 @@
     </author><guid>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 每次l]]></description>
 </item><item>
+    <title>pwn初学者的进阶（四）：SROP</title>
+    <link>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[<p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreffer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>]]></description>
+</item><item>
     <title>pwn初学者的进阶（二）：ret2dlresolve学习记录</title>
     <link>https://liuliuliuzy.github.io/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Thu, 02 Sep 2021 14:03:58 &#43;0800</pubDate><author>
