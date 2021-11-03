@@ -587,7 +587,7 @@ array(2) {
     </a><figcaption class="image-caption">image-20210227205837574</figcaption>
     </figure></p>
 <p>源码中有这么一段注释</p>
-<p><img src="image-20210227210040644.png" alt="image-20210227210040644" style="zoom:67%;" /></p>
+<img src="image-20210227210040644.png" alt="image-20210227210040644" style="zoom:67%;" />
 <p>于是尝试get请求并且cat参数为dog，结果就出flag了&hellip;😓</p>
 <p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png" title="image-20210227210208421" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210227210208421.png" data-sub-html="<h2>image-20210227210208421</h2><p>image-20210227210208421</p>">
         <img
@@ -602,7 +602,7 @@ array(2) {
 <h2 id="0x04-suctf-2019easysql">0x04 [SUCTF 2019]EasySQL</h2>
 <p><a href="https://buuoj.cn/challenges#[SUCTF%202019]EasySQL" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>输入<code>1';show tables;#</code>，没反应，输入<code>1;show tables;#</code>，查询到有一个<code>Flag</code>表。</p>
-<p><img src="image-20210228202256993.png" alt="image-20210228202256993" style="zoom:67%;" /></p>
+<img src="image-20210228202256993.png" alt="image-20210228202256993" style="zoom:67%;" />
 <p>接下来肯定就是想办法获取<code>Flag</code>表中的内容了。</p>
 <p>直接输入<code>1;select * from Flag;</code>，发现不让你查询，那肯定是过滤了<code>select</code>等关键字。</p>
 <p>接下来就是学习别人的wp了😅。</p>
@@ -796,7 +796,7 @@ array(2) {
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
