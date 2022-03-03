@@ -4,7 +4,14 @@
         <link>https://liuliuliuzy.github.io/tags/pwn/</link>
         <description>pwn - 标签 - zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Mon, 01 Nov 2021 19:35:30 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 03 Mar 2022 22:29:19 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <title>Susctf2022 Happytree</title>
+    <link>https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/</link>
+    <pubDate>Thu, 03 Mar 2022 22:29:19 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/</guid>
+    <description><![CDATA[许久未更新了hhh 本次susctf2022遇到一个很有意思的堆题，比赛的时候愣是看了一个下午没做出来，只好赛后借着官方wp复现一波了。 基础c]]></description>
+</item><item>
     <title>pwn初学者的进阶（四）：SROP</title>
     <link>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</link>
     <pubDate>Mon, 01 Nov 2021 19:35:30 &#43;0800</pubDate><author>

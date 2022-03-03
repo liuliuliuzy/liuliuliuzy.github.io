@@ -193,20 +193,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># result变量很关键，result为True说明已经找到了，从而不需要进行之后的尝试，使递归能够正确结束</span>
-    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
-        <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">break</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
-    
-    <span class="k">return</span> <span class="n">result</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">=</span> <span class="n">path</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># result变量很关键，result为True说明已经找到了，从而不需要进行之后的尝试，使递归能够正确结束</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于第二类的回溯问题，需要找出所有合适的路径，所以递归函数一般不返回值</p>
 <div class="highlight"><div class="chroma">
@@ -222,16 +222,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
-        <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">满足终止条件</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">候选列表</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 做出选择</span>
+</span></span><span class="line"><span class="cl">        <span class="n">backtrack</span><span class="p">(</span><span class="n">newpath</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">选择</span><span class="p">)</span> <span class="c1"># 撤销这一次选择</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于以上的函数模板，通常终止条件与<code>path</code>或者<code>path</code>之后的参数有关(比如字符串索引等)，而候选列表一般由<code>path</code>之后的参数决定。<code>path</code>记录的就是当前做出的所有选择，<code>res</code>中<code>append</code>的值也不一定是<code>path</code>，但是一般都可以由<code>path</code>这一变量得到。</p>
 <p>回溯算法除了能够正确得到结果之外，有的时候为了解决超时这一问题，还需要对<code>degwr</code>选择进行过滤，或者采用更高级的方式进行剪枝。</p>
@@ -277,44 +277,44 @@
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">grayCode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="s1">&#39;&#39;&#39;
-</span><span class="s1">        回溯算法
-</span><span class="s1">        &#39;&#39;&#39;</span>
-        <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-
-        <span class="c1"># 对于result变量的创建和赋值很关键，它影响了之后的执行流</span>
-        <span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="c1"># 如果满足结束条件</span>
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">total</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="k">break</span>
-                <span class="n">visited</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">result</span>
-
-        <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">visited</span>
-            
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">grayCode</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">grayCode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        回溯算法
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 对于result变量的创建和赋值很关键，它影响了之后的执行流</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 如果满足结束条件</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">total</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;&gt;</span> <span class="n">i</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">tmp</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">                <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">backtrack</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">count</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span>
+</span></span><span class="line"><span class="cl">                <span class="n">visited</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">backtrack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">visited</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">grayCode</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div>
 
@@ -350,8 +350,8 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

