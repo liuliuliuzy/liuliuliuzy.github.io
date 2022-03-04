@@ -72,7 +72,7 @@ For bug reporting instructions, please see:
 
 # exp分析
 
-```bash
+```python
 #!/usr/bin/python3
 from pwn import *
 context.log_level = 'debug'
