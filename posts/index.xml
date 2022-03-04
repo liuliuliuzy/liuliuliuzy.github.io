@@ -10,7 +10,9 @@
     <pubDate>Thu, 03 Mar 2022 22:29:19 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/</guid>
-    <description><![CDATA[许久未更新了hhh 本次susctf2022遇到一个很有意思的堆题，比赛的时候愣是看了一个下午没做出来，只好赛后借着官方wp复现一波了。 基础c]]></description>
+    <description><![CDATA[<blockquote>
+<p>许久未更新了hhh</p>
+</blockquote>]]></description>
 </item><item>
     <title>pwn初学者的进阶（四）：SROP</title>
     <link>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</link>
@@ -38,7 +40,7 @@
     <pubDate>Sun, 26 Sep 2021 20:30:26 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-09-26-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%B8%89%E7%89%88/</guid>
-    <description><![CDATA[<p>大概一周前，Eric认为我写的这篇文档太垃了。后来我仔细读了一遍，发现确实写的挺混乱的，讲述也不清晰。希望这第三版至少能够让将来的自己看得懂吧。</p>]]></description>
+    <description><![CDATA[<p>属于是补锅了</p>]]></description>
 </item><item>
     <title>pwn初学者的进阶（三）：堆学习</title>
     <link>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
