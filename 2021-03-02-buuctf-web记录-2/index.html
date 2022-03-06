@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">BUUCTF web记录 2 - zyleo&#39;s blog</title><meta name="Description" content=""><meta property="og:title" content="BUUCTF web记录 2" />
-<meta property="og:description" content="0x08 [GXYCTF2019]Ping Ping Ping 题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index.ph" />
+<meta property="og:description" content="0x08 [GXYCTF2019]Ping Ping Ping题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-02T11:36:22+00:00" />
@@ -14,15 +14,15 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="BUUCTF web记录 2"/>
-<meta name="twitter:description" content="0x08 [GXYCTF2019]Ping Ping Ping 题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index.ph"/>
+<meta name="twitter:description" content="0x08 [GXYCTF2019]Ping Ping Ping题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index"/>
 <meta name="application-name" content="zyleo">
 <meta name="apple-mobile-web-app-title" content="zyleo">
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" /><link rel="prev" href="https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/" /><link rel="next" href="https://liuliuliuzy.github.io/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/liuliuliuzy.github.io\/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2\/"
-        },"genre": "posts","keywords": "CTF, web","wordcount":  2711 ,
+        },"genre": "posts","keywords": "CTF, web","wordcount":  2747 ,
         "url": "https:\/\/liuliuliuzy.github.io\/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2\/","datePublished": "2021-03-02T11:36:22+00:00","dateModified": "2021-03-02T11:36:22+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -124,12 +124,22 @@
 <main class="main">
             <div class="container"><div class="toc" id="toc-auto">
         <h2 class="toc-title">目录</h2>
-        <div class="toc-content" id="toc-content-auto"></div>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x08-gxyctf2019ping-ping-ping">0x08 [GXYCTF2019]Ping Ping Ping</a></li>
+    <li><a href="#0x09-actf2020-新生赛exec">0x09 [ACTF2020 新生赛]Exec</a></li>
+    <li><a href="#0x10-极客大挑战-2019knife">0x10 [极客大挑战 2019]Knife</a></li>
+    <li><a href="#0x11-护网杯-2018easy_tornado">0x11 [护网杯 2018]easy_tornado</a></li>
+    <li><a href="#0x12-roarctf-2019easy-cal">0x12 [RoarCTF 2019]Easy Cal</a></li>
+    <li><a href="#0x13-极客大挑战-2019http">0x13 [极客大挑战 2019]Http</a></li>
+    <li><a href="#0x14-极客大挑战-2019php">0x14 [极客大挑战 2019]PHP</a></li>
+  </ul>
+</nav></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">BUUCTF web记录 2</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-02">2021-03-02</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-03-02">2021-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2711 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-02">2021-03-02</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-03-02">2021-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2747 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" class="leancloud_visitors" data-flag-title="BUUCTF web记录 2">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -149,8 +159,8 @@
     <li><a href="#0x14-极客大挑战-2019php">0x14 [极客大挑战 2019]PHP</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="0x08-gxyctf2019ping-ping-ping">0x08 [GXYCTF2019]Ping Ping Ping</h2>
-<p><a href="https://buuoj.cn/challenges#[GXYCTF2019]Ping%20Ping%20Ping" target="_blank" rel="noopener noreffer">题目链接</a></p>
+            </div><div class="content" id="content"><h2 id="0x08-gxyctf2019ping-ping-ping" class="headerLink">
+    <a href="#0x08-gxyctf2019ping-ping-ping" class="header-mark"></a>0x08 [GXYCTF2019]Ping Ping Ping</h2><p><a href="https://buuoj.cn/challenges#[GXYCTF2019]Ping%20Ping%20Ping" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>相关知识点：</p>
 <ul>
 <li>Linux命令执行注入</li>
@@ -162,8 +172,7 @@
             data-src="image-20210302171046322.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210302171046322.png, image-20210302171046322.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210302171046322.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210302171046322.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210302171046322.png">
     </a><figcaption class="image-caption">image-20210302171046322</figcaption>
     </figure></p>
 <p>使用<code>$IFS$9</code>绕过空格，输入以下内容，将<code>ls</code>的结果作为<code>cat</code>命令的参数，查看<code>flag.php</code>和<code>index.php</code>内容。</p>
@@ -182,8 +191,7 @@
             data-src="image-20210303102314755.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303102314755.png, image-20210303102314755.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303102314755.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303102314755.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303102314755.png">
     </a><figcaption class="image-caption">image-20210303102314755</figcaption>
     </figure></p>
 <p>参考链接：</p>
@@ -191,8 +199,8 @@
 <li><a href="https://ctf.ieki.xyz/buuoj/gxyctf-2019.html" target="_blank" rel="noopener noreffer">https://ctf.ieki.xyz/buuoj/gxyctf-2019.html</a></li>
 <li><a href="https://www.cnblogs.com/eshizhan/archive/2011/11/30/2269325.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/eshizhan/archive/2011/11/30/2269325.html</a></li>
 </ul>
-<h2 id="0x09-actf2020-新生赛exec">0x09 [ACTF2020 新生赛]Exec</h2>
-<p><a href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]Exec" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<h2 id="0x09-actf2020-新生赛exec" class="headerLink">
+    <a href="#0x09-actf2020-%e6%96%b0%e7%94%9f%e8%b5%9bexec" class="header-mark"></a>0x09 [ACTF2020 新生赛]Exec</h2><p><a href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]Exec" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>同样是命令注入</p>
 <p>这题更加简单。首先输入<code>127.0.0.1;ls</code>看一下有什么文件。</p>
 <p><figure><a class="lightgallery" href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png" title="ping" data-thumbnail="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png" data-sub-html="<h2>ping</h2><p>ping</p>">
@@ -201,8 +209,7 @@
             data-src="image-20210303110641399.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png, image-20210303110641399.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210303110641399.png">
     </a><figcaption class="image-caption">ping</figcaption>
     </figure></p>
 <p>然后查看index.php文件内容。因为如果直接<code>cat index.php</code>的话，会被浏览器解释并执行，所以无法看到文件原本的内容。于是，可以在外面包上一层html注释。</p>
@@ -319,8 +326,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>ps：这是第一个我没看任何wp自己写出的web题😭，不容易啊</p>
-<h2 id="0x10-极客大挑战-2019knife">0x10 [极客大挑战 2019]Knife</h2>
-<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Knife" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<h2 id="0x10-极客大挑战-2019knife" class="headerLink">
+    <a href="#0x10-%e6%9e%81%e5%ae%a2%e5%a4%a7%e6%8c%91%e6%88%98-2019knife" class="header-mark"></a>0x10 [极客大挑战 2019]Knife</h2><p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]Knife" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>网页标题直接告诉你这是白给的shell，再看到eval一句话木马，就明白这是webshell。</p>
 <p><figure><a class="lightgallery" href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png" title="image-20210304110445313" data-thumbnail="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png" data-sub-html="<h2>image-20210304110445313</h2><p>image-20210304110445313</p>">
         <img
@@ -328,8 +335,7 @@
             data-src="image-20210304110445313.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png, image-20210304110445313.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304110445313.png">
     </a><figcaption class="image-caption">image-20210304110445313</figcaption>
     </figure></p>
 <p>用蚁剑直接输入网页地址和密码<code>Syc</code>尝试连接，虽然终端里<code>find / -name flag</code>没有找到结果，但是在图形界面里发现根目录下存在flag文件，直接白给。不过奇怪的是为什么命令行find没有找到？</p>
@@ -339,12 +345,11 @@
             data-src="image-20210304111608479.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304111608479.png, image-20210304111608479.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304111608479.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304111608479.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304111608479.png">
     </a><figcaption class="image-caption">image-20210304111608479</figcaption>
     </figure></p>
-<h2 id="0x11-护网杯-2018easy_tornado">0x11 [护网杯 2018]easy_tornado</h2>
-<p><a href="https://buuoj.cn/challenges#[%E6%8A%A4%E7%BD%91%E6%9D%AF%202018]easy_tornado" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<h2 id="0x11-护网杯-2018easy_tornado" class="headerLink">
+    <a href="#0x11-%e6%8a%a4%e7%bd%91%e6%9d%af-2018easy_tornado" class="header-mark"></a>0x11 [护网杯 2018]easy_tornado</h2><p><a href="https://buuoj.cn/challenges#[%E6%8A%A4%E7%BD%91%E6%9D%AF%202018]easy_tornado" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p><a href="https://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener noreffer">tornado</a>是一个Python编写的异步后端框架，这题既然是这个名字，那么肯定与tornado的某些特性相关。</p>
 <p>接下来看题，网页给出了三个链接，分别是<code>/flag.txt</code>/<code>/welcome.txt</code>/<code>/hints.txt</code>。</p>
 <p>查看<code>flag.txt</code>，知道了flag内容在<code>/fllllllllllllag</code>里。</p>
@@ -355,8 +360,7 @@
             data-src="image-20210304114118622.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304114118622.png, image-20210304114118622.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304114118622.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304114118622.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304114118622.png">
     </a><figcaption class="image-caption">image-20210304114118622</figcaption>
     </figure></p>
 <p>注意到直接访问flag文件时，页面显示Error并且网址中的msg参数也是Error，所以这题应该是通过<code>SSTI(服务端模板注入)</code>攻击来获取<code>cookie_secret</code>。</p>
@@ -366,8 +370,7 @@
             data-src="image-20210304134904282.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304134904282.png, image-20210304134904282.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304134904282.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304134904282.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304134904282.png">
     </a><figcaption class="image-caption">image-20210304134904282</figcaption>
     </figure></p>
 <p>查阅资料可知，<code>handler.settings</code>对象中包含有<code>cookie_secret</code>值。所以，直接访问<code>error?msg={{handler.settings}}</code>。</p>
@@ -377,8 +380,7 @@
             data-src="image-20210304135247316.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135247316.png, image-20210304135247316.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135247316.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135247316.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135247316.png">
     </a><figcaption class="image-caption">image-20210304135247316</figcaption>
     </figure></p>
 <p>然后将<code>/fllllllllllllag</code>代入，计算</p>
@@ -397,8 +399,7 @@
             data-src="image-20210304135749480.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135749480.png, image-20210304135749480.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135749480.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135749480.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210304135749480.png">
     </a><figcaption class="image-caption">image-20210304135749480</figcaption>
     </figure></p>
 <p>参考链接：</p>
@@ -413,8 +414,8 @@
 <p><a href="https://www.tornadoweb.org/en/latest/guide/templates.html#template-syntax" target="_blank" rel="noopener noreffer">https://www.tornadoweb.org/en/latest/guide/templates.html#template-syntax</a></p>
 </li>
 </ul>
-<h2 id="0x12-roarctf-2019easy-cal">0x12 [RoarCTF 2019]Easy Cal</h2>
-<p><a href="https://buuoj.cn/challenges#[RoarCTF%202019]Easy%20Calc" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<h2 id="0x12-roarctf-2019easy-cal" class="headerLink">
+    <a href="#0x12-roarctf-2019easy-cal" class="header-mark"></a>0x12 [RoarCTF 2019]Easy Cal</h2><p><a href="https://buuoj.cn/challenges#[RoarCTF%202019]Easy%20Calc" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>知识点：</p>
 <ul>
 <li>php的<code>eval()</code>函数，将参数作为php命令执行</li>
@@ -428,8 +429,7 @@
             data-src="image-20210305101604030.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305101604030.png, image-20210305101604030.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305101604030.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305101604030.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305101604030.png">
     </a><figcaption class="image-caption">image-20210305101604030</figcaption>
     </figure></p>
 <p>查看<code>calc.php</code>内容</p>
@@ -477,8 +477,7 @@
             data-src="image-20210305111041608.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305111041608.png, image-20210305111041608.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305111041608.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305111041608.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305111041608.png">
     </a><figcaption class="image-caption">image-20210305111041608</figcaption>
     </figure></p>
 <p>查看flag内容。</p>
@@ -488,8 +487,7 @@
             data-src="image-20210305110959804.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305110959804.png, image-20210305110959804.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305110959804.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305110959804.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305110959804.png">
     </a><figcaption class="image-caption">image-20210305110959804</figcaption>
     </figure></p>
 <p>参考链接：</p>
@@ -501,9 +499,9 @@
 <p><a href="https://i.blackhat.com/USA-19/Wednesday/us-19-Kettle-HTTP-Desync-Attacks-Smashing-Into-The-Cell-Next-Door-wp.pdf" target="_blank" rel="noopener noreffer">http走私攻击</a></p>
 </li>
 </ul>
-<h2 id="0x13-极客大挑战-2019http">0x13 [极客大挑战 2019]Http</h2>
-<h2 id="0x14-极客大挑战-2019php">0x14 [极客大挑战 2019]PHP</h2>
-<p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]PHP" target="_blank" rel="noopener noreffer">题目链接</a></p>
+<h2 id="0x13-极客大挑战-2019http" class="headerLink">
+    <a href="#0x13-%e6%9e%81%e5%ae%a2%e5%a4%a7%e6%8c%91%e6%88%98-2019http" class="header-mark"></a>0x13 [极客大挑战 2019]Http</h2><h2 id="0x14-极客大挑战-2019php" class="headerLink">
+    <a href="#0x14-%e6%9e%81%e5%ae%a2%e5%a4%a7%e6%8c%91%e6%88%98-2019php" class="header-mark"></a>0x14 [极客大挑战 2019]PHP</h2><p><a href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]PHP" target="_blank" rel="noopener noreffer">题目链接</a></p>
 <p>知识点：</p>
 <ul>
 <li>php序列化<code>serialize()</code>与反序列化<code>unserialize()</code></li>
@@ -517,8 +515,7 @@
             data-src="image-20210305162352227.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162352227.png, image-20210305162352227.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162352227.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162352227.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162352227.png">
     </a><figcaption class="image-caption">image-20210305162352227</figcaption>
     </figure></p>
 <p>网页什么也没给，但是告诉你有网站备份，所以要想到<strong>网站目录扫描</strong>。</p>
@@ -530,8 +527,7 @@
             data-src="image-20210305154140199.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305154140199.png, image-20210305154140199.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305154140199.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305154140199.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305154140199.png">
     </a><figcaption class="image-caption">files</figcaption>
     </figure></p>
 <p>分析<code>index.php</code>可知，网页获取<code>select</code>参数，并将其反序列化。</p>
@@ -662,8 +658,7 @@
             data-src="image-20210305162217584.png"
             data-srcset="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162217584.png, image-20210305162217584.png 1.5x, /2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162217584.png 2x"
             data-sizes="auto"
-            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162217584.png"
-        />
+            alt="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/image-20210305162217584.png">
     </a><figcaption class="image-caption">image-20210305162217584</figcaption>
     </figure></p>
 <ul>
@@ -688,9 +683,8 @@
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
-                        </span></div>
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
             <div class="post-info-share">
                 <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" data-title="BUUCTF web记录 2" data-hashtags="CTF,web"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Reddit" data-sharer="reddit" data-url="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/"><i class="fab fa-reddit fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" data-title="BUUCTF web记录 2"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 百度" data-sharer="baidu" data-url="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" data-title="BUUCTF web记录 2"><i data-svg-src="/lib/simple-icons/icons/baidu.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/" data-title="BUUCTF web记录 2"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
@@ -711,8 +705,12 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
@@ -720,16 +718,13 @@
         </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
             <i class="fas fa-comment fa-fw"></i>
         </a>
-    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script><script type="text/javascript">
             window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
             gtag('config', 'G-Z392YPQYYV', { 'anonymize_ip': true });
         </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-Z392YPQYYV" async></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{"valine":{"appId":"NqPgdtSDypPamJXs5oU1YBdT-MdYXbMMI","appKey":"apsTndIP3sz1TTaclFwFOFbL","avatar":"retro","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"说点儿什么...","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/valine/valine.min.css">
-    <noscript><link rel="stylesheet" href="/lib/valine/valine.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/lightgallery/lightgallery.min.css">
-    <noscript><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/katex.min.css">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
-    <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{"valine":{"appId":"NqPgdtSDypPamJXs5oU1YBdT-MdYXbMMI","appKey":"apsTndIP3sz1TTaclFwFOFbL","avatar":"retro","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"说点儿什么...","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><script type="text/javascript" src="/lib/valine/Valine.min.js" defer></script><script type="text/javascript" src="/js/valine.min.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
 </body>
 
 </html>

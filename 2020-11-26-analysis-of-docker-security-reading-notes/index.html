@@ -21,8 +21,8 @@
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/" /><link rel="prev" href="https://liuliuliuzy.github.io/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/" /><link rel="next" href="https://liuliuliuzy.github.io/2020-11-28-leetcode-493-%E7%BF%BB%E8%BD%AC%E5%AF%B9/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/liuliuliuzy.github.io\/2020-11-26-analysis-of-docker-security-reading-notes\/"
-        },"genre": "posts","keywords": "Docker, Paper","wordcount":  1749 ,
+        },"genre": "posts","keywords": "Docker, Paper","wordcount":  1756 ,
         "url": "https:\/\/liuliuliuzy.github.io\/2020-11-26-analysis-of-docker-security-reading-notes\/","datePublished": "2020-11-26T10:53:42+00:00","dateModified": "2021-08-05T10:16:09+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -124,12 +124,29 @@
 <main class="main">
             <div class="container"><div class="toc" id="toc-auto">
         <h2 class="toc-title">目录</h2>
-        <div class="toc-content" id="toc-content-auto"></div>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1文章基本信息">1.文章基本信息</a></li>
+    <li><a href="#2内容概括">2.内容概括</a></li>
+    <li><a href="#3文章各部分复述">3.文章各部分复述</a>
+      <ul>
+        <li><a href="#摘要">摘要</a></li>
+        <li><a href="#1介绍">1.介绍</a></li>
+        <li><a href="#2虚拟化方法分析">2.虚拟化方法分析</a></li>
+        <li><a href="#3docker-overview">3.Docker Overview</a></li>
+        <li><a href="#4docker安全分析">4.Docker安全分析</a></li>
+        <li><a href="#5讨论与总结">5.讨论与总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#4个人总结">4.个人总结</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Analysis Of Docker Security---Reading Notes</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
                 </span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-26">2020-11-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-05">2021-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1749 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-26">2020-11-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-05">2021-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1756 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2020-11-26-analysis-of-docker-security-reading-notes/" class="leancloud_visitors" data-flag-title="Analysis Of Docker Security---Reading Notes">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -158,25 +175,25 @@
 </nav></div>
             </div><div class="content" id="content"><p>一篇关于Docker安全的综述性Paper</p>
 <!-- more -->
-<h2 id="1文章基本信息">1.文章基本信息</h2>
-<ul>
+<h2 id="1文章基本信息" class="headerLink">
+    <a href="#1%e6%96%87%e7%ab%a0%e5%9f%ba%e6%9c%ac%e4%bf%a1%e6%81%af" class="header-mark"></a>1.文章基本信息</h2><ul>
 <li>Title：Analysis Of Docker Security</li>
 <li>Author：<a href="thanh.bui@aalto.fi" rel="">Thanh Bui</a>, Aalto University School of Science</li>
 <li>发布日期：2015.1.13</li>
 <li>链接：<a href="https://arxiv.org/abs/1501.02967" target="_blank" rel="noopener noreffer">https://arxiv.org/abs/1501.02967</a></li>
 </ul>
-<h2 id="2内容概括">2.内容概括</h2>
-<p>这篇文章主要对Docker安全进行了总体上的分析，偏向于资料搜集类型。</p>
+<h2 id="2内容概括" class="headerLink">
+    <a href="#2%e5%86%85%e5%ae%b9%e6%a6%82%e6%8b%ac" class="header-mark"></a>2.内容概括</h2><p>这篇文章主要对Docker安全进行了总体上的分析，偏向于资料搜集类型。</p>
 <p>文章将Docker的安全分为两个大方面，一方面是Docker自身的安全，也可以看作是Docker各容器之间的安全，分析它们之间是否存在资源未授权访问等问题，另一方面是Docker与宿主机之间的安全问题</p>
 <p>文章主要分析了Docker为了实现安全所采用的一些措施，比如使用Linux中的cgroups和namespace机制，以及使用Linux提供的AppArmor和SELinux安全模块。其实这些安全措施的基本思想，我认为都是资源隔离。通过资源隔离手段，让一个容器只能看到它所应该看到的资源。</p>
 <p>最后，文章得出结论，Docker相比于虚拟机来说，能够实现更高密度的虚拟化环境，但是安全度比虚拟机要更低。但是，即使是使用默认配置，Docker本身也是<strong>挺安全</strong>的。给予一个容器太多特权，是比较危险的操作，更加安全的做法是不给容器特权（不知道理解得对不对🤣）。</p>
-<h2 id="3文章各部分复述">3.文章各部分复述</h2>
-<h3 id="摘要">摘要</h3>
-<h3 id="1介绍">1.介绍</h3>
-<p>说明了虚拟化技术的使用场景和意义。</p>
+<h2 id="3文章各部分复述" class="headerLink">
+    <a href="#3%e6%96%87%e7%ab%a0%e5%90%84%e9%83%a8%e5%88%86%e5%a4%8d%e8%bf%b0" class="header-mark"></a>3.文章各部分复述</h2><h3 id="摘要" class="headerLink">
+    <a href="#%e6%91%98%e8%a6%81" class="header-mark"></a>摘要</h3><h3 id="1介绍" class="headerLink">
+    <a href="#1%e4%bb%8b%e7%bb%8d" class="header-mark"></a>1.介绍</h3><p>说明了虚拟化技术的使用场景和意义。</p>
 <p>然后告诉你虚拟化技术可以分为两类，一类是基于容器的虚拟化技术（比如Docker），一类是基于监管程序（虚拟机）。</p>
-<h3 id="2虚拟化方法分析">2.虚拟化方法分析</h3>
-<p>介绍两种虚拟化技术。</p>
+<h3 id="2虚拟化方法分析" class="headerLink">
+    <a href="#2%e8%99%9a%e6%8b%9f%e5%8c%96%e6%96%b9%e6%b3%95%e5%88%86%e6%9e%90" class="header-mark"></a>2.虚拟化方法分析</h3><p>介绍两种虚拟化技术。</p>
 <p>基于容器：</p>
 <ul>
 <li>操作系统层面</li>
@@ -189,8 +206,8 @@
 <li>所需资源更多</li>
 <li>安全性更高</li>
 </ul>
-<h3 id="3docker-overview">3.Docker Overview</h3>
-<p>告诉你Docker的优点，轻量级、适用多平台、用户友好、对第三方工具支持较好等&hellip;</p>
+<h3 id="3docker-overview" class="headerLink">
+    <a href="#3docker-overview" class="header-mark"></a>3.Docker Overview</h3><p>告诉你Docker的优点，轻量级、适用多平台、用户友好、对第三方工具支持较好等&hellip;</p>
 <p>然后主要介绍了Docker中的镜像概念。</p>
 <ul>
 <li>多层文件系统</li>
@@ -233,8 +250,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="4docker安全分析">4.Docker安全分析</h3>
-<p>这一部分内容，首先指出一个操作系统层面的虚拟化技术，如果要保持安全，那么应该满足6点：</p>
+<h3 id="4docker安全分析" class="headerLink">
+    <a href="#4docker%e5%ae%89%e5%85%a8%e5%88%86%e6%9e%90" class="header-mark"></a>4.Docker安全分析</h3><p>这一部分内容，首先指出一个操作系统层面的虚拟化技术，如果要保持安全，那么应该满足6点：</p>
 <ul>
 <li>进程隔离</li>
 <li>文件系统隔离</li>
@@ -248,11 +265,11 @@
 <p>首先介绍了Linux中的capability概念。在以前的Linux版本中，内核将进程分为普通和root级别，root级别的进程拥有所有权限。显然这种方式是存在风险的。capability就是对于权限的更加细粒度的划分。Linux中有很多个capability，每个capability对应一个特殊的权限。</p>
 <p>Docker默认关闭了很多capability，来确保容器与宿主机之间的安全。</p>
 <p>接下来文章介绍了AppArmor和SELinux这两种Linux安全模块。</p>
-<h3 id="5讨论与总结">5.讨论与总结</h3>
-<h2 id="4个人总结">4.个人总结</h2>
-<p>这篇文章是对Docker安全的总体分析，介绍了一些Docker安全相关的基础概念，比如namespace、capability。因为是总体性的概述类文章，所以内容并不多，一个下午的时间足够看完并且写出这样一篇总结。</p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
+<h3 id="5讨论与总结" class="headerLink">
+    <a href="#5%e8%ae%a8%e8%ae%ba%e4%b8%8e%e6%80%bb%e7%bb%93" class="header-mark"></a>5.讨论与总结</h3><h2 id="4个人总结" class="headerLink">
+    <a href="#4%e4%b8%aa%e4%ba%ba%e6%80%bb%e7%bb%93" class="header-mark"></a>4.个人总结</h2><p>这篇文章是对Docker安全的总体分析，介绍了一些Docker安全相关的基础概念，比如namespace、capability。因为是总体性的概述类文章，所以内容并不多，一个下午的时间足够看完并且写出这样一篇总结。</p>
+<h2 id="参考资料" class="headerLink">
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-mark"></a>参考资料</h2><ul>
 <li><a href="https://www.cnblogs.com/sparkdev/p/9365405.html" target="_blank" rel="noopener noreffer">Linux namespace详解</a></li>
 <li><a href="https://man7.org/linux/man-pages/man7/namespaces.7.html" target="_blank" rel="noopener noreffer">namespaces(7) — Linux manual page</a></li>
 <li><a href="https://eli.thegreenplace.net/2018/launching-linux-threads-and-processes-with-clone/" target="_blank" rel="noopener noreffer">使用clone函数</a></li>
@@ -269,9 +286,8 @@
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/2020-11-26-analysis-of-docker-security-reading-notes/index.md" target="_blank" rel="noopener noreferrer">阅读原始文档</a>
-                        </span></div>
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/2020-11-26-analysis-of-docker-security-reading-notes/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
             <div class="post-info-share">
                 <span><a href="#" onclick="return false;" title="分享到 Twitter" data-sharer="twitter" data-url="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/" data-title="Analysis Of Docker Security---Reading Notes" data-hashtags="Docker,Paper"><i class="fab fa-twitter fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 Reddit" data-sharer="reddit" data-url="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/"><i class="fab fa-reddit fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 微博" data-sharer="weibo" data-url="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/" data-title="Analysis Of Docker Security---Reading Notes"><i class="fab fa-weibo fa-fw"></i></a><a href="#" onclick="return false;" title="分享到 百度" data-sharer="baidu" data-url="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/" data-title="Analysis Of Docker Security---Reading Notes"><i data-svg-src="/lib/simple-icons/icons/baidu.min.svg"></i></a><a href="#" onclick="return false;" title="分享到 Evernote" data-sharer="evernote" data-url="https://liuliuliuzy.github.io/2020-11-26-analysis-of-docker-security-reading-notes/" data-title="Analysis Of Docker Security---Reading Notes"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
@@ -292,8 +308,12 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
         </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.93.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
         </div></footer></div>
 
     <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
@@ -301,16 +321,13 @@
         </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
             <i class="fas fa-comment fa-fw"></i>
         </a>
-    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+    </div><div id="cookieconsent-container"></div><div class="assets"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script><script type="text/javascript">
             window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
             gtag('config', 'G-Z392YPQYYV', { 'anonymize_ip': true });
         </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-Z392YPQYYV" async></script></div>
 
-<div class="pjax-assets"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{"valine":{"appId":"NqPgdtSDypPamJXs5oU1YBdT-MdYXbMMI","appKey":"apsTndIP3sz1TTaclFwFOFbL","avatar":"retro","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"说点儿什么...","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/valine/valine.min.css">
-    <noscript><link rel="stylesheet" href="/lib/valine/valine.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/lightgallery/lightgallery.min.css">
-    <noscript><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/katex.min.css">
-    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
-    <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{"valine":{"appId":"NqPgdtSDypPamJXs5oU1YBdT-MdYXbMMI","appKey":"apsTndIP3sz1TTaclFwFOFbL","avatar":"retro","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"说点儿什么...","recordIP":true,"visitor":true}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"sharerjs":true};</script><script type="text/javascript" src="/lib/valine/Valine.min.js" defer></script><script type="text/javascript" src="/js/valine.min.js" defer></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><script type="text/javascript" src="/js/cookieconsent.min.js" defer></script><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
 </body>
 
 </html>

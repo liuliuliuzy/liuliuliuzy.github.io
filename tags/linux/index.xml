@@ -24,14 +24,14 @@
     <pubDate>Tue, 27 Apr 2021 16:55:41 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-04-27-docker-runc-cve-2019-5736-%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-%E7%AC%AC%E4%BA%8C%E7%89%88/</guid>
-    <description><![CDATA[漏洞背景 runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
+    <description><![CDATA[漏洞背景runc是一个根据OCI(Open Container Initiative)标准创建并运行容器的命令行工具，docker引擎也是基于runc构建的。2]]></description>
 </item><item>
     <title>docker-runc(CVE-2019-5736)漏洞分析</title>
     <link>https://liuliuliuzy.github.io/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</link>
     <pubDate>Tue, 20 Apr 2021 23:15:58 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[runc: 1.0-rc93 0x00 docker-containerd-shim 调用runc components/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4]]></description>
+    <description><![CDATA[runc: 1.0-rc93 0x00 docker-containerd-shim 调用runccomponents/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4]]></description>
 </item><item>
     <title>wsl2-ubuntu20安装以及gef调试工具安装</title>
     <link>https://liuliuliuzy.github.io/2021-03-15-%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%8Bwsl2-ubuntu20%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Agef%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</link>

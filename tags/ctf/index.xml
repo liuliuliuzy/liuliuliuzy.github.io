@@ -26,7 +26,7 @@
     <pubDate>Mon, 06 Sep 2021 14:36:30 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[0x00 前言 零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root 题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。 这题好]]></description>
+    <description><![CDATA[0x00 前言零零散散地看了两三天时间才把堆的一些基础内容与一道题看懂😑 0x01 picoctf_2018_are you root题目链接 感天动地，我居然自己做出了一道堆题，虽然这题非常简单。]]></description>
 </item><item>
     <title>pwn初学者的进阶（二）：ret2dlresolve学习记录</title>
     <link>https://liuliuliuzy.github.io/2021-09-02-ret2dlresolve%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
@@ -61,20 +61,20 @@
     <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
-    <description><![CDATA[0x00 [极客大挑战 2019]BabySQL 题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 " 网站首页 首先判断闭合类]]></description>
+    <description><![CDATA[0x00 [极客大挑战 2019]BabySQL题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 "]]></description>
 </item><item>
     <title>BUUCTF web记录 2</title>
     <link>https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</link>
     <pubDate>Tue, 02 Mar 2021 11:36:22 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</guid>
-    <description><![CDATA[0x08 [GXYCTF2019]Ping Ping Ping 题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index.ph]]></description>
+    <description><![CDATA[0x08 [GXYCTF2019]Ping Ping Ping题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index]]></description>
 </item><item>
     <title>BUUCTF web记录</title>
     <link>https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Fri, 26 Feb 2021 21:16:12 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[0x00 [HCTF 2018]WarmUp 题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]]></description>
+    <description><![CDATA[0x00 [HCTF 2018]WarmUp题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10]]></description>
 </item></channel>
 </rss>
