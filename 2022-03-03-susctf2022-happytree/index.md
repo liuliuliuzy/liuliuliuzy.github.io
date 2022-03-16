@@ -7,7 +7,7 @@
 
 本次susctf2022遇到一个很有意思的堆题，比赛的时候愣是看了一个下午没做出来，只好赛后借着官方wp复现一波了。
 
-# 基础check
+## 基础check
 
 程序保护全开
 ```bash
@@ -35,7 +35,7 @@ For bug reporting instructions, please see:
 <https://bugs.launchpad.net/ubuntu/+source/glibc/+bugs>.
 ```
 
-# 功能
+## 功能
 
 先丢IDA，发现是一个用二叉搜索树来组织堆块的程序。（我tm看了近一小时才看出来）
 
@@ -62,7 +62,7 @@ For bug reporting instructions, please see:
 
 - `show`操作就是找到与输入size相同的节点，然后打印。
 
-# 漏洞点
+## 漏洞点
 
 漏洞点在于，当执行`delete`操作时，对于将要free的节点，程序并没有清空其中可能存在的左右儿子节点指针（即程序中的`a2[2]`/`a2[3]`），当释放然后又分配回来后，就会有两个节点的指向同一个儿子节点，构成double free。
 
@@ -70,7 +70,7 @@ For bug reporting instructions, please see:
 
 再加上`[0, 0xff]`的范围已经可以让我们释放chunk进入unsorted bin中，所以泄露Libc也是可行的。
 
-# exp分析
+## exp分析
 
 ```python
 #!/usr/bin/python3
@@ -211,6 +211,6 @@ shell()
 
 接下来就是常规的tcache double free应用，最终改free_hook然后getshell。
 
-# 总结
+## 总结
 
 第一次碰到这种结合数据结构来出的堆题，洞藏得挺隐蔽的（不是，其实有经验的话一眼就能看出来），而且创建和释放堆块的操作还需要选手去复习一波二叉搜索树的性质，所以总体来说是一道非常有趣的题，特此记录一下。
