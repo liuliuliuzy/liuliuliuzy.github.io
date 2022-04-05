@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/liuliuliuzy.github.io\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/"
-        },"genre": "posts","keywords": "CTF, pwn","wordcount":  3965 ,
+        },"genre": "posts","keywords": "CTF, pwn","wordcount":  3964 ,
         "url": "https:\/\/liuliuliuzy.github.io\/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98\/","datePublished": "2021-08-26T17:43:20+08:00","dateModified": "2021-08-27T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -141,7 +141,7 @@
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3965 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-26">2021-08-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3964 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/" class="leancloud_visitors" data-flag-title="记录一道ret2csu的pwn题">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -165,10 +165,10 @@
 </nav></div>
             </div><div class="content" id="content"><h2 id="0x00-前言" class="headerLink">
     <a href="#0x00-%e5%89%8d%e8%a8%80" class="header-mark"></a>0x00 前言</h2><blockquote>
-<p>写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就是系统调用中的 execve(&quot;/bin/sh&quot;, NULL, NULL)获得shell。我们可以在 Linxu系统调用号表中找到对应的系统调用号,进行调用, 其中<strong>32位程序</strong>系统调用号用 eax 储存, 第一 、 二 、 三参数分别在 <strong>ebx 、ecx 、edx</strong>中储存， 可以用 <strong>int 80</strong>汇编指令调用。<strong>64位程序</strong>系统调用号用 rax 储存, 第一 、 二 、 三参数分别在 <strong>rdi 、rsi 、rdx</strong>中储存， 可以用<strong>syscall</strong> 汇编指令调用。</p>
+<p>写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方法, 就是系统调用中的 execve(&quot;/bin/sh&quot;, NULL, NULL)获得shell。我们可以在 Linux系统调用号表中找到对应的系统调用号,进行调用, 其中<strong>32位程序</strong>系统调用号用 eax 储存, 第一 、 二 、 三参数分别在 <strong>ebx 、ecx 、edx</strong>中储存， 可以用 <strong>int 80</strong>汇编指令调用。<strong>64位程序</strong>系统调用号用 rax 储存, 第一 、 二 、 三参数分别在 <strong>rdi 、rsi 、rdx</strong>中储存， 可以用<strong>syscall</strong> 汇编指令调用。</p>
 </blockquote>
 <p><a href="https://buuoj.cn/challenges#ciscn_2019_s_3" target="_blank" rel="noopener noreffer">题目链接</a></p>
-<p>这题我是我不会做的🤡，至少在看别人的博客之前是这样。而且，在查阅了众多资料以及自己跟着gdb调试之后，才终于弄懂了这题的一种解法。所以，为了加深理解，在这里记录一下<del>假装是自己做出来的</del>自己复现的解题过程吧。😅</p>
+<p>这题我是不会做的🤡，至少在看别人的博客之前是这样。而且，在查阅了众多资料以及自己跟着gdb调试之后，才终于弄懂了这题的一种解法。所以，为了加深理解，在这里记录一下<del>假装是自己做出来的</del>自己复现的解题过程吧。😅</p>
 <h2 id="0x01-开始分析" class="headerLink">
     <a href="#0x01-%e5%bc%80%e5%a7%8b%e5%88%86%e6%9e%90" class="header-mark"></a>0x01 开始分析</h2><p>首先checksec</p>
 <div class="highlight"><div class="chroma">
@@ -534,7 +534,7 @@
             </noscript></div></article></div>
         </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">
-                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.94.2">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.96.0">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/liuliuliuzy" target="_blank" rel="noopener noreferrer">zyleo</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
             <div class="footer-line"></div>
             <div class="footer-line">
