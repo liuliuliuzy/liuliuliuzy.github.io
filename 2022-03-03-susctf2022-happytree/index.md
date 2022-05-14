@@ -1,7 +1,7 @@
 # Susctf2022 Happytree
 
 
-> 许久未更新了hhh
+许久未更新了
 
 <!--more-->
 
@@ -47,11 +47,11 @@ For bug reporting instructions, please see:
 
   ```bash
   --------------
-  |      | 0x31 |
-  | ---- | ---- |
-  | size | ptr  |
-  | ---- | ---- |
-  | left | right|
+  |      | 0x31  |
+  | ---- | ----- |
+  | size | ptr   |
+  | ---- | ----  |
+  | left | right |
   --------------
   ```
 

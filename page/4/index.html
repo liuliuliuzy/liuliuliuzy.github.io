@@ -122,6 +122,13 @@
         alt="/images/logozy.png"
         title="/images/logozy.png" height="6rem" width="6rem"></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/liuliuliuzy" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="mailto:1872405512@qq.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/">docker-runc(CVE-2019-5736)漏洞分析</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-04-20">2021-04-20</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"><i class="far fa-folder fa-fw"></i>源码阅读</a></span></div><div class="content">runc: 1.0-rc93 0x00 docker-containerd-shim 调用runccomponents/cli/cli/command/container/exec.go中执行runExec() 1 2 3 4</div><div class="post-footer">
+        <a href="/2021-04-20-runc%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90%E4%B8%8Ecve-2019-5736%E6%BA%90%E7%A0%81%E5%B0%9D%E8%AF%95%E5%88%86%E6%9E%90/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/docker/">Docker</a>,&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/golang/">Golang</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2021-04-05-golang-notes/">Golang notes</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
@@ -156,13 +163,6 @@
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-03-04">2021-03-04</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/"><i class="far fa-folder fa-fw"></i>实践记录</a></span></div><div class="content">环境信息： 1 2 3 4 5 6 7 8 leo@leo-ubuntu1604:~$ uname -a Linux leo-ubuntu1604 4.15.0-112-generic #113~16.04.1-Ubuntu SMP Fri Jul 10 04:37:08 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux leo@leo-ubuntu1604:~$ lsb_release -a No LSB modules are available. Distributor ID: Ubuntu Description: Ubuntu 16.04.7 LTS Release: 16.04 Codename: xenial Docker: 19.03.8 Containerd: 1.3.7 Poc: https://github.com/cdk-team/CDK/releases/download/v0.1.10/cdk_linux_amd64 0x00 安装docker以及con</div><div class="post-footer">
         <a href="/2021-03-04-docker%E9%80%83%E9%80%B8%E7%B3%BB%E5%88%975-cve-2020-15257-containerd%E6%BC%8F%E6%B4%9E%E9%80%83%E9%80%B8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/docker/">Docker</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">BUUCTF web记录 2</a>
-    </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="https://github.com/liuliuliuzy" title="Author" target="_blank" rel="noopener noreffer author" class="author">zyleo</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-03-02">2021-03-02</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">0x08 [GXYCTF2019]Ping Ping Ping题目链接 相关知识点： Linux命令执行注入 $IFS$9绕过空格过滤 输入?ip=127.0.0.1;cat$IFS$9index</div><div class="post-footer">
-        <a href="/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ctf/">CTF</a>,&nbsp;<a href="/tags/web/">web</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -186,6 +186,10 @@
                 </li><li class="page-item ">
                     <span class="page-link">
                         <a href="/page/6/">6</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/7/">7</a>
                     </span>
                 </li></ul></div></div>
         </main><footer class="footer">

@@ -4,15 +4,22 @@
         <link>https://liuliuliuzy.github.io/posts/</link>
         <description>所有文章 | zyleo&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
-            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Thu, 03 Mar 2022 22:29:19 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sat, 14 May 2022 16:52:20 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>6.S081-Lab5: Copy On Write</title>
+    <link>https://liuliuliuzy.github.io/2022-05-14-6.s081-lab5-cow/</link>
+    <pubDate>Sat, 14 May 2022 16:52:20 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/2022-05-14-6.s081-lab5-cow/</guid>
+    <description><![CDATA[<blockquote>
+<p>There is a saying in computer systems that any systems problem can be solved with a level of indirection.</p>
+</blockquote>]]></description>
+</item><item>
     <title>Susctf2022 Happytree</title>
     <link>https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/</link>
     <pubDate>Thu, 03 Mar 2022 22:29:19 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2022-03-03-susctf2022-happytree/</guid>
-    <description><![CDATA[<blockquote>
-<p>许久未更新了hhh</p>
-</blockquote>]]></description>
+    <description><![CDATA[<p>许久未更新了</p>]]></description>
 </item><item>
     <title>pwn初学者的进阶（四）：SROP</title>
     <link>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</link>
@@ -69,12 +76,5 @@
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-27-wsl%E8%BF%81%E7%A7%BB%E7%AD%89%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[记录一下wsl迁移以及自选安装位置的一些操作。 打包 1 wsl --export distro_name file_name.tar 删除 1 wsl --unregister distro_name 导入（有看到博客说这里的distro_name需要与原本的disrt]]></description>
-</item><item>
-    <title>记录一道ret2csu的pwn题</title>
-    <link>https://liuliuliuzy.github.io/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</link>
-    <pubDate>Thu, 26 Aug 2021 17:43:20 &#43;0800</pubDate><author>
-        <name>zyleo</name>
-    </author><guid>https://liuliuliuzy.github.io/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</guid>
-    <description><![CDATA[0x00 前言 写这道题之前, 大家首先要了解, 想要获得一个shell, 除了system(&quot;/bin/sh&quot;) 以外, 还有一种更好的方]]></description>
 </item></channel>
 </rss>

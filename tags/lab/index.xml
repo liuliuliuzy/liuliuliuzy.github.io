@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Lab - 标签 - zyleo&#39;s blog</title>
+        <link>https://liuliuliuzy.github.io/tags/lab/</link>
+        <description>Lab - 标签 - zyleo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1872405512@qq.com (zyleo)</managingEditor>
+            <webMaster>1872405512@qq.com (zyleo)</webMaster><lastBuildDate>Sat, 14 May 2022 16:52:20 &#43;0800</lastBuildDate><atom:link href="https://liuliuliuzy.github.io/tags/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>6.S081-Lab5: Copy On Write</title>
+    <link>https://liuliuliuzy.github.io/2022-05-14-6.s081-lab5-cow/</link>
+    <pubDate>Sat, 14 May 2022 16:52:20 &#43;0800</pubDate><author>
+        <name>zyleo</name>
+    </author><guid>https://liuliuliuzy.github.io/2022-05-14-6.s081-lab5-cow/</guid>
+    <description><![CDATA[<blockquote>
+<p>There is a saying in computer systems that any systems problem can be solved with a level of indirection.</p>
+</blockquote>]]></description>
+</item></channel>
+</rss>
