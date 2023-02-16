@@ -17,7 +17,7 @@
     <pubDate>Mon, 01 Nov 2021 19:35:30 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</guid>
-    <description><![CDATA[<p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreffer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>]]></description>
+    <description><![CDATA[<p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreferrer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>]]></description>
 </item><item>
     <title>pwn初学者的进阶（三）：堆学习</title>
     <link>https://liuliuliuzy.github.io/2021-09-06-buuctf%E5%A0%86%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95/</link>
@@ -38,7 +38,7 @@
     <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-27-buuctf-pwn-fmtstr/</guid>
-    <description><![CDATA[题目链接 checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDAimage-20210828140628177 " IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，]]></description>
+    <description><![CDATA[题目链接 checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，那应]]></description>
 </item><item>
     <title>记录一道ret2csu的pwn题</title>
     <link>https://liuliuliuzy.github.io/2021-08-26-%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93ret2csu%E7%9A%84pwn%E9%A2%98/</link>
@@ -52,14 +52,18 @@
     <pubDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</guid>
-    <description><![CDATA[<p>已经到第4篇了，不容易啊</p>]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/featured-image.png" referrerpolicy="no-referrer">
+            </div><p>已经到第4篇了，不容易啊</p>]]></description>
 </item><item>
     <title>BUUCTF web记录 3</title>
     <link>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</link>
     <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
-    <description><![CDATA[0x00 [极客大挑战 2019]BabySQL题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 "]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png" referrerpolicy="no-referrer">
+            </div>0x00 [极客大挑战 2019]BabySQL题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页 首先判断闭合类型，用户名随便写，密码栏填个b'，]]></description>
 </item><item>
     <title>BUUCTF web记录 2</title>
     <link>https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</link>
@@ -73,6 +77,6 @@
     <pubDate>Fri, 26 Feb 2021 21:16:12 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[0x00 [HCTF 2018]WarmUp题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10]]></description>
+    <description><![CDATA[0x00 [HCTF 2018]WarmUp题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12]]></description>
 </item></channel>
 </rss>

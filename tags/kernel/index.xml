@@ -10,6 +10,6 @@
     <pubDate>Mon, 01 Nov 2021 19:35:30 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-11-01-srop%E5%AD%A6%E4%B9%A0/</guid>
-    <description><![CDATA[<p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreffer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>]]></description>
+    <description><![CDATA[<p>SROP，听着似乎是一个非常高大上的ROP方式，再加上涉及到signal和内核等概念，很容易给人一种难以理解的第一印象。但看过<a href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/advanced-rop/srop/" target="_blank" rel="noopener noreferrer">ctf-wiki</a>之后你会发现，原理非常简单易懂。</p>]]></description>
 </item></channel>
 </rss>

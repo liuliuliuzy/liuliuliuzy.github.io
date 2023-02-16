@@ -10,14 +10,18 @@
     <pubDate>Tue, 24 Aug 2021 19:10:31 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/</guid>
-    <description><![CDATA[<p>已经到第4篇了，不容易啊</p>]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-08-24-buuctf-web%E8%AE%B0%E5%BD%95-4/featured-image.png" referrerpolicy="no-referrer">
+            </div><p>已经到第4篇了，不容易啊</p>]]></description>
 </item><item>
     <title>BUUCTF web记录 3</title>
     <link>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</link>
     <pubDate>Mon, 19 Jul 2021 17:02:23 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/</guid>
-    <description><![CDATA[0x00 [极客大挑战 2019]BabySQL题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页image-20210721115109030 "]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2021-07-19-buuctf-web%E8%AE%B0%E5%BD%95-3/featured-image.png" referrerpolicy="no-referrer">
+            </div>0x00 [极客大挑战 2019]BabySQL题目链接 打开题目，还是熟悉的用户名密码注入界面 网站首页 首先判断闭合类型，用户名随便写，密码栏填个b'，]]></description>
 </item><item>
     <title>BUUCTF web记录 2</title>
     <link>https://liuliuliuzy.github.io/2021-03-02-buuctf-web%E8%AE%B0%E5%BD%95-2/</link>
@@ -31,6 +35,6 @@
     <pubDate>Fri, 26 Feb 2021 21:16:12 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-02-26-buuctf-web%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[0x00 [HCTF 2018]WarmUp题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197image-20210226211946197 " image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10]]></description>
+    <description><![CDATA[0x00 [HCTF 2018]WarmUp题目链接 引入眼帘的是个滑稽🤔 image-20210226211946197 F12看源码，发现页面注释里提示源码在source.php。 1 2 3 4 5 6 7 8 9 10 11 12]]></description>
 </item></channel>
 </rss>

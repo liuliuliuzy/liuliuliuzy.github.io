@@ -17,7 +17,9 @@
     <pubDate>Fri, 13 Nov 2020 21:57:26 &#43;0000</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/</guid>
-    <description><![CDATA[回溯算法是怎么回事呢，相信大家都听说过回溯算法，但是回溯算法的原理是什么呢，一般如何用代码实现呢？ 回溯算法，就是将每条路都走一遍，当到达正确]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/2020-11-13-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3/featured-image.png" referrerpolicy="no-referrer">
+            </div>回溯算法是怎么回事呢，相信大家都听说过回溯算法，但是回溯算法的原理是什么呢，一般如何用代码实现呢？ 回溯算法，就是将每条路都走一遍，当到达正确]]></description>
 </item><item>
     <title>Leetcode 327 count-of-range-sum</title>
     <link>https://liuliuliuzy.github.io/2020-11-07-leetcode-327-count-of-range-sum/</link>

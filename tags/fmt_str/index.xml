@@ -10,6 +10,6 @@
     <pubDate>Fri, 27 Aug 2021 23:43:05 &#43;0800</pubDate><author>
         <name>zyleo</name>
     </author><guid>https://liuliuliuzy.github.io/2021-08-27-buuctf-pwn-fmtstr/</guid>
-    <description><![CDATA[题目链接 checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDAimage-20210828140628177 " IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，]]></description>
+    <description><![CDATA[题目链接 checksec 结果 1 2 3 4 5 Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) IDA分析 IDA 很明显，存在格式化字符串漏洞。通过x==4的判断就能够拿到shell，那应]]></description>
 </item></channel>
 </rss>
